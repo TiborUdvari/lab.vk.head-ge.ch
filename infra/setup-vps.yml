@@ -1,0 +1,201 @@
+---
+- name: Setup VPS with Standalone Certbot, Nginx, and Docker
+  hosts: vps
+  become: true
+  gather_facts: true
+  vars_files:
+    - vault.yml
+
+  vars:
+    server_admin_email: "tibor.udvari@hesge.ch"
+    certbot_admin_email: "{{ server_admin_email }}"
+    certbot_create_if_missing: true
+    certbot_create_standalone_stop_services:
+      - nginx
+    users_file: ../users.conf
+    img_dir: /srv/sftp/volumes
+    mount_base: /srv/lab.vk.head-ge.ch/students
+    img_size_mb: 512
+
+    certbot_certs:
+      - name: lab.tiborudvari.com
+        domains:
+          - lab.tiborudvari.com
+
+    nginx_vhosts:
+      - server_name: "lab.tiborudvari.com"
+        listen: "443 ssl"
+        state: "present"
+        root: "/var/www/lab.tiborudvari.com"
+        index: "index.html index.htm"
+        template: "{{ nginx_vhost_template }}"
+        filename: "lab.tiborudvari.com.conf"
+        extra_parameters: |
+          ssl_certificate     /etc/letsencrypt/live/lab.tiborudvari.com/fullchain.pem;
+          ssl_certificate_key /etc/letsencrypt/live/lab.tiborudvari.com/privkey.pem;
+          ssl_protocols       TLSv1.1 TLSv1.2;
+          ssl_ciphers         HIGH:!aNULL:!MD5;
+
+          location / {
+            proxy_pass         http://127.0.0.1:8080;
+            proxy_http_version 1.1;
+            proxy_set_header   Upgrade $http_upgrade;
+            proxy_set_header   Connection "upgrade";
+
+            proxy_set_header   Host $host;
+            proxy_set_header   X-Real-IP $remote_addr;
+            proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header   X-Forwarded-Proto $scheme;
+          }
+      
+    docker_users:
+      - ubuntu
+    docker_edition: 'ce'
+    docker_install_compose: true
+
+    # student_uids: "{{ range(2000, 2017) | list }}" # Generates list of UIDs from 2000 up to (but not including) 2017
+    # quota_mount_point: "/"
+    # quota_soft_limit: "9.5M" # Soft limit (warning)
+    # quota_hard_limit: "10M" # Hard limit (enforcement)
+
+  # roles:
+  #   - geerlingguy.certbot  
+  #   - geerlingguy.nginx
+  #   - geerlingguy.docker
+
+  pre_tasks:
+    - name: Update apt cache.
+      apt: update_cache=true cache_valid_time=600
+      when: ansible_os_family == 'Debian'
+      changed_when: false
+
+    - name: Install cron (Debian).
+      apt: name=cron state=present
+      when: ansible_os_family == 'Debian'
+
+  tasks:
+    - name: Flush handlers
+      meta: flush_handlers
+
+    - name: Ensure base directories exist
+      file:
+        path: "{{ item }}"
+        state: directory
+        mode: '0755'
+      loop:
+        - "{{ img_dir }}"
+        - "{{ mount_base }}"
+
+    - name: Read users file
+      set_fact:
+        users_list: "{{ lookup('file', users_file).splitlines() }}"
+
+    - name: Parse users
+      set_fact:
+        users_parsed: >-
+          {{
+            users_list | map('split', ':') | map('list') | list
+          }}
+
+    - name: Create mount points and images
+      block:
+        - name: Ensure mount point exists
+          file:
+            path: "{{ mount_base }}/{{ item[0] }}"
+            state: directory
+            mode: '0755'
+          loop: "{{ users_parsed }}"
+
+        - name: Create loopback image
+          command: dd if=/dev/zero of={{ img_dir }}/{{ item[0] }}.img bs=1M count={{ img_size_mb }}
+          args:
+            creates: "{{ img_dir }}/{{ item[0] }}.img"
+          loop: "{{ users_parsed }}"
+
+        - name: Get image stats
+          stat:
+            path: "{{ img_dir }}/{{ item[0] }}.img"
+          register: image_stats
+          loop: "{{ users_parsed }}"
+          loop_control:
+            index_var: user_idx
+
+        - name: Resize image if smaller than target
+          command: truncate -s {{ img_size_mb }}M {{ img_dir }}/{{ item[0] }}.img
+          register: resize_result
+          when: image_stats.results[user_idx].stat.exists and image_stats.results[user_idx].stat.size < (img_size_mb * 1024 * 1024)
+          loop: "{{ users_parsed }}"
+          loop_control:
+            index_var: user_idx
+
+        - name: Check if filesystem exists on image
+          command: blkid {{ img_dir }}/{{ item[0] }}.img
+          register: blkid_result
+          failed_when: false
+          changed_when: false
+          loop: "{{ users_parsed }}"
+
+        - name: Format image as ext4
+          command: mkfs.ext4 {{ img_dir }}/{{ item[0] }}.img
+          when: blkid_result.results[user_idx].rc != 0
+          loop: "{{ users_parsed }}"
+          loop_control:
+            index_var: user_idx
+
+        - name: Unmount image if it was resized
+          mount:
+            path: "{{ mount_base }}/{{ item[0] }}"
+            src: "{{ img_dir }}/{{ item[0] }}.img"
+            fstype: ext4
+            state: unmounted
+          when: resize_result.results[user_idx] is defined and resize_result.results[user_idx].changed
+          loop: "{{ users_parsed }}"
+          loop_control:
+            index_var: user_idx
+
+        - name: Mount image
+          mount:
+            path: "{{ mount_base }}/{{ item[0] }}"
+            src: "{{ img_dir }}/{{ item[0] }}.img"
+            fstype: ext4
+            opts: loop
+            state: mounted
+          loop: "{{ users_parsed }}"
+
+        - name: Set ownership of mount point to root (required for SFTP chroot)
+          file:
+            path: "{{ mount_base }}/{{ item[0] }}"
+            owner: root
+            group: root
+            mode: '0755'
+          loop: "{{ users_parsed }}"
+
+        - name: Create www directory for each user
+          file:
+            path: "{{ mount_base }}/{{ item[0] }}/www"
+            state: directory
+            owner: "{{ item[2] }}"
+            group: "{{ item[3] }}"
+            mode: '0775'
+          loop: "{{ users_parsed }}"
+
+        # Remove this task as it's being replaced by the two tasks above
+        # - name: Set ownership according to UID/GID
+        #   file:
+        #     path: "{{ mount_base }}/{{ item[0] }}"
+        #     owner: "{{ item[2] }}"
+        #     group: "{{ item[3] }}"
+        #     recurse: yes
+        #   loop: "{{ users_parsed }}"
+
+    - name: Add CI deploy public key to authorized_keys
+      ansible.builtin.authorized_key:
+        user: ubuntu
+        state: present
+        key: "{{ lookup('file', './ci-deploy-key.pub') }}"
+
+    - name: Ensure Nginx service is running
+      ansible.builtin.systemd:
+        name: nginx
+        state: started
+        enabled: true

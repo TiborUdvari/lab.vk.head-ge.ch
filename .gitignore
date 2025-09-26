@@ -1,3 +1,7 @@
+.secrets
+infra/vault-pass.txt
+infra/ci-deploy-key
+
 users.conf
 ssh_host_ed25519_key
 ssh_host_rsa_key

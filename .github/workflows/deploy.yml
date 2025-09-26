@@ -1,0 +1,61 @@
+name: Deploy changes
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: main
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up SSH key
+        run: |
+          mkdir -p ./infra
+          echo "${{ secrets.VPS_SSH_KEY_B64 }}" | base64 -d > ./infra/ci-deploy-key
+          chmod 600 ./infra/ci-deploy-key
+          
+          if [ -z "${{ secrets.VPS_HOST }}" ]; then
+            echo "❌ VPS_HOST is not set!"
+            exit 1
+          fi
+
+          ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
+        shell: bash
+
+      - name: Recreate SFTP and SSH keys
+        run: |
+          [ ! -f ./users.conf ] && echo "${{ secrets.USERS_CONF_B64 }}" | base64 -d > ./users.conf
+          [ ! -f ./ssh_host_ed25519_key ] && echo "${{ secrets.SSH_HOST_ED25519_KEY_B64 }}" | base64 -d > ./ssh_host_ed25519_key
+          [ ! -f ./ssh_host_rsa_key ] && echo "${{ secrets.SSH_HOST_RSA_KEY_B64 }}" | base64 -d > ./ssh_host_rsa_key
+          # set correct permissions only if files exist
+          [ -f ./ssh_host_ed25519_key ] && chmod 600 ./ssh_host_ed25519_key
+          [ -f ./ssh_host_rsa_key ] && chmod 600 ./ssh_host_rsa_key
+          [ -f ./users.conf ] && chmod 644 ./users.conf
+
+      - name: Sync files to VPS
+        run: |
+          rsync -avz --delete -e "ssh -i ./infra/ci-deploy-key" \
+            --filter='merge .rsyncinclude' \
+            ./ ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/srv/lab.vk.head-ge.ch/
+        shell: bash
+
+      - name: Deploy over SSH manually
+        run: |
+          ssh -i ./infra/ci-deploy-key ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
+            set -e
+            
+            cd /srv/lab.vk.head-ge.ch
+            docker compose pull
+            docker compose up -d
+            docker compose ps
+            docker compose logs --no-color --tail=20
+            
+            echo "Pruning all unused Docker objects including volumes..."
+            docker system prune -af --volumes
+          EOF
+        shell: bash
