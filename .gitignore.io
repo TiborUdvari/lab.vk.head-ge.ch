@@ -1,3 +1,8 @@
+users.conf
+ssh_host_ed25519_key
+ssh_host_rsa_key
+students/
+
 # Created by https://www.toptal.com/developers/gitignore/api/macos,vim,visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,vim,visualstudiocode
 
