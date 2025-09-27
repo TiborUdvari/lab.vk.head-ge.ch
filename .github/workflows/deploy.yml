@@ -16,6 +16,7 @@ jobs:
       - name: Set up SSH key
         run: |
           mkdir -p ./infra
+          mkdir -p ~/.ssh
           echo "${{ secrets.VPS_SSH_KEY_B64 }}" | base64 -d > ./infra/ci-deploy-key
           chmod 600 ./infra/ci-deploy-key
           
