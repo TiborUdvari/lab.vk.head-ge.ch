@@ -13,3 +13,7 @@ make send-student-mail:
 make local-deploy:
 	@echo "Running deploy worflow locally with act"
 	act -P ubuntu-latest=-self-hosted
+
+make dev:
+	@echo "Running browser sync for development"
+	npx browser-sync start --proxy "localhost:8080" --files "www/**/*,students/**/*" --port 3000 --no-open
