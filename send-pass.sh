@@ -9,7 +9,7 @@ while IFS=: read -r username password _; do
 
 Voici vos informations pour le cours laboratoire :
 
-Serveur SFTP : lab.vk.head-ge.ch
+Serveur SFTP : lab.tiborudvari.com
 Port : 2222
 Nom d'utilisateur: $username
 Mot de passe : $pass
