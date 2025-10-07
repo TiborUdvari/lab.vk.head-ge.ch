@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Loading a custom font</title>
+    <style>
+      @font-face {
+        font-family: InterVariable;
+        font-style: normal;
+        font-weight: 100 900;
+        font-display: swap; /* Swap charge plus vite, mais peut provoquer un flash. Utilisez block pour l’éviter */
+        src: url("/examples/assets/fonts/InterVariable.woff2") format("woff2");
+      }
+
+      @font-face {
+        font-family: InterVariable;
+        font-style: italic; /* Parfois même les fonts variables ont un fichier différent pour l'ital */
+        font-weight: 100 900;
+        font-display: swap;
+        src: url("/examples/assets/fonts/InterVariable-Italic.woff2")
+          format("woff2");
+      }
+
+      :root {
+        font-family: InterVariable, sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Chargement d'une police personnalisée</h1>
+    <p>
+      Ceci utilise la police <a href="https://rsms.me/inter/">Inter</a>, chargée
+      sous sa forme variable.
+    </p>
+    <p>Pour les navigateurs modernes, on préfère utiliser le format <code>WOFF2</code>.</p>
+  </body>
+</html>
