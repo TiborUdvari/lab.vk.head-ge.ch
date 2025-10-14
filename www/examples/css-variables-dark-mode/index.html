@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>CSS Variables</title>
+    <style>
+      :root {
+        --custom-dark-color: #1f1f1f;
+        --custom-light-color: #e1e1e1;
+
+        --text-color: var(--custom-dark-color);
+        --bg-color: var(--custom-light-color);
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        color: var(--text-color);
+        background-color: var(--bg-color);
+        cursor: pointer;
+        min-height: 100vh;
+        box-sizing: border-box;
+        user-select: none;  
+
+        &.dark {
+          --text-color: var(--custom-light-color);
+          --bg-color: var(--custom-dark-color);
+        }
+      }
+    </style>
+    <script type="module">
+      document.body.addEventListener("click", () => {
+        document.body.classList.toggle("dark");
+      });
+    </script>
+  </head>
+  <body class="dark">
+    <h1>Dark Mode with CSS variables</h1>
+    <p>Click anywhere to toggle dark mode</p>
+  </body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>My test page</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        max-width: 40ch;
+        font-size: 24px;
+        padding: 1rem;
+      } 
+
+      a {
+        &[href^="https://"]::after {
+          content: " ↗";
+        }
+      }
+    </style
+  </head>
+  <body>
+    <h1>Symboles après les liens avec <code>::after</code></h1>
+<p>
+  Le pseudo-élément <code>::after</code> est souvent utilisé pour indiquer qu'un lien est externe, par exemple 
+  <a href="https://www.tiborudvari.com">le site de Tibor</a>.  
+  Avec des sélecteurs intelligents, on peut aussi détecter les liens relatifs, comme par exemple vers 
+  <a href="/">la racine du labo</a> et ne pas appliquer le style en utilisant 
+  <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors">les sélecteurs d'attributs</a>.
+</p>
+
+  </body>
+</html>

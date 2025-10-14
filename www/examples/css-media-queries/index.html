@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>My test page</title>
+    <style>
+      html {
+        font-size: 16px;
+      }
+
+      a {
+        color: white;
+      }
+
+      body {
+        background-color: hsl(300 100% 10%);
+        color: white;
+        max-width: 40ch;
+        font-family: sans-serif;
+        padding: 2rem 1rem 1rem 2rem;
+        font-size: 24px;
+
+        @media (width >= 40rem) {
+          background-color: hsl(300 100% 20%);
+        }
+
+        @media (width >= 48rem) {
+          background-color: hsl(300 100% 30%);
+        }
+
+        @media (width >= 64rem) {
+          background-color: hsl(300 100% 40%);
+        }
+
+        @media (width >= 80rem) {
+          background-color: hsl(300 100% 50%);
+        }
+
+        @media (width >= 96rem) {
+          background-color: hsl(300 100% 60%);
+        }
+      }
+
+      #current-media-query::after {
+        content: "";
+
+        @media (width >= 40rem) {
+          content: "@media (width >= 40rem)";
+        }
+
+        @media (width >= 48rem) {
+          content: "@media (width >= 48rem)";
+        }
+
+        @media (width >= 64rem) {
+          content: "@media (width >= 64rem)";
+        }
+
+        @media (width >= 80rem) {
+          content: "@media (width >= 80rem)";
+        }
+
+        @media (width >= 96rem) {
+          content: "@media (width >= 96rem)";
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Media Queries</h1>
+    <p>
+      Redimensionnez la fenêtre pour observer le changement de couleur
+      d’arrière-plan.
+    </p>
+    <p>
+      En pratique, on définit d’abord un style par défaut adaptée aux petits
+      écrans, puis on ajoute des règles spécifiques pour différents points de
+      rupture (<em>breakpoints</em>) correspondant à des tailles d’écran plus
+      grandes. Les media queries s’appliquent toujours à la largeur totale de la
+      page. Voir
+      <a
+        href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_media_queries/Using_media_queries"
+        >media queries</a
+      >.
+    </p>
+    <p><span id="current-media-query">Media query active : </span></p>
+  </body>
+</html>

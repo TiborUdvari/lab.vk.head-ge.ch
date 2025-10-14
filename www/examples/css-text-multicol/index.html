@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>CSS Variables</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      } 
+
+      main {
+        columns: 1;
+        column-gap: 1rem;
+
+        @media (width >= 48rem) {
+          columns: 2; 
+        }
+        
+        @media (width >= 80rem) {
+          columns: 4;
+        }
+      }
+
+      h1:first-of-type {
+        margin-top: 0;
+      }
+
+    </style
+  </head>
+  <body>
+    <main>
+      <h1>Multicolumn text example</h1>
+      <p>Doing multiple columns with the column feature is possible, but managing the height can be tricky. Most of the time a flex container or a grid is a better choice.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur at nibh nec odio tempor semper. Aliquam consectetur risus non quam dapibus, sed faucibus quam fermentum. Phasellus et velit nibh. Integer consequat arcu eget convallis aliquam. In tortor ante, vestibulum et volutpat vitae, pellentesque in ante. Sed molestie purus nec tellus volutpat tempor. Proin augue ligula, auctor non nibh eget, consectetur dignissim tortor. Sed sit amet massa pulvinar lectus elementum rhoncus. Nullam iaculis, velit at accumsan egestas, augue nisl facilisis mi, a tincidunt ligula ante ut tortor. In id rutrum ipsum. Nam eu sodales nunc.</p>
+      <p>Nullam tempor facilisis eros sed porttitor. In tempus aliquet justo, eget eleifend nisi efficitur sit amet. Vestibulum bibendum diam quis tincidunt ultrices. Sed ac lobortis nunc, ut pellentesque felis. Nunc eget congue nisl. Duis ut feugiat arcu. Integer vitae mi porta, egestas ex pellentesque, auctor diam.
+</p>
+      <p>Nullam facilisis, ligula vel rhoncus condimentum, justo justo vehicula ante, et ornare eros nibh eget nibh. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer rhoncus, turpis quis imperdiet placerat, libero arcu consectetur purus, vestibulum porta turpis mi in mauris. Nam sed mattis sem, faucibus dictum velit. Pellentesque suscipit lobortis diam vitae ullamcorper. Praesent et condimentum turpis. Nulla suscipit gravida mollis. Suspendisse at diam sodales, sagittis eros ac, feugiat lectus. Nam turpis tellus, ultricies vitae imperdiet ac, lacinia in magna.
+</p>
+      <p>Proin quis mattis ex, sit amet auctor ipsum. Vestibulum iaculis, enim aliquam maximus interdum, sem mauris varius enim, in mollis lectus lacus et diam. Pellentesque blandit sodales magna vitae varius. Mauris dui magna, posuere quis ex sed, vehicula dignissim neque. In at blandit massa. Sed in posuere purus. Aliquam nec diam consectetur, euismod tellus sit amet, ullamcorper risus. Phasellus tincidunt finibus justo aliquam faucibus. Fusce venenatis ex dui, ut luctus ligula porta id. Pellentesque quis diam dui.
+</p>
+      <p>Maecenas faucibus gravida metus sed imperdiet. Duis vulputate iaculis ante et pretium. Quisque molestie quam orci. Nunc mattis luctus ante et aliquam. Nullam nisl turpis, congue vitae pretium ac, iaculis sed lacus. Morbi ut urna ligula. Proin euismod facilisis lorem ut ultrices. Duis non facilisis dui. Aenean ut cursus ante.
+</p>
+    </main>
+  </body>
+</html>
+
