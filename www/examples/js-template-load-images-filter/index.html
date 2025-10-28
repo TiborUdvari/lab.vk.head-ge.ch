@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>My test page</title>
+    <style>
+      body {
+        font-family: sans-serif;
+      }
+
+      main {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .grid {
+        display: grid;
+        max-width: 100%;
+        gap: 0.5rem;
+
+        grid-template-columns: repeat(1, 1fr);
+
+        @media (width >= 48rem) {
+          grid-template-columns: repeat(4, 1fr);
+        }
+
+        @media (width >= 80rem) {
+          grid-template-columns: repeat(6, 1fr);
+        }
+
+        & > * {
+          width: 100%;
+        }
+      }
+    </style>
+    <script type="module">
+      const res = await fetch("/assets/swiss-air/metadata.json");
+      let imageDatas = await res.json();
+
+      imageDatas = imageDatas.map((imageData) => {
+        imageData.src =
+          "/assets/swiss-air/" +
+          imageData["File name (file_name)"].replace(".tif", ".webp");
+        return imageData;
+      });
+      imageDatas = imageDatas.reverse();
+
+      let template = document.getElementById("img-template");
+      const gridElement = document.querySelector(".grid");
+      const totalImagesElement = document.querySelector(".total-images");
+
+      let displayData = imageDatas;
+
+      const blackAndWhiteButton = document.querySelector(".black-and-white");
+      blackAndWhiteButton.addEventListener("click", () => {
+        displayData = imageDatas.filter(
+          (imageData) =>
+            imageData["Colour (eth_colour;en)"] === "black and white",
+        );
+        render();
+      });
+
+      const colorButton = document.querySelector(".color");
+      colorButton.addEventListener("click", () => {
+        displayData = imageDatas.filter(
+          (imageData) => imageData["Colour (eth_colour;en)"] === "coloured",
+        );
+        render();
+      });
+
+      const squareButton = document.querySelector(".square");
+      squareButton.addEventListener("click", () => {
+        displayData = imageDatas.filter(
+          (imageData) => imageData["Orientation (eth_form;en)"] === "Square",
+        );
+        render();
+      });
+
+      const nonSquareButton = document.querySelector(".non-square");
+      nonSquareButton.addEventListener("click", () => {
+        displayData = imageDatas.filter(
+          (imageData) => imageData["Orientation (eth_form;en)"] !== "Square",
+        );
+        render();
+      });
+
+      const coloredSquare = document.querySelector(".colored-square");
+      coloredSquare.addEventListener("click", () => {
+        displayData = imageDatas.filter(
+          (imageData) =>
+            imageData["Colour (eth_colour;en)"] === "coloured" &&
+            imageData["Orientation (eth_form;en)"] === "Square",
+        );
+        render();
+      });
+
+      function render() {
+        gridElement.replaceChildren();
+        for (let imageData of displayData) {
+          const clone = template.content.cloneNode(true);
+          const imgElement = clone.querySelector("img");
+          imgElement.src = imageData.src;
+          gridElement.appendChild(clone);
+        }
+        totalImagesElement.innerText = displayData.length;
+      }
+
+      render();
+    </script>
+  </head>
+  <body>
+    <template id="img-template">
+      <img />
+    </template>
+    <main>
+      <h2>SwissAir Images</h2>
+      <div>Total images: <span class="total-images"></span></div>
+      <div>
+        <button class="black-and-white">Black and white</button>
+        <button class="color">Color</button>
+        <button class="square">Square</button>
+        <button class="non-square">Non square</button>
+        <button class="colored-square">Colored square</button>
+      </div>
+      <div class="grid"></div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,19 @@
+﻿Property Definition Identifier;Property Label Name;Property Key;Property Language;Property Type
+file_name;File name;File name (file_name);;String
+eth_image_stock_number;Image stock number;Image stock number (eth_image_stock_number);;String
+eth_photographer;Photographer;Photographer (eth_photographer);;String
+title;Title;"Title (title;en)";en;String
+description;Description;"Description (description;en)";en;Text
+eth_dating;Dating;Dating (eth_dating);;String
+eth_is_part_of;Is part of;"Is part of (eth_is_part_of;en)";en;String
+eth_imprint;Impressum;Impressum (eth_imprint);;Text
+eth_physical_description;Physical description;"Physical description (eth_physical_description;en)";en;String
+eth_dimension;Dimension;"Dimension (eth_dimension;en)";en;String
+eth_special_dimensions;Special size;Special size (eth_special_dimensions);;String
+eth_form;Orientation;"Orientation (eth_form;en)";en;String
+eth_colour;Colour;"Colour (eth_colour;en)";en;String
+eth_doi_link;DOI Link;DOI Link (eth_doi_link);;String
+eth_license;License;License (eth_license);;String
+eth_availability;Availabilty;"Availabilty (eth_availability;en)";en;String
+eth_copyright_notice;Copyright notice;"Copyright notice (eth_copyright_notice;en)";en;String
+eth_comments;Comments;"Comments (eth_comments;en)";en;Text

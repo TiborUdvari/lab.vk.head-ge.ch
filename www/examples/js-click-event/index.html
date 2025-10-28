@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>My test page</title>
+    <style>
+      @import "https://necolas.github.io/normalize.css/8.0.1/normalize.css";
+
+      body {
+        font-family: sans-serif;
+        padding-left: 1rem;
+        padding-right: 1rem;
+      } 
+
+      .cow {
+        font-size: 3rem;
+        cursor: pointer;
+        user-select: none;
+      }
+
+    </style>
+    <script type="module">
+      let counter = 0;
+      
+      const cowElement = document.querySelector(".cow");  
+      const clicksElement = document.querySelector(".clicks");
+      const cheerElement = document.querySelector(".cheer");
+
+      clicksElement.innerText = counter; 
+      const cheers = ["Wow", "T'es vraiment forte", "Yessssss"];
+
+      cowElement.addEventListener("click", () => {
+        counter = counter + 1;  
+        clicksElement.innerText = counter; 
+        if (counter % 5 === 0) {
+          cheerElement.innerText = cheers.at(Math.floor(Math.random() * cheers.length));
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <main>
+      <p><a href="https://en.wikipedia.org/wiki/Cow_Clicker">Cow Clicker</a> était un jeu critique de jeux facebook de type farmville dans les années 2010.</p>
+      <div class="cow">🐮</div>
+      <p>Clicks: <span class="clicks"></span></p>
+      <p class="cheer"></p>
+    </main>
+  </body>
+</html>
+
+

@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>My test page</title>
+    <style>
+      body {
+        font-family: sans-serif;
+      }
+
+      .grid {
+        display: grid;
+        max-width: 100%;
+        gap: 0.5rem;
+
+        grid-template-columns: repeat(1, 1fr);
+        
+        @media (width >= 48rem) {
+          grid-template-columns: repeat(4, 1fr);
+        }
+        
+        @media (width >= 80rem) {
+          grid-template-columns: repeat(6, 1fr);
+        }
+
+        & > * {
+          width: 100%;
+        }
+      }
+
+    </style>
+    <script type="module">
+      const res = await fetch("/assets/dogs/dogs.json");
+      const dogs = await res.json();
+
+      let template = document.getElementById("img-template");
+      const gridElement = document.querySelector(".grid");
+
+      dogs.forEach((dog) => {
+        const { urls, alt_description } = dog;
+        const { thumb, small, regular, full } = urls;
+
+        const clone = template.content.cloneNode(true);
+        const imgElement = clone.querySelector("img");
+        imgElement.src = small;
+        imgElement.alt = alt_description;
+        gridElement.appendChild(clone);
+      });
+    </script>
+  </head>
+  <body>
+    <template id="img-template">
+      <img />
+    </template>
+    <main>
+      <h2>Dogs with people</h2>
+      <div class="grid"></div>
+    </main>
+  </body>
+</html>

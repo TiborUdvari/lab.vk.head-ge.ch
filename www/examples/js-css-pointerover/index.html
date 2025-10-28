@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>My test page</title>
+    <style>
+      @import "https://necolas.github.io/normalize.css/8.0.1/normalize.css";
+
+      body {
+        font-family: sans-serif;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        transition: all;
+        transition-duration: 1s;
+        transition-timing-function: ease-in-out;
+        color: black;
+        background-color: white;
+
+        &.dark {
+          background-color: black; 
+          color: white;
+        }
+      }
+
+      .lightbulb {
+        font-size: 3rem;
+        cursor: auto;
+        user-select: none;
+      }
+
+    </style>
+    <script type="module">
+      const body = document.body;
+      const lighbulbElement = document.querySelector(".lightbulb");
+      
+      lighbulbElement.addEventListener("pointerover", () => {
+        body.classList.remove("dark");
+      });
+      
+      lighbulbElement.addEventListener("pointerleave", () => {
+        body.classList.add("dark");
+      });
+
+    </script>
+  </head>
+  <body class="dark">
+    <main>
+      <p>Let there be light.</p>
+      <div class="lightbulb">💡</div>
+    </main>
+  </body>
+</html>

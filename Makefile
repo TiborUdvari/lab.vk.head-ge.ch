@@ -17,3 +17,7 @@ make local-deploy:
 make dev:
 	@echo "Running browser sync for development"
 	npx browser-sync start --proxy "localhost:8080" --files "www/**/*,students/**/*" --port 3000 --no-open
+
+make get-dog-data:
+	@echo "Downloading dog image collection from unspash"
+	node www/assets/dogs/download.mjs

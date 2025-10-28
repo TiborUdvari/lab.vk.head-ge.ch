@@ -4,6 +4,10 @@ body {
   font-family: sans-serif;
   padding: 2.5% 5% 10% 2.5%;
   margin: 0 auto 0 auto;
+
+  & > * {
+    max-width: 80ch;
+  }
 }
 
 a {

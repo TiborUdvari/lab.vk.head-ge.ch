@@ -1,0 +1,307 @@
+<!doctype html>
+<html>
+  <head>
+    <link href="/main.css" rel="stylesheet" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Semaine 4 – Compréhension et préparation des données</title>
+  </head>
+  <body>
+    <h1>Semaine 4 – Compréhension et préparation des données</h1>
+
+    <h2>Intéraction entre JS et le DOM</h2>
+    <ul>
+      <li>
+        Ressources:
+        <ul>
+          <li>Cours: <a href="https://javascript.info/events">Introduction to events</a>, <a href="https://javascript.info/event-details">UI Events</a></li>
+          <li>
+            TLDR:
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementById"
+              >getElementById</a
+            >,
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector"
+              >querySelector</a
+            >,
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll"
+              >querySelectorAll</a
+            >,
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/innerText"
+              >innerText</a
+            >,
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML"
+              >innterHTML</a
+            >,
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/API/Element/append"
+              >append</a
+            >,
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/API/Element/remove"
+              >remove</a
+            >,
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/API/Node/cloneNode"
+              >cloneNode</a
+            >,
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/API/Element/classList"
+              >classList</a
+            >,
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset"
+              >dataset</a
+            >
+          </li>
+          <li>
+            Cheat sheet:
+            <a
+              href="https://webdesign.tutsplus.com/javascript-cheatsheet-event-listeners-and-dom-manipulation--cms-107006a"
+              >tutplus cheat sheet</a
+            >
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a
+          href="https://javascript.info/browser-environment#dom-document-object-model"
+          >Document Object Model</a
+        >, window, document
+      </li>
+      <li>
+        <a href="https://javascript.info/dom-navigation">Walking the DOM</a>:
+        descendants, children, childNodes, firstChild, lastChild, nextSibling
+      </li>
+      <li>
+        <a href="https://javascript.info/searching-elements-dom">Searching</a>:
+        getElementById, querySelector, querySelectorAll, closest, matches
+      </li>
+      <li>
+        <a href="https://javascript.info/basic-dom-node-properties"
+          >Basic node properties</a
+        >: innerHTML, outerHTML, textContent
+      </li>
+      <li>
+        <a href="https://javascript.info/dom-attributes-and-properties"
+          >DOM Attibutes and properties</a
+        >: hasAttribute, getAttribute, setAttribute, removeAttribute, dataset
+      </li>
+      <li>
+        <a href="https://javascript.info/modifying-document"
+          >Modifying the document</a
+        >: createElement, cloneNode, append, prepend, remove
+      </li>
+      <li>
+        <a href="https://javascript.info/styles-and-classes"
+          >Styles and classes</a
+        >: className, classList (add, remove, toggle, contains), style
+      </li>
+      <li>
+        <a href="https://javascript.info/size-and-scroll-window"
+          >Element size and scrolling</a
+        >: clientWidth, clientHeight, scrollWidth, scrollHeight
+      </li>
+      <li>
+        <a href="https://javascript.info/size-and-scroll-window#window-scroll"
+          >Window scrolling</a
+        >: scrollTo, scrollBy, scrollIntoView
+      </li>
+      <li><a href="https://javascript.info/coordinates">Coordinates</a></li>
+    </ul>
+    
+    <h2>Exercice: Charger des données</h2>
+    <ul>
+      <li>Tools: Excel, airtable</li>
+      <li>Formats: csv, json</li>
+      <li>Concepts: views, filtering, grouping, sorting, formulas, pivot tables</li>
+      <li>Online tools: <a href="https://csvjson.com/csv2json">CSV to json</a>, <a href="https://jsonviewer.stack.hu/">JSON viewer</a></li>
+      <li>Datasets: <a href="https://data.world/data-society/the-simpsons-by-the-data">Simpsons episodes list</a>, <a href="https://www.babynames-stat.ch/en/index.html">Swiss Baby Names</a></li>
+      <li>Ready to use datasets: <a href="/assets/simpsons/simpsons_episodes.csv">Simpsons csv</a>, <a href="/assets/simpsons/simpsons_episodes.json">Simpsons json</a>, <a href="/assets/swiss-baby-names/girls.csv">female newborn names csv</a>, <a href="/assets/swiss-baby-names/girls.json">female newborn names json</a>, <a href="/assets/swiss-baby-names/boys.csv">male newborn names csv</a>, <a href="/assets/swiss-baby-names/boys.json">male newborn names json</a></li>
+    </ul> 
+
+    <h2>Événements</h2>
+    <ul>
+      <li>
+        Ressources:
+        <ul>
+          <li><a href="https://javascript.info/events">Cours</a></li>
+          <li>
+            TLDR:
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener"
+              >addEventListener</a
+            >,
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event"
+              >click</a
+            >,
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerover_event"
+              >pointerover</a
+            >,
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerout_event"
+              >pointerout</a
+            >,
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerdown_event"
+              >pointerdown</a
+            >,
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/API/Document/DOMContentLoaded_event"
+              >DOMContentLoaded</a
+            >
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="https://javascript.info/introduction-browser-events"
+        >Browser events</a>: click, mouseover, mouseout, mousedown, mouseup,
+          mousemove, keydown, keyup</a
+        >
+      </li>
+      <li>
+        <a href="https://javascript.info/introduction-browser-events"
+          >Browser events</a
+        >
+      </li>
+      <li>
+        <a
+          href="https://javascript.info/introduction-browser-events#addeventlistener"
+          >Add event listener</a
+        >
+      </li>
+      <li>
+        <a
+          href="https://javascript.info/introduction-browser-events#event-object"
+          >Event object</a
+        >
+      </li>
+      <li>
+        <a href="https://javascript.info/bubbling-and-capturing#bubbling"
+          >Event bubbling</a
+        >, event.target, event.stopPropagation() and
+        <a href="https://javascript.info/event-delegation">event delegation</a>
+      </li>
+      <li>
+        <a href="https://javascript.info/pointer-events">Pointer events</a>
+      </li>
+      <li>
+        Other events:
+        <a
+          href="https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event"
+          >Window resize</a
+        >,
+        <a
+          href="https://developer.mozilla.org/en-US/docs/Web/API/Document/scroll_event"
+          >Scroll event</a
+        >
+      </li>
+      <li>
+        <a
+          href="https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API"
+          >Intersection observer</a
+        >
+      </li>
+    </ul>
+
+    <!-- <h2>Getting data</h2> -->
+    <!-- <ul> -->
+    <!--   <a href="https://javascript.info/async-await">Async await</a> -->
+    <!-- </ul> -->
+    <!-- <ul> -->
+    <!--   JSON -->
+    <!-- </ul> -->
+    <!-- <ul> -->
+    <!--   Arrays -->
+    <!-- </ul> -->
+    <!-- <ul> -->
+    <!--   Objects -->
+    <!-- </ul> -->
+    <!-- <ul> -->
+    <!--   filter, find, map, forEach -->
+    <!-- </ul> -->
+    <!-- <ul> -->
+    <!--   Date and time -->
+    <!-- </ul> -->
+    <!-- <ul> -->
+    <!--   <a href="https://javascript.info/destructuring-assignment" -->
+    <!--     >Desctructuring assignment</a -->
+    <!--   > -->
+    <!-- </ul> -->
+    <!-- <li> -->
+    <!--   <a href="https://javascript.info/settimeout-setinterval">Scheduling</a>: -->
+    <!--   setTimeout, setInterval, requestAnimationFrame -->
+    <!-- </li> -->
+    <!-- <li><a href="https://javascript.info/fetch">Getting data, fetch</a></li> -->
+    <!-- <li>Traitement de données</li> -->
+    <!---->
+    <!-- <h2>Checking data</h2> -->
+    <!-- <ul> -->
+    <!--   <li>Grouping, filtering, views, pivot tables</li> -->
+    <!-- </ul> -->
+    <!---->
+    <!-- <ul> -->
+    <!--   Data sources apis -->
+    <!-- </ul> -->
+
+<h2>Pour la prochaine fois : Quantified Self à partir de l’export Instagram</h2>
+
+<ul>
+  <li><strong>Objectif général :</strong> 
+    Explorer vos données Instagram pour mieux vous comprendre et créer une fiche personnelle dynamique. 
+    Le focus actuel est sur le <strong>chargement automatique et dynamique des données</strong>, pas sur l’analyse avancée.
+  </li>
+
+  <li>Étape 1 – Organisation et nettoyage de l’export :
+    <ul>
+      <li>Placez vos fichiers dans votre dossier <code>www</code> personnel (racine dédiée à vos données).</li>
+      <li>Supprimer les vidéos et messages privés pour se concentrer sur les données publiques.</li>
+      <li>Redimensionner toutes les images à 50 px de large et les convertir en WebP pour des raisons de confidentialité, par exemple avec ImageMagick : <code>mogrify -format webp -resize 50 *.jpg</code></li>
+    </ul>
+  </li>
+
+  <li>Étape 2 – Chargement dynamique des données :
+    <ul>
+      <li>Charger vos fichiers JSON avec <code>fetch</code> dans votre page unique (“one-page”).</li>
+      <li>Le but est de charger <strong>toutes les stories</strong> et autres données intéressantes (marketing, interactions, etc.).</li>
+      <li>Si le chargement complet fait planter le navigateur, limiter à quelques centaines de stories.</li>
+      <li>Ne pas modifier la structure des fichiers pour que les données puissent être combinées avec celles des autres participants à l’avenir.</li>
+      <li>Les graphes et visualisations plus avancées viendront pour la prochaine session. Pour cette fois, concentrez-vous uniquement sur le chargement et l’affichage des données.</li>
+    </ul>
+  </li>
+
+  <li>Étape 3 – Création du layout / design :
+    <ul>
+      <li>Créer une fiche personnelle de type “Quantified Self” pour visualiser vos données.</li>
+      <li>Réfléchir aux différentes typologies de données à intégrer (texte, images, autres informations Instagram).</li>
+      <li>Le design doit être <strong>extensible et adaptable</strong> à différentes informations et à des données d’autres participants dans le futur.</li>
+      <li>Toutes les informations doivent être visibles sur une seule page, sans navigation supplémentaire.</li>
+      <li>Ce design est un exercice de visualisation et d’UX : quelles données sont intéressantes à mettre en avant ?</li>
+    </ul>
+  </li>
+
+  <li>Étape 4 – Exploration et analyse facultative :
+    <ul>
+      <li>Vous pouvez commencer à regarder vos données dans Excel ou dans <code>data.json</code> pour identifier des patterns ou informations intéressantes.</li>
+      <li>Ce travail est facultatif, mais il aide à préparer les prochaines sessions où nous ferons des comparatifs entre participants.</li>
+    </ul>
+  </li>
+
+  <li>Rappel :
+    <ul>
+      <li>Vous avez 512 MB au total pour tous vos exercices.</li>
+      <li>Concentrez-vous sur le chargement dynamique et le design visuel pour cette session. L’analyse approfondie et les graphes viendront plus tard.</li>
+      <li>Pensez à la compatibilité avec les données des autres participants pour la prochaine phase, mais cela n’est pas requis maintenant.</li>
+    </ul>
+  </li>
+</ul>
+
+
+  </body>
+</html>

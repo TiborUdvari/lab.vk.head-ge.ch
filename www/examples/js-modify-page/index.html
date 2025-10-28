@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>My test page</title>
+    <style>
+      @import "https://necolas.github.io/normalize.css/8.0.1/normalize.css";
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+
+      .color-divs-container {
+        display: flex;
+        flex-wrap: wrap;
+        .color-div {
+          width: 5rem;
+          height: 5rem;
+        }
+      }
+    </style>
+    <script type="module">
+      console.log("Hello friend");
+      document.body.style.backgroundColor = "#fff2ff";
+
+      const descriptionElement = document.querySelector(".description");
+      const dynamicPElement = document.createElement("p");
+      dynamicPElement.innerText = "J'ai fait ce <p> avec du code. Wow.";
+      descriptionElement.after(dynamicPElement);
+
+      let alphabetListElement = document.querySelector("ul");
+
+      for (let i = 0; i < 26; i++) {
+        let li = document.createElement("li");
+        li.innerText = String.fromCharCode(i + 97); // a commence a 97 en ascii
+        alphabetListElement.append(li);
+      }
+
+      const emojiRanges = [
+        [0x1f600, 0x1f64f, "Emoticons"],
+        [0x1f300, 0x1f5ff, "Misc Symbols and Pictographs"],
+        [0x1f680, 0x1f6ff, "Transport and Map"],
+        [0x2600, 0x26ff, "Misc symbols"],
+        [0x2700, 0x27bf, "Dingbats"],
+      ];
+
+      // Juste les emoticons pour rester simple
+      // Comment faire pour montrer tous les ranges? 🤔
+      const emoticonsRange = emojiRanges[0];
+      const emoticonsStartIndex = emoticonsRange[0];
+      const emoticonsEndIndex = emoticonsRange[1];
+      const emoticonsLabel = emoticonsRange[2];
+      let emoticonsString = "";
+
+      for (let i = emoticonsStartIndex; i <= emoticonsEndIndex; i++) {
+        emoticonsString += String.fromCodePoint(i);
+      }
+
+      const emoticonsElement = document.querySelector(".emoticons");
+      emoticonsElement.innerText = emoticonsString;
+
+      const colorDivsContainerElement = document.querySelector(
+        ".color-divs-container",
+      );
+
+      const n = 50;
+      for (let i = 0; i < n; i++) {
+        let divElement = document.createElement("div");
+        divElement.classList = "color-div";
+        divElement.style.backgroundColor = `hsl(300deg 100% ${(i / n) * 100}% / 1)`;
+        colorDivsContainerElement.append(divElement);
+      }
+
+    </script>
+  </head>
+  <body>
+    <main>
+      <p class="description">
+        Voici quelques examples de modification de page avec javascript au
+        chargement sans intéraction ou données externes.
+      </p>
+      <h3>Alphabet</h3>
+      <ul class="alphabet"></ul>
+      <h3>Emoticons</h3>
+      <p class="emoticons"></p>
+      <h3>J'aime la magenta</h3>
+      <div class="color-divs-container"></div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>My test page</title>
+    <style>
+      @import "https://necolas.github.io/normalize.css/8.0.1/normalize.css";
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      }
+
+      main {
+        max-width: 40ch;
+        padding-top: 2rem;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .custom-details {
+        .custom-details__header {
+          display: flex;
+          justify-content: space-between;
+          cursor: pointer;
+          user-select: none;
+
+          .custome-details__header__close {
+            background: none;
+            border: none;
+            rotate: 45deg;
+            transition: rotate 0.1s ease-in-out;
+          }
+        }
+
+        .custom-details__content {
+          height: 0px;
+          overflow: hidden;
+          transition: all 0.2s ease-in-out;
+        }
+
+        &.open {
+          .custom-details__header {
+            .custome-details__header__close {
+              rotate: 0deg;
+            }
+          }
+
+        }
+      }
+    </style>
+    <script type="module">
+      const customDetailsElements =
+        document.querySelectorAll(".custom-details");
+
+      for (let customDetailsElement of customDetailsElements) {
+        const customDetailsHeader = customDetailsElement.querySelector(
+          ".custom-details__header",
+        );
+        const customDetailsContentElement = customDetailsElement.querySelector(
+          ".custom-details__content",
+        );
+
+        customDetailsHeader.addEventListener("click", () => {
+          customDetailsElement.classList.toggle("open");
+          if (customDetailsElement.classList.contains("open")){
+            customDetailsContentElement.style.height = customDetailsContentElement.scrollHeight + "px";   
+          } else {
+            customDetailsContentElement.style.height = "0px";
+          }
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <main>
+      <p>
+        If we have multiple elements we need to add the listeners to each one.
+      </p>
+
+      <div class="custom-details">
+        <div class="custom-details__header">
+          <div>System requirements</div>
+          <button class="custome-details__header__close">✕</button>
+        </div>
+        <div class="custom-details__content">
+          Requires a computer running an operating system. The computer must
+          have some memory and ideally some kind of long-term storage. An input
+          device as well as some form of output device is recommended.
+        </div>
+      </div>
+
+      <div class="custom-details">
+        <div class="custom-details__header">
+          <div>System requirements</div>
+          <button class="custome-details__header__close">✕</button>
+        </div>
+        <div class="custom-details__content">
+          Requires a computer running an operating system. The computer must
+          have some memory and ideally some kind of long-term storage. An input
+          device as well as some form of output device is recommended.
+        </div>
+      </div>
+
+      <div class="custom-details">
+        <div class="custom-details__header">
+          <div>System requirements</div>
+          <button class="custome-details__header__close">✕</button>
+        </div>
+        <div class="custom-details__content">
+          Requires a computer running an operating system. The computer must
+          have some memory and ideally some kind of long-term storage. An input
+          device as well as some form of output device is recommended.
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
