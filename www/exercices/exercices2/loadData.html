@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>My test page</title>
+    <style>
+      @import "https://necolas.github.io/normalize.css/8.0.1/normalize.css";
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        padding: 1rem;
+      }
+    </style>
+    <script type="module">
+      import { loadData } from "./exercices.js";
+      code.innerText = "Chargement ...";
+      const data = await loadData();
+      console.log(data);
+
+      const codeEl = document.querySelector("#code");
+      codeEl.innerText = JSON.stringify(data, null, 2); 
+    </script>
+  </head>
+  <body>
+    <p>On devrait voir les données brutes ici, ainsi que dans la console.</p>
+    <p>Regardez la structure des données, dans la prochaine étape nous allons extraire que les noms</p>
+    <code id="code"></code>
+  </body>
+</html>

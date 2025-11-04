@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>My test page</title>
+    <style>
+      @import "https://necolas.github.io/normalize.css/8.0.1/normalize.css";
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        padding: 1rem;
+      }
+
+      main {
+        width: 100%;
+      }
+
+      .names-container {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.25em;
+        font-size: 2rem;
+
+        /* ça s'applique aux tous les enfants */
+        & > * {
+          display: inline-block;
+          border: 0.1em solid black;
+          padding: 0.5em 1em 0.5em 1em;
+          border-radius: 99999px;
+        }
+      }
+    </style>
+    <script type="module">
+      import {
+        loadData,
+        mapToNames,
+        lengthOfData,
+        sortNamesAlphabetically,
+      } from "./exercices.js";
+      const data = await loadData();
+      console.log(data);
+
+      const names = mapToNames(data);
+      const sortedNames = sortNamesAlphabetically(names);
+      const namesLength = lengthOfData(names);
+
+      const lengthEl = document.querySelector("#length");
+      lengthEl.innerText = namesLength;
+
+      const namesContainerEl = document.querySelector(".names-container");
+
+      // Maintenant pour chaque nom on va créer un élément DOM, il faut utiliser un boucle
+      for (name of names) {
+        // ici name est un variable locale
+        const newSpanEl = document.createElement("span");
+        newSpanEl.innerText = name;
+        namesContainerEl.append(newSpanEl);
+      }
+    </script>
+  </head>
+  <body>
+    <main>
+      <p>
+        Mettons tout a plat, affichons tous les noms, en tout il y a
+        <span id="length"></span>, dans une deuxieme temps on va sort par le
+        nom.
+      </p>
+      <div class="names-container"></div>
+    </main>
+  </body>
+</html>

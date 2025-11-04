@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>My test page</title>
+    <style>
+      @import "https://necolas.github.io/normalize.css/8.0.1/normalize.css";
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        padding: 1rem;
+      }
+
+      main {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25em;
+        font-size: 1rem;
+
+        & > p {
+          margin-bottom: 0;
+        }
+      }
+
+      .container {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.25em;
+
+        /* ça s'applique aux tous les enfants */
+        & > * {
+          display: inline-flex;
+          gap: 0.3em;
+          border: 0.1em solid black;
+          padding: 0.2em 0.2em 0.2em 0.7em;
+          border-radius: 99999px;
+          align-items: center;
+          justify-content: center;
+          line-height: 1;
+
+          & > .number {
+            background-color: black;
+            color: white;
+            padding: 0.5em;
+            font-size: 1em;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 300;
+            min-width: 1em;
+          }
+        }
+      }
+
+      .alphabet-container {
+        & > button {
+          cursor: pointer;
+          display: block;
+          background-color: white;
+          padding: 0em;
+          width: 2em;
+          aspect-ratio: 1;
+
+          &:hover {
+            background-color: black;
+            color: white;
+          }
+        }
+      }
+    </style>
+    <script type="module">
+      import {
+        loadData,
+        mapToNames,
+        lengthOfData,
+        filterDataByStartingLetter,
+        sortNamesAlphabetically,
+        filter2024Data,
+      } from "./exercices.js";
+
+      let data = await loadData();
+      data = filter2024Data(data);
+
+      const lengthEl = document.querySelector("#length");
+      const namesContainerEl = document.querySelector(".names-container");
+
+      const names = mapToNames(data);
+      const namesLength = lengthOfData(names);
+      
+      const cardTemplate = document.getElementById(
+        "card-template",
+      );
+
+      function display(nameDatas, displayNamesLength) {
+        lengthEl.innerText = displayNamesLength;
+        namesContainerEl.innerHTML = "";
+        for (const nameData of nameDatas) {
+          const newCardEl = cardTemplate.content.cloneNode(true);
+          const textEl = newCardEl.querySelector(".text");
+          const numberEl = newCardEl.querySelector(".number");
+          textEl.innerText = nameData["First name"];
+          numberEl.innerText = nameData["2024"];
+          namesContainerEl.append(newCardEl);
+        }
+      }
+
+      display(data, namesLength);
+
+      // Maintenant pour chaque nom on va créer un élément DOM, il faut utiliser un boucle
+      const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      const alphabetArray = alphabet.split("");
+
+      const alphabetButtonsEl = document.querySelector(".alphabet-container");
+
+      for (const letter of alphabetArray) {
+        const buttonEl = document.createElement("button");
+        buttonEl.innerText = letter;
+        buttonEl.addEventListener("click", () => {
+          console.log("Clicked button", letter);
+          const filteredData = filterDataByStartingLetter(data, letter);
+          const filteredDataLength = lengthOfData(filteredData);
+          display(filteredData, filteredDataLength);
+        });
+        alphabetButtonsEl.append(buttonEl);
+      }
+    </script>
+  </head>
+  <body>
+    <main>
+      <p>
+        2024 swiss new born girl names 
+        <span id="length"></span>
+      </p>
+      <div class="alphabet-container container"></div>
+      <div class="names-container container"></div>
+    </main>
+    <template id="card-template">
+      <div><span class="text">Test</span><span class="number">30</span></div>
+    </template>
+  </body>
+</html>

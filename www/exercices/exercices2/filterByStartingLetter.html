@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>My test page</title>
+    <style>
+      @import "https://necolas.github.io/normalize.css/8.0.1/normalize.css";
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        padding: 1rem;
+      }
+
+      main {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25em;
+        font-size: 2rem;
+
+        & > p {
+          margin-bottom: 0; 
+        }
+      }
+
+      .container {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.25em;
+
+        /* ça s'applique aux tous les enfants */
+        & > * {
+          display: inline-block;
+          border: 0.1em solid black;
+          padding: 0.5em 1em 0.5em 1em;
+          border-radius: 99999px;
+        }
+      }
+
+      .alphabet-container {
+          & > button {
+          cursor: pointer;
+          display: block;
+          background-color: white;
+          padding: 0em;
+          width: 2em;
+          aspect-ratio: 1;
+
+          &:hover {
+            background-color: black;
+            color: white;
+          }
+        }
+      }
+    </style>
+    <script type="module">
+      import {
+        loadData,
+        mapToNames,
+        lengthOfData,
+        filterNamesByStartingLetter,
+        sortNamesAlphabetically,
+      } from "./exercices.js";
+
+      const data = await loadData();
+
+      const lengthEl = document.querySelector("#length");
+      const namesContainerEl = document.querySelector(".names-container");
+      
+      const names = mapToNames(data);
+      const namesLength = lengthOfData(names);
+      
+      function display(displayNames, displayNamesLength) {
+        lengthEl.innerText = displayNamesLength;
+        namesContainerEl.innerHTML = "";
+        for (name of displayNames) {
+          const newSpanEl = document.createElement("span");
+          newSpanEl.innerText = name;
+          namesContainerEl.append(newSpanEl);
+        }
+      }
+      display(names, namesLength);
+
+      // Maintenant pour chaque nom on va créer un élément DOM, il faut utiliser un boucle
+      const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      const alphabetArray = alphabet.split("");
+
+      const alphabetButtonsEl = document.querySelector(".alphabet-container");
+
+      for (const letter of alphabetArray) {
+        const buttonEl = document.createElement("button");
+        buttonEl.innerText = letter;
+        buttonEl.addEventListener("click", () => {
+          console.log("Clicked button", letter);
+          const filteredData = filterNamesByStartingLetter(names, letter);
+          const filteredDataLength = lengthOfData(filteredData);
+          display(filteredData, filteredDataLength);
+        });
+        alphabetButtonsEl.append(buttonEl);
+      }
+    </script>
+  </head>
+  <body>
+    <main>
+      <p>
+        Mettons tout a plat, affichons tous les noms, en tout il y a
+        <span id="length"></span>
+      </p>
+      <div class="alphabet-container container"></div>
+      <div class="names-container container"></div>
+    </main>
+  </body>
+</html>

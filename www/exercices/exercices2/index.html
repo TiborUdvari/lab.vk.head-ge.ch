@@ -13,19 +13,87 @@
     <script>
       let assert = chai.assert;
     </script>
+
+    <style>
+      @import "https://necolas.github.io/normalize.css/8.0.1/normalize.css";
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      }
+
+      main {
+        padding: 1rem;
+      }
+    </style>
   </head>
 
   <body>
-    Some explanation text here
     <script type="module">
-      import { greet, loadData } from "./exercices.js";
-      window.greet = greet; 
-      window.loadData = loadData;
+      import * as Exercices from "./exercices.js";
 
+      for (const key in Exercices) {
+        if (typeof Exercices[key] === "function") {
+          window[key] = Exercices[key];
+        }
+      }
     </script>
 
-    <script type="module" src="../test2.js"></script>
+    <script type="module" src="https://lab.tiborudvari.com/exercices/test2.js"></script>
+    <main>
+      <h1>
+        Exercices JavaScript débutants – Chargement et manipulation de données
+        JSON
+      </h1>
 
-    <div id="mocha"></div>
+      <p>
+        Dans cette série d’exercices, nous allons apprendre à charger des
+        données au format JSON et à les manipuler avec JavaScript. Vous devez
+        compléter le fichier <code>exercices.js</code>, qui contient des
+        fonctions utilisées dans les différentes pages.
+      </p>
+
+      <p>
+        L’objectif principal est de se concentrer sur JavaScript, mais il est
+        recommandé de regarder le code HTML pour mieux comprendre comment
+        structurer vos pages et afficher les résultats.
+      </p>
+
+      <p>
+        Nous allons utiliser des données de prénoms de filles fournies par la
+        Confédération.
+      </p>
+
+      <h2>Pages d’exercices</h2>
+      <ol>
+        <li>
+          <a href="./loadData.html">Page 1 – Chargement des données</a> :
+          récupérer et afficher les données JSON brutes.
+        </li>
+        <li>
+          <a href="./mapToNames.html"
+            >Page 2 – Extraire les noms (Map to Names)</a
+          >
+          : travailler sur le tableau des prénoms et les trier.
+        </li>
+        <li>
+          <a href="./filterByStartingLetter.html"
+            >Page 3 – Filtrer par lettre initiale</a
+          >
+          : filtrer les prénoms qui commencent par une lettre donnée.
+        </li>
+        <li>
+          <a href="./objectView.html"
+            >Page 4 – Vue objet composé</a
+          >
+        </li>
+      </ol>
+
+      <p>
+        Chaque page correspond à une étape de l’exercice. Complétez les
+        fonctions dans <code>exercices.js</code> et vérifiez vos résultats en
+        ouvrant la page correspondante.
+      </p>
+      <div id="mocha"></div>
+    </main>
   </body>
 </html>
