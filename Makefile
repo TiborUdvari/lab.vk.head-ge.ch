@@ -18,6 +18,14 @@ make dev:
 	@echo "Running browser sync for development"
 	npx browser-sync start --proxy "localhost:8080" --files "www/**/*,students/**/*" --port 3000 --no-open
 
+make backup:
+	@echo "Backing up student websites"
+	@TS=$$(date +%Y-%m-%d_%H-%M-%S); \
+	ssh ubuntu@lab.vk.head-ge.ch "tar -C /srv/lab.vk.head-ge.ch -czf - students --ignore-failed-read" | pv > backups/students_$$TS.tar.gz
+	@echo "Opening backup locations for manual server backup"	
+	open backups/onedrive-backup.webloc
+	open backups
+
 make get-dog-data:
 	@echo "Downloading dog image collection from unspash"
 	node www/assets/dogs/download.mjs
