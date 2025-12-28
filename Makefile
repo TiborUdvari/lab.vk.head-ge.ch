@@ -16,7 +16,7 @@ make local-deploy:
 
 make dev:
 	@echo "Running browser sync for development"
-	npx browser-sync start --proxy "localhost:8080" --files "www/**/*,students/**/*" --port 3000 --no-open
+	cd www && npx live-server
 
 make backup:
 	@echo "Backing up student websites"
