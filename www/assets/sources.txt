@@ -2,3 +2,5 @@ https://visibleearth.nasa.gov/collection/1658/earth-from-afar
 
 * nasa.mp4 https://images.nasa.gov/details/Earth%20Views%20from%20the%20International%20Space%20Station
 * ghana-lake.webp https://visibleearth.nasa.gov/images/154739/an-explosive-beginning-for-lake-bosumtwi/154741l
+
+https://www.kaggle.com/datasets/nelgiriyewithana/mcdonalds-store-reviews?resource=download

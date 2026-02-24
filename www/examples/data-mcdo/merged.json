@@ -1,0 +1,3572 @@
+[
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": true,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 6,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 4,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 4,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": true,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 9,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 5,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 6,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 4,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": true,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 6,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": true,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": true,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 5,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 6,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": true,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 5,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 5,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": true,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 4,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": true,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 4,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": true,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 6,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 6,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 6,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": true,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 4,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 5,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 6,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 6,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 6,
+    "family": false,
+    "girlfriend": false,
+    "profanity": true,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": true,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 6,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 4,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 4,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 4,
+    "family": true,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 6,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 6,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": true,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 4,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 6,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": true,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 5,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 5,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 6,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 4,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": true,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 6,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 4,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": true,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 4,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 9,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": true,
+    "girlfriend": false,
+    "profanity": true,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 5,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 6,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 4,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 6,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 6,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 4,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": true,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 5,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": true,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 4,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 5,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 5,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": true,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 6,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": true,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 4,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 4,
+    "family": false,
+    "girlfriend": true,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 4,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 4,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 4,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 4,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 5,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 6,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 4,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 4,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 4,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 4,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 4,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 5,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 6,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 4,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 5,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 4,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 6,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 4,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 5,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 5,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 4,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 4,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 5,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 4,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": true,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 6,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": true,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 4,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 10,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 5,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 4,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 4,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 4,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 6,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 7,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": true,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 4,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 3,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 1,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": false,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  },
+  {
+    "funnyScore": 8,
+    "family": false,
+    "girlfriend": false,
+    "profanity": false,
+    "typos": true,
+    "homeless": false,
+    "drugRelated": false,
+    "parsed": true
+  }
+]

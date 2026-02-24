@@ -7,71 +7,85 @@
     <title>Construire son dataset</title>
   </head>
   <body>
-    <h1>Session Construire son dataset</h1>
+    <h1>Construire son dataset</h1>
+   
+    <h2>Référence</h2>
+    <ul>
+      <li><a href="https://www.dear-data.com/theproject">Dear data</a></li>
+    </ul>
 
-    <h2>Ressources</h2>
+    <h2>Partie 1 – Collecte structurée</h2>
+<ul>
+  <li>
+    <a href="https://app.nocodb.com/#/">NocoDB</a> :
+    <a href="https://nocodb.com/apis/v2/data">API</a>
+  </li>
+    <li>
+    <a href="https://www.postman.com/downloads/">Postman</a> : exécuter et sauvegarder des requêtes  
+    <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Overview">HTTP</a> (GET, POST), importer du code curl, générer des snippets
+  </li>
+  <li>
+    Automatisation avec iOS Shortcuts :
+    Get Contents of URL, Ask for Text, Choose from List, Magic Variables, Stop this Shortcut
+  </li>
+  <li>Autres APIs: <a href="https://www.freepublicapis.com/">Free Public APIs</a>, <a href="https://github.com/public-apis/public-apis">GitHub Public APIs list</a>
+  </li>
+</ul>
+
+    <h2>Partie 2 – Augmenter un dataset avec un LLM local</h2>
     <ul>
       <li>
-        <a href="https://observablehq.com/documentation/notebooks/"
-          >Observable Notebooks</a
-        >,
-        <a href="https://observablehq.com/plot/getting-started"
-          >Observable Plot</a
-        >,
-        <a href="https://observablehq.com/@observablehq/plot-gallery"
-          >Plot gallery</a
-        >,
-        <a href="https://observablehq.com/@observablehq/plot-cheatsheets-colors"
-          >Cheat Sheets</a
-        >,
-        <a
-          href="https://observablehq.com/plot/getting-started#plot-in-vanilla-html"
-          >Integrating into a website</a
-        >
-        <a href="https://observablehq.com/@observablehq/sample-datasets"
-          >Sample datasets</a
-        >,
-        <a
-          href="https://observablehq.com/@travismichaelwise/observables-not-javascript"
-          >Observable is not Javascript</a
-        >,
-        <a href="https://observablehq.com/@observablehq/datavizcourse"
-          >Intro to Data Viz course</a
-        >
+        <a href="https://lmstudio.ai/">LM Studio</a> :
+        <a href="https://lmstudio.ai/docs/developer/openai-compat/structured-output">Structured Output</a>,
+        MLX pour Apple Sillicon
+      </li>
+      <li>
+        Dataset :
+        <a href="https://www.kaggle.com/datasets/nelgiriyewithana/mcdonalds-store-reviews?resource=download">
+          McDonald's Store Reviews (Kaggle)
+        </a>
+      </li>
+      <li>
+        Exemple :
+        <a href="https://github.com/TiborUdvari/lab.vk.head-ge.ch/tree/main/www/examples/data-mcdo">
+          Augmenting McDonald's review data with LM Studio
+        </a>
+      </li>
+    </ul>
+ 
+    <h2>Partie 3 – Web scraping</h2>
+    <ul>
+      <li>
+        <a href="https://cheerio.js.org/">Cheerio</a>: <a href="https://cheerio.js.org/docs/advanced/extract/">Extract method</a>
+      </li>
+      <li>Node ecosystem: mjs, npm init, npm install, package.json</li>
+      <li>
+        Exemple :
+        <a href="https://github.com/TiborUdvari/lab.vk.head-ge.ch/tree/main/www/examples/data-scraping">
+          Scraping a website for data with Cheerio
+        </a>
+        –
+        <a href="https://www.nopasaran.ch/">nopasaran.ch</a>
       </li>
     </ul>
 
-    <h2>
-      Exemple :
-      <a
-        href="https://en.wikipedia.org/wiki/List_of_best-selling_video_games"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Best-Selling Video Games
-      </a>
-    </h2>
-
-    <h2>Pour la prochaine fois :</h2>
+    <h2>Exercice (en binômes)</h2>
     <ul>
+      <li>Créer ou augmenter un dataset (collecte, scraping ou LLM).</li>
       <li>
-        Choisissez un dataset simple téléchargeable sur Wikipédia. Exemples :
-        Oscars remportés, films les plus rentables, chansons les plus longues,
-        etc.
+        Utiliser ce dataset pour produire une page web interactive,
+        responsive et publiable, avec une visualisation de données.
       </li>
       <li>
-                Nettoyez et préparez votre dataset (supprimez les doublons, uniformisez les catégories, vérifiez les valeurs manquantes, reformatez si nécessaire).
+        Documenter les difficultés liées à la collecte ou à la
+        structuration du dataset.
       </li>
       <li>
-        Importez le dataset dans Observable, réalisez au moins deux
-        visualisations de données, commentez l’origine des données et
-        contextualisez-les.
-      </li>
-      <li>
-        Intégrez vos visualisations et vos observations dans une page web
-        responsive, enrichie de contenus médias pour renforcer vos arguments.
+        Réfléchir : comment ces biais ou contraintes peuvent-ils se
+        retrouver dans d’autres datasets ?
       </li>
     </ul>
+
   </body>
 </html>
 
