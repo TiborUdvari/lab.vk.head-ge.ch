@@ -1,3 +1,13 @@
+
+
+
+
+
+
+
+
+
+
 import data from "../../assets/mcdonalds/mcdo.json" with { type: "json" };
 import { writeFileSync, existsSync, mkdirSync, readFileSync } from "node:fs";
 import { dirname } from "node:path";
@@ -14,7 +24,7 @@ async function analyzeReview(content) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "qwen/qwen3-4b-2507",
+        model: "google/gemma-3-4b",
         messages: [
           {
             role: "system",
