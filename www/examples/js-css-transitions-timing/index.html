@@ -1,0 +1,140 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Simple Transition</title>
+    <style>
+      @import "https://necolas.github.io/normalize.css/8.0.1/normalize.css";
+      /* Colors ref: https://interactionofcolor.com/images/81338/plate-vi-1a */
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        /* CSS properties to easily switch out if I change my mind */
+        --bg: #0a090c;
+        --fg: #ffffff;
+      }
+
+      main {
+        --p: 1rem;
+        height: calc(100svh - var(--p) * 2);
+        background-color: var(--bg);
+        display: grid;
+        grid-template-columns: min-content 1fr;
+        padding: var(--p) 1rem var(--p) 1.5rem;
+        color: var(--fg);
+        gap: 1rem;
+        column-gap: 2rem;
+        font-weight: 100;
+        text-wrap: nowrap;
+        font-size: 2dvh;
+      }
+
+      .ease-name {
+        text-align: right;
+        display: flex;
+        align-items: center;
+      }
+
+      .track {
+        border: 0.1rem solid var(--fg);
+        position: relative;
+      }
+
+      main {
+        .ball {
+          border: 0.1rem solid var(--fg);
+          background-color: var(--fg);
+          height: 30%;
+          aspect-ratio: 1;
+          position: absolute;
+          border-radius: 9999px;
+          top: 50%;
+          left: 2%;
+          transform: translate(-50%, -50%);
+          transition-property: left;
+          transition-duration: 5s;
+        }
+
+        /* main element that also has main-right class */
+        &.main--right {
+          .ball {
+            left: 98%;
+          }
+        }
+      }
+
+      .linear {
+        transition-timing-function: linear;
+      }
+
+      .ease {
+        transition-timing-function: ease;
+      }
+
+      .ease-in {
+        transition-timing-function: ease-in;
+      }
+
+      .ease-out {
+        transition-timing-function: ease-out;
+      }
+
+      .ease-in-out {
+        transition-timing-function: ease-in-out;
+      }
+
+      .steps {
+        transition-timing-function: steps(10, jump-end);
+      }
+
+      .step-start {
+        transition-timing-function: step-start;
+      }
+
+      .step-end {
+        transition-timing-function: step-end;
+      }
+
+      .cubic-bezier {
+        transition-timing-function: cubic-bezier(0.1, 0.7, 1, 0.1);
+      }
+    </style>
+
+    <script type="module">
+      const mainEl = document.querySelector("main");
+      mainEl.addEventListener("click", () => {
+        mainEl.classList.toggle("main--right");
+      });
+    </script>
+  </head>
+  <body>
+    <main>
+      <div class="ease-name">linear</div>
+      <div class="track"><div class="ball linear"></div></div>
+
+      <div class="ease-name">ease</div>
+      <div class="track"><div class="ball ease"></div></div>
+
+      <div class="ease-name">ease-in</div>
+      <div class="track"><div class="ball ease-in"></div></div>
+
+      <div class="ease-name">ease-out</div>
+      <div class="track"><div class="ball ease-out"></div></div>
+
+      <div class="ease-name">ease-in-out</div>
+      <div class="track"><div class="ball ease-in-out"></div></div>
+
+      <div class="ease-name">steps</div>
+      <div class="track"><div class="ball steps"></div></div>
+
+      <div class="ease-name">step-start</div>
+      <div class="track"><div class="ball step-start"></div></div>
+
+      <div class="ease-name">step-end</div>
+      <div class="track"><div class="ball step-end"></div></div>
+
+      <div class="ease-name">cubic-bezier</div>
+      <div class="track"><div class="ball cubic-bezier"></div></div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Color keyframe animation</title>
+    <style>
+      @import "https://necolas.github.io/normalize.css/8.0.1/normalize.css";
+      /* Colors ref: https://interactionofcolor.com/images/81338/plate-vi-1a */
+      body {
+        font-family: sans-serif;
+      }
+
+      main {
+        height: 100svh;
+        background-color: black;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        position: relative;
+      }
+
+      .ball {
+        background-color: #bcd9a9;
+        width: 33vw;
+        aspect-ratio: 1;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        transition: 500ms ease-in-out;
+        transition-property: left;
+        left: 50%;
+        background-color: #e66465;
+        animation: colorShift 3s ease-in-out infinite;
+      }
+
+      @keyframes colorShift {
+        0% {
+          background-color: #e66465;
+        }
+        50% {
+          background-color: #9198e5;
+        }
+        100% {
+          background-color: #e66465;
+        }
+      }
+
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="ball"></div>
+    </main>
+  </body>
+</html>

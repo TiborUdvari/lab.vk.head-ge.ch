@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Gradient animation</title>
+    <style>
+      @import "https://necolas.github.io/normalize.css/8.0.1/normalize.css";
+      /* Colors ref: https://interactionofcolor.com/images/81338/plate-vi-1a */
+      body {
+        font-family: sans-serif;
+      }
+
+      main {
+        height: 100svh;
+        background-color: black;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        position: relative;
+      }
+
+      @property --color-top {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #e66465;
+      }
+
+      @property --color-bottom {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #9198e5;
+      }
+
+      .ball {
+        width: 33vw;
+        aspect-ratio: 1;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        transition: 500ms ease-in-out;
+        transition-property: left;
+        left: 50%;
+        background-color: #e66465;
+        animation: colorShift 3s ease-in-out infinite;
+        background: linear-gradient(var(--color-top), var(--color-bottom));
+        animation: gradientShift 3s ease-in-out infinite alternate;
+      }
+
+      @keyframes gradientShift {
+        to {
+          --color-top: #9198e5;
+          --color-bottom: #e66465;
+        }
+      }
+    </style>
+
+    <script type="module"></script>
+  </head>
+  <body>
+    <main>
+      <div class="ball"></div>
+    </main>
+  </body>
+</html>

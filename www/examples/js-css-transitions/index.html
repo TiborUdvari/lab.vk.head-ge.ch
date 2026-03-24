@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Simple Transition</title>
+    <style>
+      @import "https://necolas.github.io/normalize.css/8.0.1/normalize.css";
+      /* Colors ref: https://interactionofcolor.com/images/81338/plate-vi-1a */
+      body {
+        font-family: sans-serif;
+      }
+
+      main {
+        height: 100svh;
+        background-color: red;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        position: relative;
+      }
+
+      .box {
+        height: 100%;
+      }
+
+      .left {
+        background-color: #d2e4be;
+      }
+
+      .right {
+        background-color: #afd19f;
+      }
+
+      .ball {
+        background-color: #bcd9a9;
+        width: 10vw;
+        aspect-ratio: 1;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        transition: 500ms ease-in-out;
+        transition-property: left;
+      }
+
+      .ball--left {
+        left: 25%;
+        /*transform: translate(-50%, -50%) rotate(0deg) scale(1.1);*/
+        /*border-radius: 0px;*/
+      }
+
+      .ball--right {
+        left: 75%;
+        /*transform: translate(-50%, -50%) rotate(360deg) scale(0.9);*/
+        /*border-radius: 99px;*/
+      }
+    </style>
+
+    <script type="module">
+      const mainEl = document.querySelector("main");
+      const ballEl = document.querySelector(".ball");
+      mainEl.addEventListener("click", () => {
+        const isLeft = ballEl.classList.contains("ball--left");
+        const isRight = !isLeft; // not is left
+
+        if (isLeft) {
+          ballEl.classList.remove("ball--left");
+          ballEl.classList.add("ball--right");
+        }
+
+        if (isRight) {
+          ballEl.classList.remove("ball--right");
+          ballEl.classList.add("ball--left");
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <main>
+      <div class="box left"></div>
+      <div class="box right"></div>
+      <div class="ball ball--left"></div>
+    </main>
+  </body>
+</html>
