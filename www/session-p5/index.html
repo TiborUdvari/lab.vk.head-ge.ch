@@ -4,122 +4,226 @@
     <link href="/main.css" rel="stylesheet" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>p5.j5</title>
+    <title>Animations et Interactivité avec p5.js</title>
   </head>
   <body>
     <h1>Animations et Interactivité avec p5.js</h1>
-    <h2>Animations</h2>
+
+    <h2>Animations CSS</h2>
     <ul>
       <li>
-        CSS transitions
-        <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/transition"
-          >CSS Transition Property</a
-        >, Examples: <a href="../examples/js-css-transitions/">Simple Position</a>
+        <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/transition">Transitions CSS</a> :
+        <a href="../examples/js-css-transitions/">position simple</a>,
+        <a href="../examples/js-css-transition-mouse/">suivre la souris</a>,
+        <a href="../examples/js-css-transition-random/">position aléatoire</a>
       </li>
       <li>
-        Timing functions: ease,
-        <a href="https://cubic-bezier.com/#.59,-0.2,.67,.93">Cubic bezier website</a>
+        Fonctions de timing :
+        <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/transition-timing-function">linear, ease, ease-in, ease-out, steps…</a>,
+        <a href="https://cubic-bezier.com/#.59,-0.2,.67,.93">Cubic bezier</a>,
+        <a href="../examples/js-css-transitions-timing/">exemple</a>
       </li>
       <li>
-        Multiple
-        <a
-          href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/transition-timing-function"
-          >transition timing functions</a
-        >: linear, ease, ease-in, ease-out, ease-in-out, steps, step-start, step-end,
-        <a href="https://cubic-bezier.com/#.59,-0.2,.67,.93">Cubic bezier website</a>,
-        <a href="../examples/js-css-transitions-timing/">Example</a>
+        <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Animations/Using">Animations par keyframes</a> :
+        <a href="../examples/js-css-keyframe-color/">cycle de couleurs</a>,
+        <a href="../examples/js-css-transition-gradient/">gradient animé</a>
       </li>
-      <li>Go to mouse <a href="../examples/js-css-transition-mouse/">example</a></li>
-      <li>random position <a href="../examples/js-css-transition-random/"></a></li>
-      <li>Starting animation on scroll with <a href="https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API">Intersection Observer</a>, <a href="../examples/js-css-intersection-observer/">example</a></li>
       <li>
-        <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Animations/Using"
-          >MDN keyframe animations</a
-        >, <a href="../examples/js-css-keyframe-color/">example color keyframe cycling</a>,
-        <a href="../examples/js-css-keyframe-color/">Animating gradient</a>
+        Déclencher une animation au scroll avec
+        <a href="https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API">Intersection Observer</a> :
+        <a href="../examples/js-css-intersection-observer/">exemple</a>
+      </li>
+    </ul>
+
+    <h2>Canvas API et p5.js — Contexte</h2>
+    <ul>
+      <li>
+        Contextes de rendu :
+        <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API">Canvas API</a>
+        (<a href="../examples/js-canvas-mouse-circle/">cercle suivant la souris</a>,
+        <a href="../examples/js-p5-mouse-circle/">même chose avec p5.js</a>),
+        <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial">WebGL</a>,
+        <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGPU_API">WebGPU</a>
+      </li>
+      <li>
+        Autres outils : <a href="https://www.shadertoy.com/">ShaderToy</a>,
+        <a href="https://shaderpark.com/">Shader Park</a>,
+        <a href="https://thebookofshaders.com/">The Book of Shaders</a>,
+        <a href="https://derivative.ca/">TouchDesigner</a>
+      </li>
+      <li>
+        Concepts mathématiques :
+        <a href="https://en.wikipedia.org/wiki/Linear_algebra">Algèbre linéaire</a>,
+        <a href="https://en.wikipedia.org/wiki/Real-time_computer_graphics">Infographie temps réel</a>
+      </li>
+      <li>
+        p5.js :
+        <a href="https://p5js.org/">site</a>,
+        <a href="https://editor.p5js.org/">éditeur en ligne</a>,
+        <a href="https://p5js.org/reference/">référence</a>,
+        <a href="https://p5js.org/examples/shapes-and-color-shape-primitives/">primitives 2D</a>,
+        <a href="https://editor.p5js.org/TiborUdvari/collections/NWJQxS3r2">sketches d'exemple</a>
+      </li>
+      <li>
+        <a href="https://available-anaconda-10d.notion.site/That-Creative-Code-Page-c5550ef2f7574126bdc77b09ed76651b">Algorithmes de creative coding</a>
+      </li>
+    </ul>
+
+    <h2>p5.js — Concepts et exemples</h2>
+    <ul>
+      <li>
+        Structure de base :
+        <a href="https://p5js.org/reference/p5/setup/"><code>setup()</code></a>,
+        <a href="https://p5js.org/reference/p5/draw/"><code>draw()</code></a>,
+        <a href="https://p5js.org/reference/p5/createCanvas/"><code>createCanvas()</code></a>,
+        <code>windowWidth</code> / <code>windowHeight</code>,
+        <a href="https://p5js.org/reference/p5/windowResized/"><code>windowResized()</code></a>
+      </li>
+      <li>
+        Primitives graphiques :
+        <a href="https://p5js.org/reference/p5/rect/"><code>rect()</code></a>,
+        <a href="https://p5js.org/reference/p5/circle/"><code>circle()</code></a>,
+        <a href="https://p5js.org/reference/p5/ellipse/"><code>ellipse()</code></a>,
+        <a href="https://p5js.org/reference/p5/line/"><code>line()</code></a>,
+        <a href="https://p5js.org/reference/p5/point/"><code>point()</code></a>,
+        <a href="https://p5js.org/reference/p5/triangle/"><code>triangle()</code></a>,
+        <a href="https://p5js.org/reference/p5/arc/"><code>arc()</code></a> —
+        <a href="https://p5js.org/examples/shapes-and-color-shape-primitives/">exemples</a>
+      </li>
+      <li>
+        Couleurs et styles :
+        <a href="https://p5js.org/reference/p5/background/"><code>background()</code></a>,
+        <a href="https://p5js.org/reference/p5/fill/"><code>fill()</code></a>,
+        <a href="https://p5js.org/reference/p5/stroke/"><code>stroke()</code></a>,
+        <a href="https://p5js.org/reference/p5/noFill/"><code>noFill()</code></a>,
+        <a href="https://p5js.org/reference/p5/noStroke/"><code>noStroke()</code></a>,
+        <a href="https://p5js.org/reference/p5/strokeWeight/"><code>strokeWeight()</code></a>,
+        <a href="https://p5js.org/reference/p5/colorMode/"><code>colorMode(HSB)</code></a>
+      </li>
+      <li>
+        Texte :
+        <a href="https://p5js.org/reference/p5/text/"><code>text()</code></a>,
+        <a href="https://p5js.org/reference/p5/textSize/"><code>textSize()</code></a>,
+        <a href="https://p5js.org/reference/p5/textAlign/"><code>textAlign(LEFT | CENTER | RIGHT, TOP | CENTER | BOTTOM)</code></a>
+      </li>
+      <li>
+        Interaction :
+        <a href="https://p5js.org/reference/p5/mouseX/"><code>mouseX</code></a> / <code>mouseY</code>,
+        <a href="https://p5js.org/reference/p5/mousePressed/"><code>mousePressed()</code></a>,
+        <a href="https://p5js.org/reference/p5/keyPressed/"><code>keyPressed()</code></a>,
+        <code>key</code> —
+        <a href="../examples/js-p5-mouse-circle/">exemple</a>
+      </li>
+      <li>
+        Hasard et bruit de Perlin :
+        <a href="https://p5js.org/reference/p5/random/"><code>random(min, max)</code></a>,
+        <a href="https://p5js.org/reference/p5/noise/"><code>noise(x, y, z)</code></a>
+      </li>
+      <li>
+        Correspondance de valeurs :
+        <a href="https://p5js.org/reference/p5/map/"><code>map(val, min1, max1, min2, max2)</code></a>,
+        <a href="https://p5js.org/reference/p5/constrain/"><code>constrain(val, min, max)</code></a>
+      </li>
+      <li>
+        Interpolation :
+        <a href="https://p5js.org/reference/p5/lerp/"><code>lerp(start, end, t)</code></a> —
+        <a href="../examples/js-p5-lerp-circles/">graphique en barres avec transition au clic</a>
+      </li>
+      <li>
+        Fonctions trigonométriques et easing :
+        <code>sin()</code>, <code>cos()</code>, <code>TWO_PI</code> —
+        <a href="https://graphtoy.com/">Graphtoy</a>,
+        <a href="https://thebookofshaders.com/05/">shaping functions</a>,
+        <a href="https://easings.net/">fonctions d'easing</a>
+      </li>
+      <li>
+        <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Remainder">Opérateur modulo <code>%</code></a> —
+        cycler dans un tableau, grilles, rythmes —
+        <a href="../examples/js-p5-modulo-color-cycle/">cycle de couleurs</a>
+      </li>
+      <li>
+        Données 1D en grille 2D :
+        <a href="../examples/js-p5-grid-row-major/">row major</a> (<code>col = i % COLS</code>, <code>row = floor(i / COLS)</code>),
+        <a href="../examples/js-p5-grid-col-major/">col major</a> (<code>row = i % ROWS</code>, <code>col = floor(i / ROWS)</code>)
+      </li>
+      <li>
+        Transformations d'espace :
+        <a href="https://p5js.org/reference/p5/push/"><code>push()</code></a> /
+        <a href="https://p5js.org/reference/p5/pop/"><code>pop()</code></a>,
+        <a href="https://p5js.org/reference/p5/translate/"><code>translate()</code></a>,
+        <a href="https://p5js.org/reference/p5/rotate/"><code>rotate()</code></a>,
+        <a href="https://p5js.org/reference/p5/scale/"><code>scale()</code></a> —
+        <a href="../examples/js-p5-push-pop-solar/">système solaire</a>
+      </li>
+      <li>
+        Formes personnalisées et courbes :
+        <a href="https://p5js.org/reference/p5/beginShape/"><code>beginShape()</code></a>,
+        <a href="https://p5js.org/reference/p5/vertex/"><code>vertex()</code></a>,
+        <a href="https://p5js.org/reference/p5/curveVertex/"><code>curveVertex()</code></a>,
+        <a href="https://p5js.org/reference/p5/endShape/"><code>endShape(CLOSE)</code></a> —
+        <a href="../examples/js-p5-circle-construction/">construction d'un cercle</a>,
+        <a href="../examples/js-p5-animated-curves/">formes animées avec noise</a>
+      </li>
+      <li>
+        Mouvement sans vecteurs — variables <code>x</code>, <code>y</code>, <code>vx</code>, <code>vy</code> :
+        <a href="../examples/js-p5-dvd-bounce/">rebond</a>,
+        <a href="../examples/js-p5-dvd-wrap/">wrap</a>,
+        <a href="../examples/js-p5-pong/">pong</a>
+      </li>
+      <li>
+        Vecteurs 2D :
+        <a href="https://p5js.org/reference/p5/createVector/"><code>createVector(x, y)</code></a>,
+        <code>.add()</code>, <code>.sub()</code>, <code>.mult()</code>, <code>.div()</code>,
+        <a href="https://p5js.org/reference/p5.Vector/mag/"><code>.mag()</code></a>,
+        <a href="https://p5js.org/reference/p5.Vector/normalize/"><code>.normalize()</code></a>,
+        <a href="https://p5js.org/reference/p5.Vector/setMag/"><code>.setMag()</code></a>,
+        <a href="https://p5js.org/reference/p5.Vector/dist/"><code>p5.Vector.dist()</code></a>,
+        <a href="https://p5js.org/reference/p5.Vector/heading/"><code>.heading()</code></a>,
+        <a href="https://p5js.org/reference/p5.Vector/lerp/"><code>.lerp()</code></a> —
+        <a href="../examples/js-p5-vectors/">exemple steering vers la souris</a>
+      </li>
+      <li>
+        Steering et forces — pattern de base :
+        <code>p5.Vector.sub(target, pos).normalize().mult(speed)</code>,
+        puis <code>vel.lerp(desired, t)</code>
       </li>
     </ul>
 
     <h2>Références</h2>
     <ul>
-      <li><a href="https://www.instagram.com/kiel.d.m/">kiel.d.m instagram</a></li>
-      <li><a href="https://www.newrafael.com/internet">Rafael Rozendaal Internet Works</a></li>
+      <li><a href="https://www.instagram.com/kiel.d.m/">kiel.d.m</a></li>
+      <li><a href="https://www.newrafael.com/internet">Rafael Rozendaal — Internet Works</a></li>
       <li><a href="https://natureofcode.com/">Nature of Code</a></li>
       <li><a href="https://thecodingtrain.com/">Coding Train</a></li>
-      <li><a href="https://www.instagram.com/mattdesl_art/">Matt DesLauriers instagram</a></li>
-      <li>
-        Etienne Jacob: <a href="https://bleuje.com/">website</a>,
-        <a href="https://www.instagram.com/etinjcb/">instagram</a>
-      </li>
+      <li><a href="https://www.instagram.com/mattdesl_art/">Matt DesLauriers</a></li>
+      <li>Etienne Jacob : <a href="https://bleuje.com/">site</a>, <a href="https://www.instagram.com/etinjcb/">instagram</a></li>
       <li><a href="https://www.instagram.com/julian_hespenheide/">Julian Hespenheide</a></li>
       <li><a href="https://www.instagram.com/andreasgysin/">Andreas Gysin</a></li>
-    </ul>
-
-    <h2>p5.js</h2>
-    <ul>
-      <li>
-        Background:
-        <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API">canvas api</a>,
-        <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial">WebGL</a>,
-        <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGPU_API">WebGPU</a>,
-        <a href="https://webgpu.github.io/webgpu-samples/">WebGPU samples</a>,
-        <a href="https://www.shadertoy.com/">ShaderToy</a>,
-        <a href="https://shaderpark.com/">Shader Park</a>,
-        <a href="https://thebookofshaders.com/">Book of shaders</a>
-      </li>
-      <li>Other tools: <a href="https://derivative.ca/">Touch designer</a></li>
-      <li>
-        Concepts: <a href="https://en.wikipedia.org/wiki/Linear_algebra">Linear Algebra</a>,
-        <a href="https://en.wikipedia.org/wiki/Real-time_computer_graphics">Real Time Graphics</a>
-      </li>
-      <li>
-        Liens: <a href="https://p5js.org/">Site</a>:
-        <a href="https://editor.p5js.org/">Web Editor</a>,
-        <a href="https://p5js.org/reference/">reference</a>
-      </li>
-      <li>
-        <a
-          href="https://available-anaconda-10d.notion.site/That-Creative-Code-Page-c5550ef2f7574126bdc77b09ed76651b"
-          >Creative Coding algorithms</a
-        >
-      </li>
-      <li>
-        Basics:
-        <a href="https://p5js.org/examples/shapes-and-color-shape-primitives/"
-          >2D shape primitives</a
-        >
-      </li>
-      <li>
-        Easings: <a href="https://thebookofshaders.com/05/">Shaping functions</a
-        ><a href="https://easings.net/">Easing functions</a>
-      </li>
-      <li>
-        Graphers: <a href="https://graphtoy.com/">Graphtoy</a>,
-        <a href="https://fordhurley.com/glsl-grapher/">glsl grapher</a>
-      </li>
-      <li>
-        <a href="https://editor.p5js.org/TiborUdvari/collections/NWJQxS3r2">Example sketches</a>
-      </li>
     </ul>
 
     <h2>Exercice (en binômes)</h2>
     <ul>
       <li>
-        Choisir une seule variable météo comme température, précipitations, vitesse ou direction du
-        vent et construire un titre-question comme :
-        <em>« When Did It Stop Being Cold? »</em>, <em>« What the Rain Remembers »</em>,
-        <em>« Notes on Geneva Afternoons »</em>
+        Trouver un article existant dans l'une de ces sources :
+        <a href="https://news.epfl.ch/?page=1">actualités EPFL</a>,
+        <a href="https://www.meteosuisse.admin.ch/portrait/meteosuisse-blog.html#order=date-desc&page=1&pageGroup=blog-article&tenant=mchweb">blog MeteoSuisse</a>,
+        ou les actualités d'une autre université technique ou institution scientifique.
+        Choisir un article dont le sujet se prête à une mise en scène graphique animée.
       </li>
       <li>
-        Créer un sketch p5.js dont les formes, couleurs et mouvements sont illustratifs de la
-        variable choisie.
+        Créer une <strong>proposition graphique animée</strong> en s'inspirant du contenu de l'article — soit un sketch p5.js,
+        soit une page scroll-based avec des transitions déclenchées au scroll.
+        Si une seule animation est trop monotone, enchaîner plusieurs séquences graphiques.
       </li>
       <li>
-        Les données peuvent être fictives au départ — l'intégration de vraies données via
-        <a href="https://open-meteo.com/en/docs/historical-weather-api">Open-Meteo</a>
-        est fortement encouragée (<code>latitude=46.2044&longitude=6.1432</code>).
+        Les animations doivent se mouvoir par elles-mêmes.
+        L'interactivité est encouragée mais pas obligatoire.
       </li>
-      <li>Le focus est sur la qualité graphique et le mouvement, pas sur la lisibilité.</li>
+      <li>Le focus est sur la qualité graphique et le mouvement, pas sur la lisibilité des données.</li>
+      <li>
+        Pour les données météo, l'API <a href="https://open-meteo.com/en/docs/historical-weather-api">Open-Meteo</a>
+        est disponible (<code>latitude=46.2044&longitude=6.1432</code> pour Genève) — les données peuvent aussi être fictives.
+      </li>
     </ul>
   </body>
 </html>

@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>p5 Push Pop Solar</title>
+    <style>
+      @import "https://necolas.github.io/normalize.css/8.0.1/normalize.css";
+      body { overflow: hidden; }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.3/p5.min.js"></script>
+    <script>
+      const radii  = [90,  160, 240];
+      const speeds = [0.03, -0.018, 0.011];
+      const sizes  = [24,  36,  20];
+
+      const angles = [0, 0, 0];
+
+      function setup() {
+        createCanvas(windowWidth, windowHeight);
+        noStroke();
+      }
+
+      function draw() {
+        background(0);
+        translate(width / 2, height / 2);
+
+        // central body
+        fill(255, 220, 80);
+        circle(0, 0, 50);
+
+        // orbit rings
+        noFill();
+        stroke(255, 40);
+        for (let i = 0; i < radii.length; i++) {
+          circle(0, 0, radii[i] * 2);
+        }
+
+        // orbiting bodies
+        noStroke();
+        for (let i = 0; i < radii.length; i++) {
+          angles[i] += speeds[i];
+          push();
+          rotate(angles[i]);
+          translate(radii[i], 0);
+          fill(255);
+          circle(0, 0, sizes[i]);
+          pop();
+        }
+      }
+
+      function windowResized() {
+        resizeCanvas(windowWidth, windowHeight);
+      }
+    </script>
+  </head>
+  <body></body>
+</html>

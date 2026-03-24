@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>p5 Animated Curves</title>
+    <style>
+      @import "https://necolas.github.io/normalize.css/8.0.1/normalize.css";
+      body {
+        overflow: hidden;
+      }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.3/p5.min.js"></script>
+    <script>
+      const N = 60;
+      let shapes;
+
+      function setup() {
+        createCanvas(windowWidth, windowHeight);
+        noStroke();
+        shapes = [
+          { radius: 220, amp: 80, speed: 0.0008, noiseScale: 1.2, fill: [255, 220, 0, 190] },
+          { radius: 160, amp: 70, speed: 0.0012, noiseScale: 1.8, fill: [0, 255, 255, 190] },
+          { radius: 105, amp: 55, speed: 0.0018, noiseScale: 2.4, fill: [255, 0, 200, 190] },
+        ];
+      }
+
+      function drawBlob(s) {
+        fill(...s.fill);
+        beginShape();
+        for (let i = -1; i <= N + 1; i++) {
+          const a = (TWO_PI / N) * i;
+          const nx = cos(a) * s.noiseScale;
+          const ny = sin(a) * s.noiseScale;
+          const displacement = (noise(nx, ny, frameCount * s.speed) * 2 - 1) * s.amp;
+          const r = s.radius + displacement;
+          curveVertex(cos(a) * r, sin(a) * r);
+        }
+        endShape();
+      }
+
+      function draw() {
+        background(0);
+        translate(width / 2, height / 2);
+        for (const s of shapes) drawBlob(s);
+      }
+
+      function windowResized() {
+        resizeCanvas(windowWidth, windowHeight);
+      }
+    </script>
+  </head>
+  <body></body>
+</html>

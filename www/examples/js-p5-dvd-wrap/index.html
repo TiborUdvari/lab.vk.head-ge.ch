@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>p5 DVD Wrap</title>
+    <style>
+      @import "https://necolas.github.io/normalize.css/8.0.1/normalize.css";
+      body { overflow: hidden; }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.3/p5.min.js"></script>
+    <script>
+      const W = 120;
+      const H = 80;
+      const SPEED = 4;
+
+      let x, y, vx, vy;
+
+      function setup() {
+        createCanvas(windowWidth, windowHeight);
+        x = width / 2;
+        y = height / 2;
+        vx = SPEED;
+        vy = SPEED;
+        noStroke();
+        fill(255, 120, 0);
+      }
+
+      function draw() {
+        background(0);
+
+        x = (x + vx + width) % width;
+        y = (y + vy + height) % height;
+
+        rect(x, y, W, H);
+      }
+
+      function windowResized() {
+        resizeCanvas(windowWidth, windowHeight);
+      }
+    </script>
+  </head>
+  <body></body>
+</html>

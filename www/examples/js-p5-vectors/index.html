@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>p5 Vectors</title>
+    <style>
+      @import "https://necolas.github.io/normalize.css/8.0.1/normalize.css";
+      body { overflow: hidden; }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.3/p5.min.js"></script>
+    <script>
+      const SPEED = 4;
+      const RADIUS = 20;
+
+      let pos, vel;
+
+      function setup() {
+        createCanvas(windowWidth, windowHeight);
+        pos = createVector(width / 2, height / 2);
+        vel = createVector(SPEED, 0);
+      }
+
+      function draw() {
+        background(0);
+
+        // direction from pos toward mouse
+        const mouse = createVector(mouseX, mouseY);
+        const dir = p5.Vector.sub(mouse, pos).normalize().mult(SPEED);
+
+        // steer velocity gradually toward mouse direction
+        vel.lerp(dir, 0.05);
+
+        // update position
+        pos.add(vel);
+
+        // draw velocity arrow
+        const arrowTip = p5.Vector.add(pos, p5.Vector.mult(vel, 6));
+        stroke(255, 200, 0);
+        strokeWeight(2);
+        line(pos.x, pos.y, arrowTip.x, arrowTip.y);
+        drawArrowHead(pos, vel);
+
+        // draw circle
+        noStroke();
+        fill(255);
+        circle(pos.x, pos.y, RADIUS * 2);
+
+        // labels
+        fill(255, 200, 0);
+        noStroke();
+        textSize(12);
+        textAlign(LEFT, CENTER);
+        text(`vel  (${vel.x.toFixed(1)}, ${vel.y.toFixed(1)})  mag: ${vel.mag().toFixed(1)}`, arrowTip.x + 8, arrowTip.y);
+
+        fill(180);
+        text(`pos  (${pos.x.toFixed(0)}, ${pos.y.toFixed(0)})`, pos.x + RADIUS + 6, pos.y);
+      }
+
+      function drawArrowHead(origin, dir) {
+        const tip = p5.Vector.add(origin, p5.Vector.mult(dir, 6));
+        const angle = dir.heading();
+        push();
+        translate(tip.x, tip.y);
+        rotate(angle);
+        fill(255, 200, 0);
+        noStroke();
+        triangle(8, 0, -4, -4, -4, 4);
+        pop();
+      }
+
+      function windowResized() {
+        resizeCanvas(windowWidth, windowHeight);
+      }
+    </script>
+  </head>
+  <body></body>
+</html>

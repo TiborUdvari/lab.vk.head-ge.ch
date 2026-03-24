@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>p5 DVD Bounce</title>
+    <style>
+      @import "https://necolas.github.io/normalize.css/8.0.1/normalize.css";
+      body { overflow: hidden; }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.3/p5.min.js"></script>
+    <script>
+      const W = 120;
+      const H = 80;
+      const SPEED = 4;
+
+      let x, y, vx, vy, col;
+
+      function setup() {
+        createCanvas(windowWidth, windowHeight);
+        x = width / 2;
+        y = height / 2;
+        vx = SPEED;
+        vy = SPEED;
+        col = randomColor();
+        noStroke();
+      }
+
+      function draw() {
+        background(0);
+
+        x += vx;
+        y += vy;
+
+        if (x <= 0 || x + W >= width) {
+          vx *= -1;
+          x = constrain(x, 0, width - W);
+          col = randomColor();
+        }
+        if (y <= 0 || y + H >= height) {
+          vy *= -1;
+          y = constrain(y, 0, height - H);
+          col = randomColor();
+        }
+
+        fill(col);
+        rect(x, y, W, H);
+      }
+
+      function randomColor() {
+        return color(random(100, 255), random(100, 255), random(100, 255));
+      }
+
+      function windowResized() {
+        resizeCanvas(windowWidth, windowHeight);
+      }
+    </script>
+  </head>
+  <body></body>
+</html>

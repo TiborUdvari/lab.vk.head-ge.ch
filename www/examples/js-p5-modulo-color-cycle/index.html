@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>p5 Modulo Color Cycle</title>
+    <style>
+      @import "https://necolas.github.io/normalize.css/8.0.1/normalize.css";
+      body { overflow: hidden; }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.3/p5.min.js"></script>
+    <script>
+      const FRAMES_PER_COLOR = 60;
+      const colors = ['#e63946', '#457b9d', '#2a9d8f', '#e9c46a', '#f4a261', '#6a4c93'];
+
+      function setup() {
+        createCanvas(windowWidth, windowHeight);
+        noStroke();
+        textAlign(CENTER, CENTER);
+        textSize(18);
+      }
+
+      function draw() {
+        const index = floor(frameCount / FRAMES_PER_COLOR) % colors.length;
+        background(colors[index]);
+        fill(255);
+        text(`frameCount: ${frameCount}  index: ${index}`, width / 2, height / 2);
+      }
+
+      function windowResized() {
+        resizeCanvas(windowWidth, windowHeight);
+      }
+    </script>
+  </head>
+  <body></body>
+</html>

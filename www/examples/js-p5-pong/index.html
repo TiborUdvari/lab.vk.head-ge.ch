@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>p5 Pong</title>
+    <style>
+      @import "https://necolas.github.io/normalize.css/8.0.1/normalize.css";
+      body { overflow: hidden; }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.3/p5.min.js"></script>
+    <script>
+      const PADDLE_W = 12;
+      const PADDLE_H = 80;
+      const BALL = 12;
+      const SPEED = 5;
+      const AUTO_SPEED = 10;
+      const MARGIN = 20;
+
+      let bx, by, vx, vy, autoY;
+
+      function restart() {
+        bx = width / 2;
+        by = height / 2;
+        vx = random() > 0.5 ? SPEED : -SPEED;
+        vy = random() > 0.5 ? SPEED : -SPEED;
+        autoY = height / 2 - PADDLE_H / 2;
+      }
+
+      function setup() {
+        createCanvas(windowWidth, windowHeight);
+        noStroke();
+        restart();
+      }
+
+      function draw() {
+        background(0);
+
+        const leftY = constrain(mouseY - PADDLE_H / 2, 0, height - PADDLE_H);
+
+        // auto paddle tracks ball with limited speed
+        if (autoY + PADDLE_H / 2 < by) autoY = min(autoY + AUTO_SPEED, height - PADDLE_H);
+        if (autoY + PADDLE_H / 2 > by) autoY = max(autoY - AUTO_SPEED, 0);
+
+        // move ball
+        bx += vx;
+        by += vy;
+
+        // bounce top / bottom
+        if (by <= 0 || by + BALL >= height) {
+          vy *= -1;
+          by = constrain(by, 0, height - BALL);
+        }
+
+        // bounce off left paddle
+        if (bx <= MARGIN + PADDLE_W && by + BALL >= leftY && by <= leftY + PADDLE_H) {
+          vx = abs(vx);
+          bx = MARGIN + PADDLE_W;
+        }
+
+        // bounce off right paddle
+        const rightX = width - MARGIN - PADDLE_W;
+        if (bx + BALL >= rightX && by + BALL >= autoY && by <= autoY + PADDLE_H) {
+          vx = -abs(vx);
+          bx = rightX - BALL;
+        }
+
+        // missed — restart
+        if (bx < 0 || bx > width) {
+          restart();
+        }
+
+        // draw
+        fill(255);
+        rect(MARGIN, leftY, PADDLE_W, PADDLE_H);
+        rect(width - MARGIN - PADDLE_W, autoY, PADDLE_W, PADDLE_H);
+        rect(bx, by, BALL, BALL);
+      }
+
+      function windowResized() {
+        resizeCanvas(windowWidth, windowHeight);
+      }
+    </script>
+  </head>
+  <body></body>
+</html>

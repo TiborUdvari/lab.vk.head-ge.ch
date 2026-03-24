@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>p5 Circle Construction</title>
+    <style>
+      @import "https://necolas.github.io/normalize.css/8.0.1/normalize.css";
+      body { overflow: hidden; }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.3/p5.min.js"></script>
+    <script>
+      const N = 12;
+
+      function pointsOnCircle(r, n) {
+        strokeWeight(4);
+        for (let i = 0; i < n; i++) {
+          const a = (TWO_PI / n) * i;
+          point(cos(a) * r, sin(a) * r);
+        }
+      }
+
+      function linesOnCircle(r, n) {
+        strokeWeight(1.5);
+        for (let i = 0; i < n; i++) {
+          const a1 = (TWO_PI / n) * i;
+          const a2 = (TWO_PI / n) * ((i + 1) % n);
+          line(cos(a1) * r, sin(a1) * r, cos(a2) * r, sin(a2) * r);
+        }
+      }
+
+      function vertexCircle(r, n) {
+        strokeWeight(1.5);
+        beginShape();
+        for (let i = 0; i < n; i++) {
+          const a = (TWO_PI / n) * i;
+          vertex(cos(a) * r, sin(a) * r);
+        }
+        endShape(CLOSE);
+      }
+
+      function curveCircle(r, n) {
+        strokeWeight(1.5);
+        beginShape();
+        for (let i = -1; i <= n + 1; i++) {
+          const a = (TWO_PI / n) * i;
+          curveVertex(cos(a) * r, sin(a) * r);
+        }
+        endShape();
+      }
+
+      function setup() {
+        createCanvas(windowWidth, windowHeight);
+        noFill();
+        noLoop();
+      }
+
+      function draw() {
+        background(255);
+        stroke(0);
+        textAlign(CENTER);
+        textSize(13);
+
+        const r = min(width, height) / 6;
+        const cells = [
+          { x: width / 4,     y: height / 4,     label: 'point()',       fn: pointsOnCircle },
+          { x: 3 * width / 4, y: height / 4,     label: 'line()',        fn: linesOnCircle  },
+          { x: width / 4,     y: 3 * height / 4, label: 'vertex()',      fn: vertexCircle   },
+          { x: 3 * width / 4, y: 3 * height / 4, label: 'curveVertex()', fn: curveCircle    },
+        ];
+
+        for (const cell of cells) {
+          push();
+          translate(cell.x, cell.y);
+          cell.fn(r, N);
+          fill(0);
+          noStroke();
+          text(cell.label, 0, r + 20);
+          pop();
+        }
+      }
+
+      function windowResized() {
+        resizeCanvas(windowWidth, windowHeight);
+        redraw();
+      }
+    </script>
+  </head>
+  <body></body>
+</html>
