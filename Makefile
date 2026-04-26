@@ -18,6 +18,14 @@ make dev:
 	@echo "Running browser sync for development"
 	cd www && npx live-server
 
+notebooks-dev:
+	@echo "Running Notebook Kit preview server"
+	cd notebooks && npx notebooks preview --root .
+
+notebooks-build:
+	@echo "Building notebooks into www/notebooks"
+	cd notebooks && npx notebooks build --root . --out ../www/notebooks --empty -- *.html
+
 make backup:
 	@echo "Backing up student websites"
 	@TS=$$(date +%Y-%m-%d_%H-%M-%S); \

@@ -2,6 +2,9 @@ backups
 ig_data
 .env
 
+notebooks/node_modules
+notebooks/.observablehq
+
 .secrets
 infra/vault-pass.txt
 infra/ci-deploy-key
