@@ -18,13 +18,14 @@
 
   </script>
   <script id="5" type="module" pinned="">
-        const svg = d3.create("svg")
-            .style("width", "100%")
-            .style("height", "auto")
+        const temp = d3.create("svg")
+            .attr("width", 400)
+            .attr("height", 100)
             .style("background-color", "tomato")
+            .style("width", "100%")
             .attr("viewBox", "0 0 400 100");
 
-        svg.selectAll("circle")
+        temp.selectAll("circle")
             .data(data)
             .join("circle")
             .attr("cx", d => d)
@@ -32,6 +33,99 @@
             .attr("r", 8)
             .attr("fill", "yellow");
 
-        display(svg.node());
+        display(temp.node());
+  </script>
+  <script id="10" type="text/markdown">
+    # Fresh start
+  </script>
+  <script id="11" type="text/markdown">
+    With D3 we are going to act manily on svgs
+  </script>
+  <script id="12" type="text/x-typescript" pinned="">
+    const svg = d3.create("svg")
+      .attr("width", 400)
+      .attr("height", 400)
+      .style("background-color", "tomato")
+      .attr("viewBox", "0 0 400 400");
+
+    svg.append("circle")
+      .attr("cx", 100)
+      .attr("cy", 100)
+      .attr("r", 10)
+      .style("fill", "lightyellow");
+
+    svg.append("circle")
+      .attr("cx", 300)
+      .attr("cy", 100)
+      .attr("r", 10)
+      .style("fill", "lightyellow");
+
+    svg.append("circle")
+      .attr("cx", 300)
+      .attr("cy", 100)
+      .attr("r", 10)
+      .style("fill", "lightyellow");
+  </script>
+  <script id="17" type="text/markdown">
+    ## Now let's add a circle manually to the svg
+  </script>
+  <script id="119" type="text/x-typescript" pinned="">
+    svg.selectAll("circle")
+      .classed("item", true)
+      .attr("cx", (d, i) => i * 100 + 100)
+      //.on("mouseenter", (e, d) => e.currentTarget.style.fill = "tomato")
+      .on("mouseenter", (e, d) => d3.select(e.currentTarget).style("fill", "blue"))
+      .on("mouseleave", (e, d) => e.currentTarget.style.fill = "white")
+      .attr("cy", 200);
+  </script>
+  <script id="107" type="text/x-typescript" pinned="" hidden="">
+    display(svg.node())
+  </script>
+  <script id="122" type="text/markdown">
+    ## OK now let’s add some text near the circles, we should probably just start with groups
+  </script>
+  <script id="123" type="text/x-typescript" pinned="">
+    const textSvg = d3.create("svg")
+      .attr("width", 400)
+      .attr("height", 400)
+      .attr("viewBox", "0 0 400 400")
+      .style("background-color", "tomato");
+
+    const g = textSvg.append("g").style("transform", "translate(200px, 200px)");
+    g.append("circle").attr("r", 100).style("fill", "lightyellow");
+    g.append("text").text("Hello patate!").style("fill", "black").attr("text-anchor", "middle").attr("dominant-baseline", "middle").attr("y", 140);
+  </script>
+  <script id="124" type="text/x-typescript" pinned="">
+    display(textSvg.node())
+  </script>
+  <script id="126" type="text/markdown">
+    ## More groups
+  </script>
+  <script id="128" type="text/x-typescript" pinned="">
+    const multiTextSvgWidth = 800;
+
+    const multiTextSvg = d3.create("svg")
+      .attr("width", multiTextSvgWidth)
+      .attr("height", 400)
+      .attr("viewBox", `0 0 ${multiTextSvgWidth} 400`)
+      .style("background-color", "tomato");
+
+    const g1 = multiTextSvg.append("g").style("transform", "translate(200px, 200px)");
+    g1.append("circle").attr("r", 100).style("fill", "lightyellow");
+    g1.append("text").text("Pomme de terre").style("fill", "black").attr("text-anchor", "middle").attr("dominant-baseline", "middle").attr("y", 140);
+
+    const g2 = multiTextSvg.append("g").style("transform", "translate(200px, 200px)");
+    g2.append("circle").attr("r", 100).style("fill", "lightyellow");
+    g2.append("text").text("Patate").style("fill", "black").attr("text-anchor", "middle").attr("dominant-baseline", "middle").attr("y", 140);
+
+    const g3 = multiTextSvg.append("g").style("transform", "translate(200px, 200px)");
+    g3.append("circle").attr("r", 100).style("fill", "lightyellow");
+    g3.append("text").text("Parmentière").style("fill", "black").attr("text-anchor", "middle").attr("dominant-baseline", "middle").attr("y", 140);
+
+    multiTextSvg.selectAll("g")
+      .style("transform", (d, i) => `translate(${i * width / 5 + 200}px, 200px) scale(0.8)`)
+  </script>
+  <script id="129" type="text/x-typescript" pinned="">
+    display(multiTextSvg.node())
   </script>
 </notebook>
