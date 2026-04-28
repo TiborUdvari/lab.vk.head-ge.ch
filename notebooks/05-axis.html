@@ -4,24 +4,21 @@
   <script id="1" type="text/markdown">
     # 05 - Y-axis with adaptive extent
 
-    Same filter pattern as `02 - Data joins`, now with a y-axis on the left. As the mode changes, the filtered balls render and the axis re-scales to fit them.
+    Même filter pattern qu'en `02 - Data joins`, cette fois avec un y-axis à gauche. Quand le mode change, les balles filtrées s'affichent et l'axe se re-scale pour les ajuster.
 
-    Build-up:
-    1. SVG with the **margin convention** so axis labels have somewhere to live.
-    2. Scales **derived from `filteredBalls`** — every change re-computes them.
-    3. The y-axis is its own cell, idempotent via `.data([null]).join("g")`, transitioning when the scale changes.
-    4. Circles + labels do the data join with `enter`/`update`/`exit`.
+    Pattern global : **les scales et l'axe sont dérivés de `filteredBalls`**, donc tout reste cohérent automatiquement quand le filtre change.
+
+    Graphe de dépendances :
+
+    - `mode` (radio) → `filteredBalls` → `yScale`, `radius` → axis + circles + labels
   </script>
-
   <script id="2" type="module">
     import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
-    d3
   </script>
 
   <script id="3" type="text/markdown">
     ## Dataset
   </script>
-
   <script id="4" type="text/x-typescript" pinned="">
     let balls = [
       {name: "Ping Pong",  mm: 40},
@@ -41,11 +38,10 @@
   </script>
 
   <script id="5" type="text/markdown">
-    ## SVG with margin convention
+    ## SVG avec margin convention (créé une seule fois)
 
-    `margin.left = 60` makes room for the y-axis tick labels. `margin.bottom = 50` makes room for the ball-name labels under each circle.
+    `margin.left = 60` laisse la place aux tick labels du y-axis. `margin.bottom = 50` laisse la place aux labels des balles sous chaque cercle. Cette cell n'a aucune dépendance réactive : elle ne re-run jamais.
   </script>
-
   <script id="6" type="text/x-typescript" pinned="">
     const w = 900;
     const h = 400;
@@ -59,28 +55,16 @@
       .attr("viewBox", `0 0 ${w} ${h}`)
       .style("background-color", "white");
 
-    const g = svg.append("g")
+    // Inner group : tout le contenu du chart vit ici, dans 0..innerW × 0..innerH.
+    const chartGroup = svg.append("g")
       .attr("transform", `translate(${margin.left}, ${margin.top})`);
   </script>
 
-  <script id="7" type="text/markdown">
-    ## Try it
-
-    Pick a mode. Watch the y-axis ticks re-scale to match what's visible.
-  </script>
-
-  <script id="8" type="text/x-typescript" pinned="">
-    const mode = view(Inputs.radio(["all", "small", "big"], {value: "all", label: "Show"}));
-  </script>
-
-  <script id="9" type="text/x-typescript" pinned="">
-    display(svg.node());
-  </script>
-
   <script id="10" type="text/markdown">
-    ## Filter — same pattern as in `02`
-  </script>
+    ## Filter
 
+    `mode` est défini plus bas (radio en bas du notebook). Le filter retourne un sous-ensemble de balls selon le mode. Tout ce qui suit dépend de `filteredBalls`.
+  </script>
   <script id="11" type="text/x-typescript" pinned="">
     const filteredBalls = balls.filter(b => {
       if (mode === "all") return true;
@@ -90,24 +74,27 @@
   </script>
 
   <script id="12" type="text/markdown">
-    ## Scales — derived from `filteredBalls`
+    ## Scales et radius
 
-    Because `yScale` depends on `filteredBalls`, it re-computes whenever `mode` changes. That's how the axis "adapts": the scale changes, the axis cell sees a new `yScale`, the axis re-renders.
+    `yScale` dépend de `filteredBalls` : à chaque changement de `mode`, elle se recalcule. C'est comme ça que l'axis "s'adapte" automatiquement.
 
-    `.nice()` rounds the domain to clean tick values (e.g. `[0, 97]` → `[0, 100]`).
+    L'astuce ici : le **range** de `yScale` est contraint pour que le diamètre pixel de la plus grosse balle ne dépasse jamais la largeur d'une cellule horizontale. Du coup les balles ne se chevauchent pas, même quand le filter change le nombre de balles visibles.
+
+    `radius` est dérivé de la même `yScale` que celle qui pilote l'axis : ça garantit que le **top de chaque cercle se pose pile sur la gridline égale à son diamètre**.
+
+    `.nice()` arrondit le domain à des tick values propres (par ex. `[0, 97]` → `[0, 100]`).
   </script>
-
   <script id="13" type="text/x-typescript" pinned="">
+    // Position horizontale : chaque balle au centre de sa cellule.
     const cx = (d, i) => (i + 0.5) * innerW / filteredBalls.length;
 
-    // each ball gets one horizontal cell — minus a small gap so they don't touch
+    // Largeur d'une cellule, moins un petit gap pour que les balles ne se touchent pas.
     const cellWidth = innerW / filteredBalls.length;
     const gap = 6;
     const maxDiameter = Math.max(0, cellWidth - gap);
 
-    // constrain the y-axis range so the biggest ball's pixel diameter
-    // can't exceed one cell. yTop = innerH - maxDiameter (clamped ≥ 0).
-    // When ball count or max-mm changes, the y-axis "shrinks" automatically.
+    // On clampe le range du y-axis : le diamètre pixel max = maxDiameter.
+    // yTop = la position pixel correspondant à la valeur max (en haut de l'axe utilisé).
     const yTop = Math.max(0, innerH - maxDiameter);
 
     const yScale = d3.scaleLinear()
@@ -115,113 +102,113 @@
       .range([innerH, yTop])
       .nice();
 
-    // radius in pixels derived from the same yScale that drives the axis,
-    // so the top of each circle sits exactly on the gridline = its diameter
+    // Diamètre pixel = innerH - yScale(mm), donc radius = la moitié.
     const radius = d => (innerH - yScale(d.mm)) / 2;
   </script>
 
   <script id="14" type="text/markdown">
-    ## Y-axis
+    ## Y-axis avec gridlines
 
-    Idempotent join on a single `&lt;g class="y-axis"&gt;` so re-runs don't stack new axes. The transition on `.call(d3.axisLeft(yScale))` interpolates tick positions between the old and new scale.
+    Join idempotent sur un seul `<g class="y-axis">` : pas d'empilement à chaque re-run. La transition sur `.call(d3.axisLeft(yScale))` interpole les positions des ticks entre l'ancienne et la nouvelle scale.
+
+    `tickSize(-innerW)` étend chaque tick line sur toute la largeur du chart = des **gridlines**. Le nombre de ticks s'adapte aux pixels disponibles (environ 30 px par tick).
   </script>
-
   <script id="15" type="text/x-typescript" pinned="">
-    {
-      const axisG = g.selectAll("g.y-axis")
-        .data([null])
-        .join("g")
-          .attr("class", "y-axis");
+    const axisG = chartGroup.selectAll("g.y-axis")
+      .data([null])              // un seul élément, donc un seul <g>
+      .join("g")                 // crée s'il n'existe pas, sinon réutilise
+        .attr("class", "y-axis");
 
-      // adapt tick count to the available y-pixels — ~30 px per tick
-      const [bottom, top] = yScale.range();
-      const tickCount = Math.max(2, Math.floor((bottom - top) / 30));
+    // Adapte le nombre de ticks à la place verticale disponible.
+    const [bottom, top] = yScale.range();
+    const tickCount = Math.max(2, Math.floor((bottom - top) / 30));
 
-      // tickSize(-innerW) extends each tick across the chart width = gridlines
-      axisG.transition().duration(750)
-        .call(d3.axisLeft(yScale)
-          .ticks(tickCount)
-          .tickSize(-innerW)
-          .tickPadding(8));
+    axisG.transition().duration(750)
+      .call(d3.axisLeft(yScale)
+        .ticks(tickCount)
+        .tickSize(-innerW)       // tick line étendue sur toute la largeur = gridline
+        .tickPadding(8));
 
-      // soften the gridline color, hide the vertical axis spine
-      axisG.selectAll(".tick line")
-        .attr("stroke", "#bbb")
-        .attr("stroke-dasharray", "2 3");
-      axisG.select(".domain").remove();
-    }
+    // Adoucit la couleur des gridlines, cache le spine vertical de l'axe.
+    axisG.selectAll(".tick line")
+      .attr("stroke", "#bbb")
+      .attr("stroke-dasharray", "2 3");
+    axisG.select(".domain").remove();
   </script>
 
   <script id="16" type="text/markdown">
-    ## Circles + labels
+    ## Cercles
 
-    Standard data join keyed by `d.name`. Enter circles grow from `r=0` at the bottom, exit circles shrink and remove. Update circles transition to their new (cx, cy).
+    Data join avec `.join(enter, update, exit)` :
+
+    - **enter** : nouvelle balle, on crée un `<circle>` au baseline avec `r = 0`, transparent
+    - **update** : balle déjà présente, on ne fait rien (le bloc transition après prend le relais)
+    - **exit** : balle retirée du filter, on shrink `r` vers 0 et on remove
+
+    La transition après le `.join()` s'applique aux entering ET aux update. C'est elle qui anime `cx`, `cy`, `r` vers leurs nouvelles valeurs.
+  </script>
+  <script id="17" type="text/x-typescript" pinned="">
+    chartGroup.selectAll("circle.ball")
+      .data(filteredBalls, d => d.name)
+      .join(
+        enter => enter.append("circle")
+          .attr("class", "ball")
+          .style("fill", "tomato")
+          .style("fill-opacity", 0.6)
+          .attr("cx", cx)
+          .attr("cy", innerH)
+          .attr("r", 0)
+          .attr("opacity", 0),
+        update => update,
+        exit => exit.transition().duration(500)
+          .attr("opacity", 0)
+          .attr("r", 0)
+          .remove()
+      )
+      .transition().duration(750)
+        .attr("cx", cx)
+        .attr("cy", d => innerH - radius(d))   // bas du cercle sur le baseline
+        .attr("r", radius)                     // diamètre = mm de la balle dans la scale
+        .attr("opacity", 1);
   </script>
 
-  <script id="17" type="text/x-typescript" pinned="">
-    {
-      // circles — bottom-aligned, radius derived from yScale so the top of
-      // each circle sits on the gridline equal to its diameter
-      g.selectAll("circle.ball")
-        .data(filteredBalls, d => d.name)
-        .join(
-          enter => enter.append("circle")
-            .attr("class", "ball")
-            .style("fill", "tomato")
-            .style("fill-opacity", 0.6)
-            .attr("cx", cx)
-            .attr("cy", innerH)
-            .attr("r", 0)
-            .attr("opacity", 0),
-          update => update,
-          exit => exit.transition().duration(500)
-            .attr("opacity", 0)
-            .attr("r", 0)
-            .remove()
-        )
-        .transition().duration(750)
-          .attr("cx", cx)
-          .attr("cy", d => innerH - radius(d))   // bottom on baseline
-          .attr("r", radius)                     // diameter = ball's mm in scale units
-          .attr("opacity", 1);
+  <script id="116" type="text/markdown">
+    ## Labels
 
-      // labels under each circle
-      g.selectAll("text.label")
-        .data(filteredBalls, d => d.name)
-        .join(
-          enter => enter.append("text")
-            .attr("class", "label")
-            .text(d => d.name)
-            .attr("text-anchor", "middle")
-            .attr("dominant-baseline", "hanging")
-            .attr("font-size", 11)
-            .style("fill", "black")
-            .attr("x", cx)
-            .attr("y", innerH + 8)
-            .attr("opacity", 0),
-          update => update,
-          exit => exit.transition().duration(500)
-            .attr("opacity", 0)
-            .remove()
-        )
-        .transition().duration(750)
+    Texte sous chaque cercle. Même pattern enter / update / exit, mais on anime `opacity` au lieu de `r` (pas de notion de rayon pour du texte).
+  </script>
+  <script id="117" type="text/x-typescript" pinned="">
+    chartGroup.selectAll("text.label")
+      .data(filteredBalls, d => d.name)
+      .join(
+        enter => enter.append("text")
+          .attr("class", "label")
+          .text(d => d.name)
+          .attr("text-anchor", "middle")
+          .attr("dominant-baseline", "hanging")
+          .attr("font-size", 11)
+          .style("fill", "black")
           .attr("x", cx)
           .attr("y", innerH + 8)
-          .attr("opacity", 1);
-    }
+          .attr("opacity", 0),
+        update => update,
+        exit => exit.transition().duration(500)
+          .attr("opacity", 0)
+          .remove()
+      )
+      .transition().duration(750)
+        .attr("x", cx)
+        .attr("y", innerH + 8)
+        .attr("opacity", 1);
   </script>
 
-  <script id="18" type="text/markdown">
-    ## How the pieces fit
-
-    - **Cell 6** creates the SVG and inner `g` (margin convention) — runs once.
-    - **Cell 8** is the radio input → `mode`, the single source of state.
-    - **Cell 9** displays the live SVG node — placed right after the input so the controls and the chart are visually adjacent.
-    - **Cell 11** derives `filteredBalls` from `balls` + `mode`.
-    - **Cell 13** derives `yScale` from `filteredBalls`. Both 11 and 13 re-run on every mode change.
-    - **Cell 15** redraws the y-axis. Depends on `yScale`. Idempotent — same `&lt;g&gt;` reused, transition interpolates tick movement.
-    - **Cell 17** redraws circles + labels. Depends on `filteredBalls` and `yScale`. Standard data join with three-arg `.join()`.
-
-    Adding a second axis (e.g. an x-axis with ball names rotated) would be one more cell that depends on a band-scale derived from `filteredBalls.map(d => d.name)`. Same pattern, no edits to existing cells.
+  <script id="7" type="text/markdown">
+    ## Controls
+  </script>
+  <script id="8" type="text/x-typescript" pinned="">
+    const mode = view(Inputs.radio(["all", "small", "big"], {value: "all", label: "Show"}));
+  </script>
+  <script id="9" type="text/x-typescript" pinned="">
+    display(svg.node());
   </script>
 </notebook>

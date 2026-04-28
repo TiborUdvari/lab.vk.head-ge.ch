@@ -30,6 +30,7 @@ notebooks-dev:
 notebooks-build:
 	@echo "Building notebooks into www/notebooks"
 	cd notebooks && npx notebooks build --root . --out ../www/notebooks --empty -- *.html
+	@ln -sfn ../assets www/notebooks/data
 
 backup:
 	@echo "Backing up student websites"

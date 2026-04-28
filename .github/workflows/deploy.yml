@@ -44,6 +44,18 @@ jobs:
           [ -f ./ssh_host_rsa_key ] && chmod 600 ./ssh_host_rsa_key
           [ -f ./users.conf ] && chmod 644 ./users.conf
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Build notebooks into www/notebooks
+        run: |
+          cd notebooks
+          npm ci
+          cd ..
+          make notebooks-build
+
       - name: Sync files to VPS
         run: |
           rsync -avz --delete -e "ssh -i ./infra/ci-deploy-key" \
