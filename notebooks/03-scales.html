@@ -50,7 +50,6 @@
     const posScale = d3.scaleLinear([0, balls.length-1], [50, w-50]);
     const quantizeScale = d3.scaleQuantize([0, 250], ['lightblue', 'lightyellow', 'lightgreen', 'lightpink']);
 
-
     svg.selectAll("circle")
       .data(balls)
       .join("circle")
@@ -71,6 +70,68 @@
   </script>
   <script id="133" type="text/x-typescript" pinned="">
     display(svg.node());
+  </script>
+  <script id="160" type="text/markdown" pinned="">
+    ## Circular svg example
+  </script>
+  <script id="161" type="text/x-typescript" pinned="">
+    const circleW = 600;
+    const circleH = 600;
+    const circleSvg = d3.create("svg")
+      .attr("width", circleW)
+      .attr("height", circleH)
+      .attr("viewBox", `0 0 ${circleW} ${circleH}`)
+      .style("background-color", "tomato");
+
+    const center = circleSvg.append("g")
+      .attr("transform", `translate(${circleW * 0.5},${circleH * 0.5})`);
+
+    const rad = circleW * 0.4;
+    const angleScale = d3.scaleLinear([0, balls.length], [0, 3.14 * 2]);
+    let ballSizesExtent = d3.extent(balls, (d) => d.mm);
+
+    const sizeScale = d3.scaleLinear(extent, [10, 30]);
+
+    const at = t * 2 * 3.14 * 1/100;
+    center.selectAll("circle")
+      .data(balls)
+      .join("circle")
+      .attr("cx", (d, i) => Math.cos(at + angleScale(i)) * rad)
+      .attr("cy", (d, i) => Math.sin(at + angleScale(i)) * rad)
+      .style("fill", "lightyellow")
+      .attr("r", (d) => sizeScale(d.mm));
+
+    center.selectAll("text")
+      .data(balls)
+      .join("text")
+      .text((d) => d.name)
+      .attr("x", (d, i) => Math.cos(at + angleScale(i)) * rad)
+      .attr("y", (d, i) => Math.sin(at + angleScale(i)) * rad + sizeScale(d.mm) + 12)
+      .style("fill", "black")
+      .attr("text-anchor", "middle")
+      .attr("dominant-baseline", "middle")
+      .attr("font-size", 12);
+
+    center.append("text")
+      .text("The size of balls")
+      .style("fill", "black")
+      .attr("text-anchor", "middle")
+      .attr("dominant-baseline", "middle")
+      .attr("font-size", 24);
+
+  </script>
+  <script id="162" type="text/x-typescript" pinned="">
+    display(circleSvg.node())
+  </script>
+  <script id="165" type="text/x-typescript" pinned="">
+    const running = false;
+  </script>
+  <script id="166" type="text/x-typescript" pinned="">
+     const t = (function* () {
+        const start = performance.now();
+        while (true) yield (performance.now() - start) / 1000;
+      })();
+
   </script>
   <script id="135" type="text/markdown">
     ## TODO

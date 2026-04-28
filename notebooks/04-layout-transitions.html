@@ -1,0 +1,192 @@
+<!doctype html>
+<notebook theme="air">
+  <title>04 - Layout transitions</title>
+  <script id="1" type="text/markdown">
+    # 04 - Layout transitions
+
+    Same data, three layouts. A single radio input drives both the chart and a coordinated title — the pattern: one source of state, multiple cells subscribe.
+  </script>
+  <script id="2" type="module">
+    import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
+    d3
+  </script>
+  <script id="3" type="text/markdown">
+    ## Dataset
+  </script>
+  <script id="4" type="text/x-typescript" pinned="">
+    let balls = [
+      {name: "Ping Pong",  mm: 40},
+      {name: "Golf",       mm: 43},
+      {name: "Squash",     mm: 40},
+      {name: "Billiard",   mm: 57},
+      {name: "Tennis",     mm: 67},
+      {name: "Cricket",    mm: 72},
+      {name: "Baseball",   mm: 73},
+      {name: "Lacrosse",   mm: 63},
+      {name: "Softball",   mm: 97},
+      {name: "Volleyball", mm: 210},
+      {name: "Soccer",     mm: 220},
+      {name: "Basketball", mm: 240},
+      {name: "Bowling",    mm: 217}
+    ];
+  </script>
+  <script id="5" type="text/markdown">
+    ## Pick a layout
+
+    Toggle the radio. The chart and title both react.
+  </script>
+  <script id="7" type="text/markdown">
+    ## SVG canvas (created once)
+  </script>
+  <script id="8" type="text/x-typescript" pinned="">
+    const w = 800;
+    const h = 600;
+    const margin = {top: 80, right: 30, bottom: 40, left: 30};
+    const innerW = w - margin.left - margin.right;
+    const innerH = h - margin.top - margin.bottom;
+
+    const svg = d3.create("svg")
+      .attr("width", w)
+      .attr("height", h)
+      .attr("viewBox", `0 0 ${w} ${h}`)
+      .style("background-color", "tomato");
+
+    // inner group: chart content lives here, in a 0..innerW × 0..innerH coord space
+    const g = svg.append("g")
+      .attr("transform", `translate(${margin.left}, ${margin.top})`);
+  </script>
+  <script id="9" type="text/markdown">
+    ## Scales and layout functions
+
+    Each layout is a function `i → [x, y]`. Switching layout = swapping which function the chart uses.
+  </script>
+  <script id="10" type="text/x-typescript" pinned="">
+    const sizeScale = d3.scaleLinear(d3.extent(balls, d => d.mm), [10, 30]);
+
+    const cols = 5;
+    const rows = Math.ceil(balls.length / cols);
+
+    // all positions are in local coords inside `g` — origin (0, 0) is the
+    // top-left of the inner drawing area, extents are innerW × innerH
+    function linePos(i) {
+      return [
+        (i + 0.5) * innerW / balls.length,
+        innerH * 0.5
+      ];
+    }
+
+    function gridPos(i) {
+      const col = i % cols;
+      const row = Math.floor(i / cols);
+      return [
+        (col + 0.5) * innerW / cols,
+        (row + 0.5) * innerH / rows
+      ];
+    }
+
+    function circlePos(i) {
+      const angle = (i / balls.length) * Math.PI * 2 - Math.PI / 2;
+      const rad = Math.min(innerW, innerH) * 0.42;
+      return [
+        innerW / 2 + Math.cos(angle) * rad,
+        innerH / 2 + Math.sin(angle) * rad
+      ];
+    }
+
+    const layouts = {
+      line:   linePos,
+      grid:   gridPos,
+      circle: circlePos
+    };
+  </script>
+  <script id="11" type="text/markdown">
+    ## Title — its own cell, also depends on `layout`
+  </script>
+  <script id="12" type="text/x-typescript" pinned="">
+    {
+      const titles = {
+        line:   "Balls in a line",
+        grid:   "Balls in a grid",
+        circle: "Balls on a circle"
+      };
+
+      // .data([null]).join("text") makes the title node idempotent —
+      // re-runs reuse the same <text> instead of stacking new ones
+      svg.selectAll("text.title")
+        .data([null])
+        .join("text")
+          .attr("class", "title")
+          .attr("x", w / 2)
+          .attr("y", 40)
+          .attr("text-anchor", "middle")
+          .attr("dominant-baseline", "hanging")
+          .attr("font-size", 28)
+          .style("fill", "lightyellow")
+          .text(titles[layout]);
+    }
+  </script>
+  <script id="13" type="text/markdown">
+    ## Chart — depends on `layout`, transitions to the new positions
+  </script>
+  <script id="14" type="text/x-typescript" pinned="">
+    {
+      const pos = layouts[layout];
+
+      // circles — selectAll on the inner group, not the svg
+      g.selectAll("circle")
+        .data(orderedBalls, d => d.name)
+        .join("circle")
+          .style("fill", "lightyellow")
+          .attr("r", d => sizeScale(d.mm))
+        .transition().duration(1200).ease(d3.easeCubicInOut)
+          .attr("cx", (d, i) => pos(i)[0])
+          .attr("cy", (d, i) => pos(i)[1]);
+
+      // labels — same, inside g
+      g.selectAll("text.label")
+        .data(orderedBalls, d => d.name)
+        .join("text")
+          .attr("class", "label")
+          .text(d => d.name)
+          .attr("text-anchor", "middle")
+          .attr("dominant-baseline", "hanging")
+          .attr("font-size", 12)
+          .style("fill", "black")
+        .transition().duration(1200).ease(d3.easeCubicInOut)
+          .attr("x", (d, i) => pos(i)[0])
+          .attr("y", (d, i) => pos(i)[1] + sizeScale(d.mm) + 6)
+          .style("opacity", showLabels ? 1 : 0);
+    }
+  </script>
+  <script id="17" type="text/markdown">
+    ## Reorder the balls
+
+    `Shuffle` randomizes the array each click. `By size` sorts ascending by `mm`. The chart re-runs because the data changed; the data join keeps each ball's identity, so they glide into their new positions.
+  </script>
+  <script id="6" type="text/x-typescript" pinned="">
+    const layout = view(Inputs.radio(["line", "grid", "circle"], {value: "line", label: "Layout"}));
+  </script>
+  <script id="18" type="text/x-typescript" pinned="">
+    const orderedBalls = view(Inputs.button([
+      ["Shuffle", () => d3.shuffle([...balls])],
+      ["By size", () => [...balls].sort((a, b) => a.mm - b.mm)]
+    ], {value: balls, label: "Order"}));
+  </script>
+  <script id="19" type="text/x-typescript" pinned="">
+    const showLabels = view(Inputs.toggle({label: "Show labels", value: true}));
+  </script>
+  <script id="15" type="text/x-typescript" pinned="">
+    display(svg.node());
+  </script>
+  <script id="16" type="text/markdown">
+    ## How the pieces fit
+
+    - Cell 6 is the **single source of state**: `layout` is a string, one of `"line" | "grid" | "circle"`.
+    - Cell 8 creates the SVG **once** — it has no reactive dependencies.
+    - Cell 10 defines layout functions **once**.
+    - Cell 12 (title) and cell 14 (chart) **both depend on `layout`** and re-run when it changes. Each handles its own visual response — title swaps text, chart transitions positions.
+    - Cell 15 displays the live SVG node — never re-runs, but reflects mutations made by cells 12 and 14.
+
+    To add another coordinated element (a subtitle, a colored ring, a count), add another cell that reads `layout`. Existing cells don't change. That's the win of the pattern.
+  </script>
+</notebook>

@@ -2,21 +2,26 @@ setup-vps:
 	@echo "Setting up VPS"
 	cd infra && ansible-playbook setup-vps.yml
 
-make update-secrets:
+update-secrets:
 	@echo "Updating .secrets file with base64 files not included in git"
 	./update-secrets.sh
 
-make send-student-mail:
+send-student-mail:
 	@echo "Open mail client to send individual student passwords"
 	./sent-pass.sh
 
-make local-deploy:
+local-deploy:
 	@echo "Running deploy worflow locally with act"
 	act -P ubuntu-latest=-self-hosted
 
-make dev:
-	@echo "Running browser sync for development"
-	cd www && npx live-server
+dev:
+	@echo "Site: http://localhost:8080  |  Notebooks (HMR): http://localhost:5173"
+	@$(MAKE) notebooks-build
+	@trap 'kill 0' EXIT; \
+		(cd www && npx live-server) & \
+		(cd notebooks && npx notebooks preview --root .) & \
+		(ls notebooks/*.html | entr -s '$(MAKE) notebooks-build') & \
+		wait
 
 notebooks-dev:
 	@echo "Running Notebook Kit preview server"
@@ -26,15 +31,15 @@ notebooks-build:
 	@echo "Building notebooks into www/notebooks"
 	cd notebooks && npx notebooks build --root . --out ../www/notebooks --empty -- *.html
 
-make backup:
+backup:
 	@echo "Backing up student websites"
 	@TS=$$(date +%Y-%m-%d_%H-%M-%S); \
 	ssh ubuntu@lab.vk.head-ge.ch "tar -C /srv/lab.vk.head-ge.ch -czf - students --ignore-failed-read" | pv > backups/students_$$TS.tar.gz
-	@echo "Opening backup locations for manual server backup"	
+	@echo "Opening backup locations for manual server backup"
 	open backups/onedrive-backup.webloc
 	open backups
 
-make get-dog-data:
+get-dog-data:
 	@echo "Downloading dog image collection from unspash"
 	node www/assets/dogs/download.mjs
 

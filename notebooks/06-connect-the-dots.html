@@ -1,0 +1,264 @@
+<!doctype html>
+<notebook theme="air">
+  <title>06 - Connect the dots</title>
+  <script id="1" type="text/markdown">
+    # 06 - Connect the dots
+
+    Children's connect-the-dots puzzles as a vehicle for D3's path generator. Each shape is an array of `{x, y}` points loaded from JSON; `d3.line()` turns them into an SVG `&lt;path&gt;` string.
+
+    **Source**: dataset from [Williams College CS 326 — Connect The Dots lab](https://www.cs.williams.edu/~freund/cs326/ConnectTheDots.html). Original zip [here](https://www.cs.williams.edu/~freund/cs326/ConnectTheDots/Resources.zip). Files copied into `/assets/connect-the-dots/`.
+  </script>
+
+  <script id="2" type="module">
+    import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
+    d3
+  </script>
+
+  <script id="3" type="text/markdown">
+    ## Loading and normalizing
+
+    Each puzzle's coordinates use a different range (leaf is ~600 px wide, star ~270). We normalize each shape to fit in a 300 × 300 box, centered, with aspect ratio preserved — so the SVG can render any shape at the same scale.
+  </script>
+
+  <script id="4" type="text/x-typescript" pinned="">
+    function normalize(points, size = 300) {
+      const xExtent = d3.extent(points, d => d.x);
+      const yExtent = d3.extent(points, d => d.y);
+      const range = Math.max(xExtent[1] - xExtent[0], yExtent[1] - yExtent[0]);
+      const scale = size / range;
+      const cx = (xExtent[0] + xExtent[1]) / 2;
+      const cy = (yExtent[0] + yExtent[1]) / 2;
+      return points.map(p => ({
+        x: (p.x - cx) * scale + size / 2,
+        y: (p.y - cy) * scale + size / 2
+      }));
+    }
+  </script>
+
+  <script id="5" type="text/x-typescript" pinned="">
+    const shapes = {
+      star:   normalize(await d3.json("data/connect-the-dots/star.json")),
+      leaf:   normalize(await d3.json("data/connect-the-dots/leaf.json")),
+      tree:   normalize(await d3.json("data/connect-the-dots/tree.json")),
+      runner: normalize(await d3.json("data/connect-the-dots/runner.json")),
+      crown:  normalize(await d3.json("data/connect-the-dots/crown.json"))
+    };
+  </script>
+
+  <script id="6" type="text/markdown">
+    ## Pick a shape
+
+    Star (6 pts) and leaf (24 pts) are sparse enough to read each numbered dot. Tree, runner, and crown (~90 pts each) are dense — the path tells the story.
+  </script>
+
+  <script id="7" type="text/x-typescript" pinned="">
+    const shapeName = view(Inputs.radio(Object.keys(shapes), {value: "leaf", label: "Shape"}));
+  </script>
+
+  <script id="8" type="text/x-typescript" pinned="">
+    display(svg.node());
+  </script>
+
+  <script id="9" type="text/x-typescript" pinned="">
+    const showPath = view(Inputs.toggle({label: "Show connecting path", value: true}));
+  </script>
+
+  <script id="10" type="text/x-typescript" pinned="">
+    const showNumbers = view(Inputs.toggle({label: "Show numbers", value: false}));
+  </script>
+
+  <script id="20" type="text/x-typescript" pinned="">
+    const curveType = view(Inputs.radio(
+      ["linear", "catmullRom", "cardinal", "basis"],
+      {value: "linear", label: "Curve"}
+    ));
+  </script>
+
+  <script id="21" type="text/x-typescript" pinned="">
+    const redrawClick = view(Inputs.button("Redraw"));
+  </script>
+
+  <script id="11" type="text/markdown">
+    ## SVG canvas
+  </script>
+
+  <script id="12" type="text/x-typescript" pinned="">
+    const w = 400;
+    const h = 400;
+    const margin = {top: 50, right: 50, bottom: 50, left: 50};
+    const innerW = w - margin.left - margin.right;
+    const innerH = h - margin.top - margin.bottom;
+
+    const svg = d3.create("svg")
+      .attr("width", w)
+      .attr("height", h)
+      .attr("viewBox", `0 0 ${w} ${h}`)
+      .style("background-color", "#fafafa");
+
+    const g = svg.append("g")
+      .attr("transform", `translate(${margin.left}, ${margin.top})`);
+  </script>
+
+  <script id="13" type="text/markdown">
+    ## The line generator + curve interpolation
+
+    `d3.line()` connects points; the **curve** decides *how* — straight segments, smooth splines, etc. Using the `*Closed` variants makes the curve wrap from the last point back to the first, no `"Z"` needed.
+
+    - **linear** — straight segments, the literal connect-the-dots
+    - **catmullRom** — passes *through* every point with a smooth cubic interpolation
+    - **cardinal** — similar but uses tangents (tension 0.5 by default)
+    - **basis** — B-spline; the curve does *not* pass through control points, it's pulled toward them — gives a more "blobby" silhouette
+
+    All four are *closed* curves here, so the line wraps the dots into a silhouette automatically.
+  </script>
+
+  <script id="14" type="text/x-typescript" pinned="">
+    const curves = {
+      linear:     d3.curveLinearClosed,
+      catmullRom: d3.curveCatmullRomClosed,
+      cardinal:   d3.curveCardinalClosed,
+      basis:      d3.curveBasisClosed
+    };
+
+    const lineGen = d3.line()
+      .x(d => d.x)
+      .y(d => d.y)
+      .curve(curves[curveType]);
+  </script>
+
+  <script id="15" type="text/markdown">
+    ## Path with self-drawing animation
+
+    The classic D3 "drawing in" trick:
+
+    1. Set the path `d`, then measure its total length with `node().getTotalLength()`.
+    2. Set `stroke-dasharray` and `stroke-dashoffset` to that length — the entire stroke is now "dashed off-screen" (the dash gap covers the whole line).
+    3. Transition `stroke-dashoffset` to `0` — the dash slides into place, looking like the line is being drawn.
+    4. Fade in the fill afterward (otherwise the silhouette pops in fully colored from the start).
+
+    The cell depends on `shapeName`, `lineGen` (which depends on `curveType`), and `redrawClick` — any of those changing replays the animation.
+  </script>
+
+  <script id="16" type="text/x-typescript" pinned="">
+    {
+      const shape = shapes[shapeName];
+      redrawClick;   // dependency declaration — clicking Redraw re-runs the cell
+
+      const pathSel = g.selectAll("path.shape")
+        .data([null])
+        .join("path")
+          .attr("class", "shape")
+          .style("fill", "tomato")
+          .style("stroke", "tomato")
+          .style("stroke-width", 1.5);
+
+      // 1. set the path data using the current line generator
+      pathSel.attr("d", lineGen(shape));
+
+      // 2. measure the resulting path's length in pixels
+      const length = pathSel.node().getTotalLength();
+
+      // 3. set up the dash trick: a single dash equal to the full length,
+      //    offset by the same amount → the line is "drawn off-screen" initially
+      pathSel
+        .attr("stroke-dasharray", length)
+        .attr("stroke-dashoffset", length)
+        .style("fill-opacity", 0)
+        .style("opacity", showPath ? 1 : 0);
+
+      // 4. animate offset to 0 → line draws in. Then fade in the fill.
+      pathSel.transition().duration(2000).ease(d3.easeQuadInOut)
+        .attr("stroke-dashoffset", 0)
+        .transition().duration(500)
+        .style("fill-opacity", showPath ? 0.15 : 0);
+    }
+  </script>
+
+  <script id="17" type="text/markdown">
+    ## Dots and numbers — keyed by index
+
+    Each point gets a circle. Numbers are optional — useful for sparse puzzles like star/leaf, noisy for the 90-point ones.
+  </script>
+
+  <script id="18" type="text/x-typescript" pinned="">
+    {
+      const shape = shapes[shapeName];
+      const dotR = shape.length < 30 ? 8 : 3;
+
+      // dots
+      g.selectAll("circle.dot")
+        .data(shape, (d, i) => i)
+        .join(
+          enter => enter.append("circle")
+            .attr("class", "dot")
+            .style("fill", "white")
+            .style("stroke", "black")
+            .style("stroke-width", 1)
+            .attr("r", 0)
+            .attr("cx", d => d.x)
+            .attr("cy", d => d.y),
+          update => update,
+          exit => exit.transition().duration(400).attr("r", 0).remove()
+        )
+        .transition().duration(750)
+          .attr("cx", d => d.x)
+          .attr("cy", d => d.y)
+          .attr("r", dotR);
+
+      // numbers
+      g.selectAll("text.number")
+        .data(shape, (d, i) => i)
+        .join(
+          enter => enter.append("text")
+            .attr("class", "number")
+            .attr("text-anchor", "middle")
+            .attr("dominant-baseline", "middle")
+            .style("font-family", "sans-serif")
+            .style("fill", "black")
+            .style("opacity", 0)
+            .attr("x", d => d.x)
+            .attr("y", d => d.y),
+          update => update,
+          exit => exit.transition().duration(400).style("opacity", 0).remove()
+        )
+        .text((d, i) => i + 1)
+        .attr("font-size", shape.length < 30 ? 9 : 7)
+        .transition().duration(750)
+          .attr("x", d => d.x + (shape.length < 30 ? 0 : 8))
+          .attr("y", d => d.y + (shape.length < 30 ? 0 : -8))
+          .style("opacity", showNumbers ? 1 : 0);
+    }
+  </script>
+
+  <script id="19" type="text/markdown">
+    ## How the pieces fit
+
+    - **Cell 4** defines `normalize` — fits any point array into a centered, aspect-preserved 300 × 300 box.
+    - **Cell 5** loads all five JSON files in parallel via `await d3.json(...)`. Top-level await is supported in module cells; the runtime waits for the cell's promise before letting dependents run. Each shape gets normalized once at load time.
+    - **Cells 7 / 9 / 10 / 20 / 21** are the controls — shape, show path, show numbers, curve type, redraw button. **Cell 8** displays the SVG amidst them.
+    - **Cell 14** defines `lineGen`, depending on `curveType`. Switching curves rebuilds the generator and the path cell re-runs.
+    - **Cell 16** does both the data-to-path conversion *and* the self-drawing animation. The `stroke-dasharray` / `stroke-dashoffset` trick converts a static path into an animated reveal — works on any path of any complexity, you only need its total length.
+    - **Cell 18** renders dots and numbers, with sizes that adapt to point count.
+
+    ## On `getTotalLength()`
+
+    Every SVG path element exposes `.getTotalLength()` — the path's stroked length in user-space units. Combined with `.getPointAtLength(t)`, you can do a lot of path-following effects (markers tracing a line, text along a curve, particles released along a contour). Worth bookmarking.
+
+    ## On curve choice
+
+    For connect-the-dots specifically:
+
+    - **linear** is the literal puzzle — what kids draw with a pencil.
+    - **catmullRom** smooths corners while still passing through every point — usually the most natural-looking option for organic shapes (leaf, runner).
+    - **cardinal** is similar but uses tangents at each point; subtly different curvature.
+    - **basis** doesn't pass *through* the points — they act as control points pulling the curve, which makes the silhouette more abstract.
+
+    Try the same shape with all four to see the same data interpreted four ways. That's the lesson: the points are data, the curve is presentation.
+
+    ## Where to take it next
+
+    - **Curve along an SVG path**: `path.getPointAtLength(t)` lets you place markers, characters, or sub-shapes at fractional positions along the line. Animate `t` from 0 to length, attach a circle, you have a tracer.
+    - **`d3.drag()` on the dots**: mutate the underlying array, watch the path follow. A shape editor in 20 lines.
+    - **More puzzles**: drop more JSON files in `/assets/connect-the-dots/` matching `[{x, y}, ...]` and add them to cell 5.
+  </script>
+</notebook>
