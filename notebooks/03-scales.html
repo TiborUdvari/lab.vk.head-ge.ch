@@ -1,0 +1,146 @@
+<!doctype html>
+<notebook theme="air">
+  <title>03 - D3 scales</title>
+  <script id="1" type="text/markdown">
+    # 03 - D3 scales
+
+    Une scale est une fonction `domain → range`. Le domain c'est l'espace des données, le range c'est l'espace de sortie (pixels, couleurs, angles, etc.).
+  </script>
+  <script id="2" type="module">
+    import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
+  </script>
+
+  <script id="3" type="text/markdown">
+    ## Petit jeu de données : balles
+  </script>
+  <script id="5" type="module" pinned="">
+    let balls = [
+      {name: "Ping Pong",  mm: 40,  category: "racquet"},
+      {name: "Golf",       mm: 43,  category: "stick"},
+      {name: "Squash",     mm: 40,  category: "racquet"},
+      {name: "Billiard",   mm: 57,  category: "stick"},
+      {name: "Tennis",     mm: 67,  category: "racquet"},
+      {name: "Cricket",    mm: 72,  category: "bat"},
+      {name: "Baseball",   mm: 73,  category: "bat"},
+      {name: "Lacrosse",   mm: 63,  category: "stick"},
+      {name: "Softball",   mm: 97,  category: "bat"},
+      {name: "Volleyball", mm: 210, category: "hand"},
+      {name: "Soccer",     mm: 220, category: "foot"},
+      {name: "Basketball", mm: 240, category: "hand"},
+      {name: "Bowling",    mm: 217, category: "hand"}
+    ];
+  </script>
+
+  <script id="159" type="text/markdown">
+    ## Linear scale et quantize scale
+
+    `scaleLinear` mappe un domain continu vers un range continu (ici, des mm vers des pixels). `scaleQuantize` mappe un domain continu vers un range discret (ici, des mm vers une palette de couleurs).
+  </script>
+  <script id="131" type="text/x-typescript" pinned="">
+    const w = 980;
+    const h = 200;
+
+    const svg = d3.create("svg")
+      .attr("width", w)
+      .attr("height", h)
+      .attr("viewBox", `0 0 ${w} ${h}`)
+      .style("background-color", "#fef");
+  </script>
+  <script id="134" type="text/x-typescript" pinned="">
+    // d3.extent retourne [min, max] du tableau selon l'accessor (ici, d.mm).
+    // Pratique comme domain d'une scale : la plus petite valeur se mappe au début du range,
+    // la plus grosse à la fin, sans avoir à coder en dur les bornes.
+    const extent = d3.extent(balls, d => d.mm);
+
+    const sizeScale = d3.scaleLinear(extent, [10, 30]);
+    const posScale = d3.scaleLinear([0, balls.length - 1], [50, w - 50]);
+    const quantizeScale = d3.scaleQuantize([0, 250], ["lightblue", "lightyellow", "lightgreen", "lightpink"]);
+
+    svg.selectAll("circle")
+      .data(balls)
+      .join("circle")
+      .attr("cx", (d, i) => posScale(i))
+      .attr("cy", h * 0.5)
+      .attr("r", d => sizeScale(d.mm))
+      .style("fill", d => quantizeScale(d.mm));
+
+    svg.selectAll("text")
+      .data(balls)
+      .join("text")
+      .text(d => d.name)
+      .attr("x", (d, i) => posScale(i))
+      .attr("y", h * 0.5 + 50)
+      .attr("font-size", 12)
+      .attr("text-anchor", "middle");
+  </script>
+  <script id="133" type="text/x-typescript" pinned="">
+    display(svg.node());
+  </script>
+
+  <script id="160" type="text/markdown">
+    ## Layout circulaire avec une scale d'angle
+
+    Une scale n'est pas réservée aux pixels : on peut mapper un index vers un angle en radians, puis convertir en `(x, y)` avec `Math.cos` / `Math.sin`. Le tout dans un `<g>` translaté au centre, donc les enfants utilisent des coordonnées relatives.
+  </script>
+  <script id="161" type="text/x-typescript" pinned="">
+    const circleWidth = 600;
+    const circleHeight = 600;
+
+    const circleSvg = d3.create("svg")
+      .attr("width", circleWidth)
+      .attr("height", circleHeight)
+      .attr("viewBox", `0 0 ${circleWidth} ${circleHeight}`)
+      .style("background-color", "tomato");
+
+    const center = circleSvg.append("g")
+      .attr("transform", `translate(${circleWidth * 0.5}, ${circleHeight * 0.5})`);
+
+    const radius = circleWidth * 0.4;
+    const angleScale = d3.scaleLinear([0, balls.length], [0, Math.PI * 2]);
+    const circleSizeScale = d3.scaleLinear(d3.extent(balls, d => d.mm), [10, 30]);
+
+    // Rotation animée : angle calculé à partir du time generator t.
+    const rotation = t * 2 * Math.PI / 100;
+
+    center.selectAll("circle")
+      .data(balls)
+      .join("circle")
+      .attr("cx", (d, i) => Math.cos(rotation + angleScale(i)) * radius)
+      .attr("cy", (d, i) => Math.sin(rotation + angleScale(i)) * radius)
+      .style("fill", "lightyellow")
+      .attr("r", d => circleSizeScale(d.mm));
+
+    center.selectAll("text")
+      .data(balls)
+      .join("text")
+      .text(d => d.name)
+      .attr("x", (d, i) => Math.cos(rotation + angleScale(i)) * radius)
+      .attr("y", (d, i) => Math.sin(rotation + angleScale(i)) * radius + circleSizeScale(d.mm) + 12)
+      .style("fill", "black")
+      .attr("text-anchor", "middle")
+      .attr("dominant-baseline", "middle")
+      .attr("font-size", 12);
+
+    center.append("text")
+      .text("The size of balls")
+      .style("fill", "black")
+      .attr("text-anchor", "middle")
+      .attr("dominant-baseline", "middle")
+      .attr("font-size", 24);
+  </script>
+  <script id="162" type="text/x-typescript" pinned="">
+    display(circleSvg.node())
+  </script>
+
+  <script id="167" type="text/markdown">
+    ## Time generator
+
+    Cellule réactive : `t` yield une nouvelle valeur à chaque animation frame. Les cells qui dépendent de `t` (ici, le chart circulaire) re-runnent automatiquement à chaque frame, ce qui produit l'animation.
+  </script>
+  <script id="166" type="text/x-typescript" pinned="">
+    const t = (function* () {
+      const start = performance.now();
+      while (true) yield (performance.now() - start) / 1000;
+    })();
+  </script>
+</notebook>

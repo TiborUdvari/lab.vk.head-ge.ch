@@ -1,0 +1,242 @@
+<!doctype html>
+<notebook theme="air">
+  <title>04 - Layout transitions</title>
+  <script id="1" type="text/markdown">
+    # 04 - Layout transitions
+
+    Mêmes données, trois layouts (line, grid, circle). Un seul radio input (`layout`) pilote à la fois le chart et le titre.
+
+    Pattern global : **une seule source d'état, plusieurs cells qui s'y abonnent**. Quand `layout` change, plusieurs cells re-runnent en parallèle.
+
+    Graphe de dépendances :
+
+    - `layout` (radio) → titre, chart
+    - `orderedBalls` (button) → chart
+    - `showLabels` (toggle) → labels du chart
+
+    Pour ajouter un nouvel élément coordonné (sous-titre, anneau coloré, compteur), il suffit d'écrire une nouvelle cell qui lit `layout`. Les cells existantes ne bougent pas.
+  </script>
+  <script id="2" type="module">
+    import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
+  </script>
+
+  <script id="3" type="text/markdown">
+    ## Dataset
+  </script>
+  <script id="4" type="text/x-typescript" pinned="">
+    let balls = [
+      {name: "Ping Pong",  mm: 40},
+      {name: "Golf",       mm: 43},
+      {name: "Squash",     mm: 40},
+      {name: "Billiard",   mm: 57},
+      {name: "Tennis",     mm: 67},
+      {name: "Cricket",    mm: 72},
+      {name: "Baseball",   mm: 73},
+      {name: "Lacrosse",   mm: 63},
+      {name: "Softball",   mm: 97},
+      {name: "Volleyball", mm: 210},
+      {name: "Soccer",     mm: 220},
+      {name: "Basketball", mm: 240},
+      {name: "Bowling",    mm: 217}
+    ];
+  </script>
+
+  <script id="7" type="text/markdown">
+    ## SVG canvas (créé une seule fois)
+
+    On définit le SVG et un inner group `chartGroup` pour le contenu, translaté avec la convention de marges. Cette cell n'a aucune dépendance réactive : elle ne re-run jamais.
+  </script>
+  <script id="8" type="text/x-typescript" pinned="">
+    const w = 800;
+    const h = 600;
+    const margin = {top: 80, right: 30, bottom: 40, left: 30};
+    const innerW = w - margin.left - margin.right;
+    const innerH = h - margin.top - margin.bottom;
+
+    const svg = d3.create("svg")
+      .attr("width", w)
+      .attr("height", h)
+      .attr("viewBox", `0 0 ${w} ${h}`)
+      .style("background-color", "tomato");
+
+    // Inner group : le contenu du chart vit ici, dans un système 0..innerW × 0..innerH.
+    const chartGroup = svg.append("g")
+      .attr("transform", `translate(${margin.left}, ${margin.top})`);
+  </script>
+
+  <script id="9" type="text/markdown">
+    ## Scale de taille
+
+    On dérive la taille de chaque ball de son `mm`. `d3.extent(balls, d => d.mm)` retourne `[min, max]` (la plus petite et la plus grosse balle), utilisé comme domain de la scale.
+  </script>
+  <script id="10" type="text/x-typescript" pinned="">
+    const sizeScale = d3.scaleLinear(d3.extent(balls, d => d.mm), [10, 30]);
+  </script>
+
+  <script id="100" type="text/markdown">
+    ## Layout functions
+
+    Chaque layout est une fonction `i → [x, y]` : on lui donne l'index d'une ball, elle retourne sa position. Changer de layout = swap de fonction.
+
+    Les positions sont en coords locales dans `chartGroup` : origin (0, 0) = haut-gauche de la zone de dessin, extents `innerW × innerH`.
+  </script>
+
+  <script id="101" type="text/markdown">
+    ### Layout 1 : line
+
+    Une rangée horizontale, balls espacées régulièrement, centrées verticalement.
+  </script>
+  <script id="102" type="text/x-typescript" pinned="">
+    function linePos(i) {
+      return [
+        (i + 0.5) * innerW / balls.length,
+        innerH * 0.5
+      ];
+    }
+  </script>
+
+  <script id="103" type="text/markdown">
+    ### Layout 2 : grid
+
+    Une grille de `cols` colonnes. Le nombre de rows est calculé pour contenir toutes les balls.
+  </script>
+  <script id="104" type="text/x-typescript" pinned="">
+    const cols = 5;
+    const rows = Math.ceil(balls.length / cols);
+
+    function gridPos(i) {
+      const col = i % cols;
+      const row = Math.floor(i / cols);
+      return [
+        (col + 0.5) * innerW / cols,
+        (row + 0.5) * innerH / rows
+      ];
+    }
+  </script>
+
+  <script id="105" type="text/markdown">
+    ### Layout 3 : circle
+
+    Les balls sont placées à intervalles réguliers sur un cercle. `Math.cos` / `Math.sin` convertissent un angle en coordonnées `(x, y)`.
+
+    Le `- Math.PI / 2` décale l'angle pour que la première ball soit en haut (12h) au lieu d'à droite (3h, le 0 par défaut de `cos`/`sin`).
+  </script>
+  <script id="106" type="text/x-typescript" pinned="">
+    function circlePos(i) {
+      const angle = (i / balls.length) * Math.PI * 2 - Math.PI / 2;
+      const radius = Math.min(innerW, innerH) * 0.42;
+      return [
+        innerW / 2 + Math.cos(angle) * radius,
+        innerH / 2 + Math.sin(angle) * radius
+      ];
+    }
+  </script>
+
+  <script id="107" type="text/markdown">
+    ### Dictionnaire des layouts
+
+    On regroupe les trois fonctions dans un objet pour pouvoir les sélectionner par nom.
+  </script>
+  <script id="108" type="text/x-typescript" pinned="">
+    const layouts = {
+      line:   linePos,
+      grid:   gridPos,
+      circle: circlePos
+    };
+  </script>
+
+  <script id="109" type="text/markdown">
+    ### Position courante
+
+    `position` est la fonction layout actuelle, sélectionnée par la valeur du radio. Quand `layout` change, cette cell re-run et tous les cells qui utilisent `position` re-runnent à leur tour.
+  </script>
+  <script id="110" type="text/x-typescript" pinned="">
+    const position = layouts[layout];
+  </script>
+
+  <script id="11" type="text/markdown">
+    ## Titre
+
+    Sa propre cell, dépend de `layout`. Le titre est un `<text>` SVG, on le rend idempotent avec `.data([null]).join("text")` : un seul `<text>` qui se réutilise au lieu d'en empiler de nouveaux à chaque re-run.
+  </script>
+  <script id="12" type="text/x-typescript" pinned="">
+    // titlesByLayout : dictionnaire {layout → titre}
+    const titlesByLayout = {
+      line:   "Balls in a line",
+      grid:   "Balls in a grid",
+      circle: "Balls on a circle"
+    };
+
+    svg.selectAll("text.title")
+      .data([null])              // un seul élément, donc un seul <text>
+      .join("text")              // crée le <text> s'il n'existe pas, sinon réutilise
+        .attr("class", "title")
+        .attr("x", w / 2)
+        .attr("y", 40)
+        .attr("text-anchor", "middle")
+        .attr("dominant-baseline", "hanging")
+        .attr("font-size", 28)
+        .style("fill", "lightyellow")
+        .text(titlesByLayout[layout]);
+  </script>
+
+  <script id="13" type="text/markdown">
+    ## Chart : cercles
+
+    Data join classique. La transition interpole les `cx` / `cy` entre l'ancienne et la nouvelle valeur. `easeCubicInOut` = accélère puis ralentit, courbe organique.
+  </script>
+  <script id="14" type="text/x-typescript" pinned="">
+    chartGroup.selectAll("circle")
+      .data(orderedBalls, d => d.name)
+      .join("circle")
+        .style("fill", "lightyellow")
+        .attr("r", d => sizeScale(d.mm))
+      .transition().duration(1200).ease(d3.easeCubicInOut)
+        .attr("cx", (d, i) => position(i)[0])
+        .attr("cy", (d, i) => position(i)[1]);
+  </script>
+
+  <script id="113" type="text/markdown">
+    ## Chart : labels
+
+    Même pattern, sur les `<text>`. La position est juste sous le cercle. L'opacity est binaire selon le toggle `showLabels`.
+  </script>
+  <script id="114" type="text/x-typescript" pinned="">
+    chartGroup.selectAll("text.label")
+      .data(orderedBalls, d => d.name)
+      .join("text")
+        .attr("class", "label")
+        .text(d => d.name)
+        .attr("text-anchor", "middle")
+        .attr("dominant-baseline", "hanging")
+        .attr("font-size", 12)
+        .style("fill", "black")
+      .transition().duration(1200).ease(d3.easeCubicInOut)
+        .attr("x", (d, i) => position(i)[0])
+        .attr("y", (d, i) => position(i)[1] + sizeScale(d.mm) + 6)
+        .style("opacity", showLabels ? 1 : 0);
+  </script>
+
+  <script id="5" type="text/markdown">
+    ## Controls
+
+    Le radio choisit le layout. Le bouton réordonne les balls (shuffle aléatoire ou tri par taille). Le toggle affiche / cache les labels.
+  </script>
+  <script id="6" type="text/x-typescript" pinned="">
+    const layout = view(Inputs.radio(["line", "grid", "circle"], {value: "line", label: "Layout"}));
+  </script>
+  <script id="18" type="text/x-typescript" pinned="">
+    // Inputs.button avec [label, reducer] : chaque clic applique le reducer
+    // sur la valeur courante. value initial = balls (ordre original).
+    const orderedBalls = view(Inputs.button([
+      ["Shuffle", () => d3.shuffle([...balls])],
+      ["By size", () => [...balls].sort((a, b) => a.mm - b.mm)]
+    ], {value: balls, label: "Order"}));
+  </script>
+  <script id="19" type="text/x-typescript" pinned="">
+    const showLabels = view(Inputs.toggle({label: "Show labels", value: true}));
+  </script>
+  <script id="15" type="text/x-typescript" pinned="">
+    display(svg.node());
+  </script>
+</notebook>

@@ -1,0 +1,15 @@
+{
+  "name": "lab-vk-notebooks",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "node check.mjs",
+    "predev": "npm run check",
+    "prebuild": "npm run check",
+    "dev": "notebooks preview --root .",
+    "build": "notebooks build --root . -- *.html"
+  },
+  "dependencies": {
+    "@observablehq/notebook-kit": "^1.5.2"
+  }
+}

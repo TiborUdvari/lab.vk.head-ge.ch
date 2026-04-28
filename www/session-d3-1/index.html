@@ -1,0 +1,347 @@
+<!doctype html>
+<html>
+  <head>
+    <link href="/main.css" rel="stylesheet" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Visualisation avancée avec D3.js (1/2)</title>
+  </head>
+  <body>
+    <h1>Visualisation avancée avec D3.js (1/2)</h1>
+
+    <h2>Tour de table : projets p5.js</h2>
+    <ul>
+      <li>~5 min par binôme, retour individuel. Rendu final pour le 06.05.</li>
+    </ul>
+
+    <h2>Observable Notebooks 2.0 (Technology Preview)</h2>
+    <ul>
+      <li>
+        Outils :
+        <a href="https://observablehq.com/notebook-kit/">notebook-kit</a>,
+        <a href="https://observablehq.com/notebook-kit/desktop">Observable Desktop</a>
+        (Apple Silicon uniquement)
+      </li>
+      <li>
+        Modèle de réactivité (commun à Observable 1 et 2) :
+        <a href="https://observablehq.com/@observablehq/how-observable-runs">How Observable runs</a> (ordre topologique),
+        <a href="https://observablehq.com/@travismichaelwise/observables-not-javascript">Observable is not JavaScript</a> (Travis Michael Wise),
+        <a href="https://youtu.be/AUh5aJfafJM">podcast</a> (passage Observable 1 → 2)
+      </li>
+      <li>
+        API Notebooks 2 (<a href="https://observablehq.com/notebook-kit/system-guide">System guide</a> : changements depuis Notebooks 1) :
+        <ul>
+          <li>Built-ins : <code>view(input)</code>, <code>display(value)</code>, <code>invalidation</code>, <code>visibility</code>, <code>width</code>, <code>now</code></li>
+          <li>Réactivité : générateurs (<code>function*() { ... yield x }</code>), promises auto-awaited, top-level <code>await</code></li>
+        </ul>
+      </li>
+    </ul>
+
+    <h2>SVG</h2>
+    <ul>
+      <li>
+        <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorials/SVG_from_scratch">SVG from scratch sur MDN</a>,
+        <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element">référence des éléments</a>,
+        <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute">référence des attributs</a>
+      </li>
+      <li>
+        Conteneurs :
+        <ul>
+          <li>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/svg">svg</a> :
+            <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/viewBox">viewBox</a>,
+            <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/preserveAspectRatio">preserveAspectRatio</a>,
+            <code>width</code>, <code>height</code>
+          </li>
+          <li>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/g">g</a> :
+            <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/transform">transform</a>
+            (<code>translate(x, y)</code>, <code>rotate(deg)</code>, <code>scale(k)</code>)
+          </li>
+        </ul>
+      </li>
+      <li>
+        Formes simples :
+        <ul>
+          <li><a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/rect">rect</a> : <code>x</code>, <code>y</code>, <code>width</code>, <code>height</code>, <code>rx</code>, <code>ry</code></li>
+          <li><a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/circle">circle</a> : <code>cx</code>, <code>cy</code>, <code>r</code></li>
+          <li><a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/ellipse">ellipse</a> : <code>cx</code>, <code>cy</code>, <code>rx</code>, <code>ry</code></li>
+          <li><a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/line">line</a> : <code>x1</code>, <code>y1</code>, <code>x2</code>, <code>y2</code></li>
+          <li>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/polygon">polygon</a> /
+            <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/polyline">polyline</a> :
+            <code>points</code>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/path">path</a> :
+        <ul>
+          <li>
+            attribut
+            <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/d">d</a>,
+            commandes <code>M</code> (move), <code>L</code> (line), <code>H</code>/<code>V</code> (lignes horizontales/verticales), <code>C</code>/<code>S</code> (cubique Bézier), <code>Q</code>/<code>T</code> (quadratique Bézier), <code>A</code> (arc), <code>Z</code> (close)
+          </li>
+          <li><a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorials/SVG_from_scratch/Paths">tutoriel paths sur MDN</a></li>
+        </ul>
+      </li>
+      <li>
+        Texte :
+        <ul>
+          <li>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/text">text</a> :
+            <code>x</code>, <code>y</code> (origine : la baseline par défaut),
+            <code>dx</code>, <code>dy</code> (offsets, listes par caractère possibles),
+            <code>font-size</code>, <code>font-family</code>
+          </li>
+          <li>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/tspan">tspan</a> : texte multiligne (<code>x</code> reset + <code>dy="1.2em"</code> par ligne)
+          </li>
+          <li>
+            Alignement :
+            <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/text-anchor">text-anchor</a> (start / middle / end),
+            <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/dominant-baseline">dominant-baseline</a> (auto / middle / hanging / text-before-edge)
+          </li>
+        </ul>
+      </li>
+      <li>
+        Style :
+        <ul>
+          <li>
+            Fill :
+            <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/fill">fill</a>,
+            <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/fill-opacity">fill-opacity</a>
+          </li>
+          <li>
+            Stroke :
+            <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/stroke">stroke</a>,
+            <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/stroke-width">stroke-width</a>,
+            <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/stroke-opacity">stroke-opacity</a>,
+            <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/stroke-linecap">stroke-linecap</a> (butt / round / square),
+            <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/stroke-linejoin">stroke-linejoin</a> (miter / round / bevel)
+          </li>
+          <li>
+            Pointillés :
+            <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/stroke-dasharray">stroke-dasharray</a>,
+            <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/stroke-dashoffset">stroke-dashoffset</a>
+          </li>
+          <li>
+            Global :
+            <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/opacity">opacity</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        Définitions réutilisables :
+        <ul>
+          <li>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/defs">defs</a> : conteneur pour définitions réutilisables
+          </li>
+          <li>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/clipPath">clipPath</a> +
+            <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/clip-path">clip-path</a> : limiter le dessin à une zone (utile pour clipper un graphique à sa zone interne)
+          </li>
+          <li>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/linearGradient">linearGradient</a> /
+            <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/radialGradient">radialGradient</a> +
+            <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/stop">stop</a> : dégradés
+          </li>
+          <li>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/pattern">pattern</a> : motifs répétés en remplissage
+          </li>
+          <li>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/marker">marker</a> : flèches/symboles aux extrémités d'un path
+          </li>
+          <li>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/use">use</a> : réutiliser un élément défini ailleurs
+          </li>
+        </ul>
+      </li>
+      <!--
+      <li>
+        Texte multiligne :
+        <ul>
+          <li><a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/tspan">tspan</a> avec <code>dy="1.2em"</code> par ligne (canonique)</li>
+          <li><a href="https://bl.ocks.org/mbostock/7555321">Wrap helper de Bostock</a> : split + <code>getComputedTextLength()</code> pour wrap automatique</li>
+          <li><code>inline-size</code> + <code>white-space: pre-wrap</code> (SVG 2, support navigateur récent)</li>
+          <li><a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/foreignObject">foreignObject</a> : contenu HTML dans le SVG (peu portable hors du navigateur)</li>
+        </ul>
+      </li>
+      -->
+    </ul>
+
+    <h2>D3</h2>
+    <ul>
+      <li>
+        Référence principale : <a href="https://www.d3indepth.com/">D3 in Depth</a> (Peter Cook) : l'organisation ci-dessous suit ce livre
+      </li>
+      <li>
+        Autres références :
+        <a href="https://d3js.org/what-is-d3">What is D3?</a>,
+        <a href="https://d3js.org/getting-started">Getting started</a>,
+        <a href="https://d3js.org/api">API index</a>,
+        <a href="https://observablehq.com/@d3/gallery">Observable D3 gallery</a>,
+        <a href="https://bost.ocks.org/mike/join/">Thinking with Joins</a> (Bostock)
+      </li>
+      <li>
+        D3 vs <a href="../session-data-representation-observable-plot/">Observable Plot</a>
+      </li>
+
+      <li>
+        <a href="https://www.d3indepth.com/selections/">Selections</a> : <a href="/notebooks/01-d3-selections.html">notebook 01</a>
+        <ul>
+          <li><a href="https://www.d3indepth.com/selections/#making-selections">Making selections</a> : <code>select</code>, <code>selectAll</code></li>
+          <li><a href="https://www.d3indepth.com/selections/#modifying-elements">Modifying elements</a> : <code>.style</code>, <code>.attr</code>, <code>.classed</code>, <code>.property</code>, <code>.text</code>, <code>.html</code></li>
+          <li><a href="https://www.d3indepth.com/selections/#updating-selections-with-functions">Updating with functions</a> : <code>(d, i) => ...</code></li>
+          <li><a href="https://www.d3indepth.com/selections/#inserting-and-removing-elements">Inserting / removing</a> : <code>.append</code>, <code>.insert</code>, <code>.remove</code></li>
+          <li><a href="https://www.d3indepth.com/selections/#chaining">Chaining</a></li>
+          <li><a href="https://www.d3indepth.com/selections/#each">.each</a>, <a href="https://www.d3indepth.com/selections/#call">.call</a></li>
+          <li><a href="https://www.d3indepth.com/selections/#filtering-and-sorting-selections">Filtering / sorting</a> : <code>.filter</code>, <code>.sort</code></li>
+          <li><a href="https://www.d3indepth.com/selections/#event-handling">Event handling</a> : <code>.on("click")</code>, <code>mouseenter</code>, <code>mouseover</code>, <code>mouseleave</code>, <code>mouseout</code>, <code>mousemove</code></li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="https://www.d3indepth.com/datajoins/">Data joins</a> : <a href="/notebooks/02-d3-joins.html">notebook 02</a>
+        <ul>
+          <li><a href="https://www.d3indepth.com/datajoins/#how-to-create-a-data-join">Create a data join</a> : <code>.data(array)</code>, <code>.join("rect")</code></li>
+          <li><a href="https://www.d3indepth.com/datajoins/#data-driven-updates">Data-driven updates</a> : accessors <code>(d, i)</code></li>
+          <li><a href="https://www.d3indepth.com/datajoins/#joining-arrays-of-objects">Joining arrays of objects</a></li>
+          <li><a href="https://www.d3indepth.com/datajoins/#update-functions">Update functions</a> : code de join réutilisable</li>
+          <li><a href="https://www.d3indepth.com/datajoins/#key-functions">Key functions</a> : <code>.data(arr, d => d.id)</code></li>
+          <li><a href="https://www.d3indepth.com/datajoins/#debugging">Debugging</a> : <code>$0.__data__</code> dans les devtools</li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="https://www.d3indepth.com/enterexit/">Enter, exit, update</a> : <a href="/notebooks/02-d3-joins.html">notebook 02</a>
+        <ul>
+          <li>Enter selection : éléments à créer</li>
+          <li>Update selection : éléments existants</li>
+          <li>Exit selection : éléments à supprimer</li>
+          <li><code>.join(enter, update, exit)</code> : forme à trois arguments</li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="https://www.d3indepth.com/scales/">Scale functions</a> : <a href="/notebooks/03-scales.html">notebook 03</a>
+        <ul>
+          <li>
+            <a href="https://www.d3indepth.com/scales/#scales-with-continuous-input-and-continuous-output">Continuous → continuous</a> :
+            <code>scaleLinear</code>, <code>scaleSqrt</code>, <code>scalePow</code>, <code>scaleLog</code>, <code>scaleTime</code>, <code>scaleSequential</code>
+          </li>
+          <li>
+            <a href="https://www.d3indepth.com/scales/#scales-with-continuous-input-and-discrete-output">Continuous → discrete</a> :
+            <code>scaleQuantize</code>, <code>scaleQuantile</code>, <code>scaleThreshold</code>
+          </li>
+          <li>
+            <a href="https://www.d3indepth.com/scales/#scales-with-discrete-input-and-discrete-output">Discrete → discrete</a> :
+            <code>scaleOrdinal</code>, <code>scaleBand</code>, <code>scalePoint</code>
+          </li>
+          <li>Méthodes : <code>.domain</code>, <code>.range</code>, <code>.invert</code>, <code>.nice</code>, <code>.clamp</code></li>
+          <li><a href="https://d3js.org/d3-scale-chromatic">d3-scale-chromatic</a> : palettes de couleurs</li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="https://www.d3indepth.com/shapes/">Shapes</a> : <a href="/notebooks/06-connect-the-dots.html">notebook 06</a>
+        <ul>
+          <li>
+            Generators :
+            <a href="https://www.d3indepth.com/shapes/#line-generator"><code>line</code></a>,
+            <a href="https://www.d3indepth.com/shapes/#area-generator"><code>area</code></a>,
+            <a href="https://www.d3indepth.com/shapes/#stack-generator"><code>stack</code></a>,
+            <a href="https://www.d3indepth.com/shapes/#arc-generator"><code>arc</code></a>,
+            <a href="https://www.d3indepth.com/shapes/#pie-generator"><code>pie</code></a>,
+            <a href="https://www.d3indepth.com/shapes/#symbols"><code>symbol</code></a>,
+            <code>radialLine</code>, <code>radialArea</code>
+          </li>
+          <li>
+            Curves : <code>curveLinear</code>, <code>curveBasis</code>, <code>curveCardinal</code>, <code>curveCatmullRom</code>, <code>curveMonotone</code>, <code>curveNatural</code>, <code>curveStep</code>, <code>curveBundle</code>
+            (variantes <code>...Closed</code>),
+            <a href="https://www.d3indepth.com/examples-merged/shapes/curve-explorer/">curve explorer</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="https://www.d3indepth.com/axes/">Axes</a> : <a href="/notebooks/05-axis.html">notebook 05</a>
+        <ul>
+          <li>Generators : <code>axisLeft</code>, <code>axisRight</code>, <code>axisTop</code>, <code>axisBottom</code></li>
+          <li>Configuration : <code>.ticks(n)</code>, <code>.tickValues([...])</code>, <code>.tickFormat(fn)</code></li>
+          <li>Tailles : <code>.tickSize</code>, <code>.tickSizeInner</code>, <code>.tickSizeOuter</code>, <code>.tickPadding</code></li>
+          <li>Astuce gridlines : <code>.tickSize(-innerW)</code></li>
+          <li><a href="https://observablehq.com/@d3/margin-convention">Margin convention</a></li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="https://www.d3indepth.com/transitions/">Transitions</a> : <a href="/notebooks/04-layout-transitions.html">notebook 04</a>
+        <ul>
+          <li>Création : <code>.transition()</code>, <code>.duration(ms)</code>, <code>.delay(ms)</code>, <code>.ease(fn)</code></li>
+          <li>Easing (<a href="https://d3js.org/d3-ease">d3-ease</a>) : <code>easeLinear</code>, <code>easeCubic</code>, <code>easeCubicIn</code>, <code>easeCubicOut</code>, <code>easeCubicInOut</code>, <code>easeBounce</code>, <code>easeBounceOut</code>, <code>easeBounceInOut</code></li>
+          <li>Custom interpolation : <code>.tween</code>, <code>.attrTween</code>, <code>.styleTween</code></li>
+          <li>Cycle de vie : <code>.on("start" / "end" / "interrupt")</code>, <code>.end()</code> (Promise), <code>.interrupt()</code></li>
+          <li>Transitions chaînées</li>
+        </ul>
+      </li>
+
+      <li>
+        Animation continue : générateur <code>function*() { while (true) yield performance.now() }</code>,
+        <a href="https://d3js.org/d3-timer"><code>d3.timer</code></a>
+      </li>
+      <li>
+        Self-drawing line :
+        <code>stroke-dasharray</code> + <code>stroke-dashoffset</code>,
+        <code>node().getTotalLength()</code>
+        (<a href="/notebooks/06-connect-the-dots.html">notebook 06</a>)
+      </li>
+      <li>
+        Charger des données :
+        <a href="https://d3js.org/d3-fetch">d3-fetch</a>,
+        <a href="https://d3js.org/d3-fetch#json"><code>d3.json</code></a>,
+        <a href="https://d3js.org/d3-fetch#csv"><code>d3.csv</code></a>,
+        <code>d3.tsv</code>
+      </li>
+    </ul>
+
+    <h2>Notebooks</h2>
+    <ul>
+      <li><a href="/notebooks/01-d3-selections.html">01 : Selections</a></li>
+      <li><a href="/notebooks/02-d3-joins.html">02 : Data joins</a></li>
+      <li><a href="/notebooks/03-scales.html">03 : Scales</a></li>
+      <li><a href="/notebooks/04-layout-transitions.html">04 : Layout transitions</a></li>
+      <li><a href="/notebooks/05-axis.html">05 : Y-axis with adaptive extent</a></li>
+      <li><a href="/notebooks/06-connect-the-dots.html">06 : Connect the dots</a></li>
+    </ul>
+
+    <h2>Galeries</h2>
+    <ul>
+      <li>
+        <a href="https://www.data-to-viz.com/">data-to-viz</a> (choisir le bon type de graphique),
+        <a href="https://observablehq.com/@d3/gallery">Observable D3 gallery</a>,
+        <a href="https://d3-graph-gallery.com/">d3-graph-gallery</a> (syntaxe ancienne <code>.enter().append()</code>)
+      </li>
+    </ul>
+
+    <h2>Exercice (en binômes) : « Oui, mais... »</h2>
+    <ul>
+      <li>
+        Prendre une visualisation issue d'une campagne politique, la reproduire en D3, puis créer une seconde visualisation qui propose une lecture plus complète. Transition animée entre les deux.
+      </li>
+      <li>
+        Source : <a href="https://initiativedurabilite.ch/arguments/">« Pas de Suisse à 10 millions »</a> : choisir un seul argument et son graphique.
+      </li>
+      <li>Reproduire fidèlement, identifier ce qui manque (variable cachée, échelle, période, comparaison), proposer une lecture enrichie.</li>
+      <li>Au moins une transition animée entre les deux états.</li>
+      <li>Rendu : page web avec source, deux visualisations + transition, court texte (3-5 phrases) sur ce qui manquait, sources de données.</li>
+      <li>
+        Données :
+        <a href="https://www.bfs.admin.ch/bfs/fr/home.html">BFS</a>,
+        <a href="https://opendata.swiss/">opendata.swiss</a>,
+        <a href="https://ourworldindata.org/">Our World in Data</a>,
+        <a href="https://www.gapminder.org/">Gapminder</a>
+      </li>
+    </ul>
+  </body>
+</html>
