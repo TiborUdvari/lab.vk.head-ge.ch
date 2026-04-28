@@ -1,0 +1,1919 @@
+<!doctype html><html lang="en" style="overflow-x: clip;"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Observable Notebook Kit | Observable</title>
+    <style type="text/css">/* Copyright 2025 Observable, Inc. */
+
+:root {
+  --serif:
+    "Source Serif 4", "Iowan Old Style", "Apple Garamond", "Palatino Linotype", "Times New Roman",
+    "Droid Serif", Times, serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --sans-serif:
+    "Inter", -apple-system, BlinkMacSystemFont, "avenir next", avenir, helvetica, "helvetica neue",
+    ubuntu, roboto, noto, "segoe ui", arial, sans-serif;
+  --monospace: "Spline Sans Mono", Menlo, Consolas, monospace;
+  --monospace-font: 14px/1.5 var(--monospace);
+  --max-width: calc(1024px - 4 * 16px); /* max-w-5xl p-4 */
+}
+
+html {
+  font: 17px/1.5 var(--serif);
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--theme-background);
+  color: var(--theme-foreground);
+  margin: 16px 0;
+  padding: 16px 24px;
+}
+
+body {
+  margin: auto;
+  max-width: var(--max-width);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--theme-foreground-alt);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-top: 0;
+  margin-bottom: 0.25rem;
+  text-wrap: balance;
+}
+
+h2 + p,
+h3 + p,
+h4 + p,
+h2 + table,
+h3 + table,
+h4 + table {
+  margin-top: 0;
+}
+
+.observablehq:first-of-type h1 + h2 {
+  color: var(--theme-foreground);
+  font-size: 20px;
+  font-style: italic;
+  font-weight: normal;
+  margin-bottom: 1rem; /* see h2 ~ p */
+}
+
+a[href] {
+  color: var(--theme-foreground-focus);
+  text-decoration: none;
+}
+
+a[href]:hover,
+a[href]:focus {
+  text-decoration: underline;
+}
+
+pre,
+code,
+tt {
+  font-family: var(--monospace);
+  font-size: 82.35294117%; /* from 17px to 14px */
+}
+
+pre code,
+figcaption code {
+  font-size: inherit;
+}
+
+pre[data-language] {
+  position: relative;
+}
+
+pre[data-language]::before {
+  content: attr(data-language);
+  position: sticky;
+  top: 0;
+  left: 0;
+  height: 0;
+  display: block;
+  text-align: right;
+  margin-right: -4px;
+  pointer-events: none;
+  font-size: 12px;
+  line-height: 21px;
+  color: var(--theme-foreground-muted);
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code {
+  font-size: 88.235294117%; /* from 17px to 15px */
+}
+
+h2[id] a[href],
+h3[id] a[href] {
+  color: inherit;
+}
+
+pre {
+  line-height: 1.5;
+}
+
+img {
+  max-width: 100%;
+}
+
+p,
+table,
+figure,
+figcaption,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.katex-display {
+  max-width: 640px;
+}
+
+blockquote,
+ol,
+ul {
+  max-width: 600px;
+}
+
+blockquote {
+  margin: 1rem 1.5rem;
+}
+
+ul,
+ol {
+  padding-left: 28px;
+}
+
+hr {
+  height: 1px;
+  margin: 1rem 0;
+  padding: 1rem 0;
+  border: none;
+  background: no-repeat center/100% 1px
+    linear-gradient(to right, var(--theme-foreground-faintest), var(--theme-foreground-faintest));
+}
+
+pre {
+  background-color: var(--theme-background-alt);
+  border-radius: 4px;
+  margin: 1rem -1rem;
+  min-height: 1.5em;
+  padding: 4px 1rem;
+  overflow-x: auto;
+  overscroll-behavior-x: none;
+  box-sizing: border-box;
+}
+
+pre > code:only-child {
+  display: block;
+  width: fit-content;
+}
+
+input:not([type]),
+input[type="email"],
+input[type="number"],
+input[type="password"],
+input[type="range"],
+input[type="search"],
+input[type="tel"],
+input[type="text"],
+input[type="url"] {
+  width: 240px;
+}
+
+input,
+canvas,
+button {
+  vertical-align: middle;
+}
+
+button,
+input,
+textarea {
+  accent-color: var(--theme-foreground-focus);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font: 13px/1.2 var(--sans-serif);
+}
+
+table pre,
+table code,
+table tt {
+  font-size: inherit;
+  line-height: inherit;
+}
+
+th > pre:only-child,
+td > pre:only-child {
+  margin: 0;
+  padding: 0;
+}
+
+th {
+  color: var(--theme-foreground);
+  text-align: left;
+  vertical-align: bottom;
+}
+
+td {
+  color: var(--theme-foreground-alt);
+  vertical-align: top;
+}
+
+th,
+td {
+  padding: 3px 6.5px 3px 0;
+}
+
+th:last-child,
+td:last-child {
+  padding-right: 0;
+}
+
+tr:not(:last-child) {
+  border-bottom: solid 1px var(--theme-foreground-faintest);
+}
+
+thead tr {
+  border-bottom: solid 1px var(--theme-foreground-fainter);
+}
+
+figure,
+table {
+  margin: 1rem 0;
+}
+
+figure img {
+  max-width: 100%;
+}
+
+figure > h2,
+figure > h3 {
+  font-family: var(--sans-serif);
+}
+
+figure > h2 {
+  font-size: 20px;
+}
+
+figure > h3 {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+figcaption {
+  font: small var(--sans-serif);
+  color: var(--theme-foreground-muted);
+}
+
+.observablehq--collapsed,
+.observablehq--expanded.observablehq--inspect a {
+  cursor: pointer;
+}
+
+.observablehq--caret {
+  margin-right: 4px;
+  vertical-align: baseline;
+}
+
+.observablehq--field {
+  text-indent: -1rem;
+  margin-left: 1rem;
+}
+
+.observablehq--inspect {
+  font: var(--monospace-font);
+  overflow-x: auto;
+  white-space: pre;
+  display: block;
+  padding: 2px 0;
+}
+
+.observablehq--inspect.observablehq--import {
+  white-space: normal;
+}
+
+.observablehq--inspect::-webkit-scrollbar {
+  display: none;
+}
+
+.observablehq--error .observablehq--inspect {
+  word-break: break-all;
+  white-space: pre-wrap;
+}
+
+.observablehq--string-expand {
+  margin-left: 6px;
+  padding: 2px 6px;
+  border-radius: 2px;
+  font-size: 80%;
+  background: var(--theme-background-alt);
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.observablehq--keyword {
+  color: var(--syntax-keyword);
+}
+
+.observablehq--index,
+.observablehq--key {
+  color: var(--syntax-definition);
+}
+
+.observablehq--symbol,
+.observablehq--regexp,
+.observablehq--string {
+  color: var(--syntax-string);
+}
+
+.observablehq--null {
+  color: var(--syntax-keyword);
+}
+
+.observablehq--undefined {
+  color: var(--syntax-variable);
+}
+
+.observablehq--prototype-key {
+  color: var(--syntax-comment);
+}
+
+.observablehq--bigint,
+.observablehq--boolean,
+.observablehq--date,
+.observablehq--forbidden,
+.observablehq--number {
+  color: var(--syntax-literal);
+}
+
+.observablehq--error {
+  color: var(--theme-error);
+}
+
+.observablehq--cell {
+  margin: 17px 0;
+  min-height: 1px; /* prevent margin collapse when empty */
+}
+
+.tok-link {
+  color: var(--syntax-link);
+}
+
+.tok-strong {
+  font-weight: 600;
+}
+
+.tok-emphasis {
+  font-style: italic;
+}
+
+.tok-keyword {
+  color: var(--syntax-keyword);
+}
+
+.tok-atom {
+  color: var(--syntax-atom);
+}
+
+.tok-literal {
+  color: var(--syntax-literal);
+}
+
+.tok-string {
+  color: var(--syntax-string);
+}
+
+.tok-comment {
+  color: var(--syntax-comment);
+}
+
+.tok-invalid {
+  color: var(--syntax-invalid);
+}
+
+.tok-variable {
+  color: var(--syntax-variable);
+}
+
+.tok-definition {
+  color: var(--syntax-definition);
+}
+
+.tok-meta {
+  color: var(--syntax-meta);
+}
+
+.plot-d6a7b5 {
+  --plot-background: var(--theme-background);
+}
+
+p .plot-d6a7b5 {
+  display: inline-block;
+}
+
+.observablehq--cell:empty {
+  min-height: 0;
+}
+
+.observablehq--cell:not(:empty) + pre {
+  margin-top: -11px;
+}
+
+/* spline-sans-mono-latin-ext-400-normal */
+
+@font-face {
+  font-family: 'Spline Sans Mono';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(./assets/spline-sans-mono-latin-ext-400-normal-BfWvPoNT.woff2) format('woff2'), url(./assets/spline-sans-mono-latin-ext-400-normal-BkT5i7fe.woff) format('woff');
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+
+/* spline-sans-mono-latin-400-normal */
+
+@font-face {
+  font-family: 'Spline Sans Mono';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(./assets/spline-sans-mono-latin-400-normal-mUpA6Mve.woff2) format('woff2'), url(./assets/spline-sans-mono-latin-400-normal-739QRW1l.woff) format('woff');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+/* spline-sans-mono-latin-ext-600-normal */
+
+@font-face {
+  font-family: 'Spline Sans Mono';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url(./assets/spline-sans-mono-latin-ext-600-normal-CYO0557q.woff2) format('woff2'), url(./assets/spline-sans-mono-latin-ext-600-normal-es3wdE0V.woff) format('woff');
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+
+/* spline-sans-mono-latin-600-normal */
+
+@font-face {
+  font-family: 'Spline Sans Mono';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url(./assets/spline-sans-mono-latin-600-normal-BrWm9FVc.woff2) format('woff2'), url(./assets/spline-sans-mono-latin-600-normal-ZCqv2Jod.woff) format('woff');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+/* spline-sans-mono-latin-ext-700-normal */
+
+@font-face {
+  font-family: 'Spline Sans Mono';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url(./assets/spline-sans-mono-latin-ext-700-normal-CIwA9V33.woff2) format('woff2'), url(./assets/spline-sans-mono-latin-ext-700-normal-OD-FaHeD.woff) format('woff');
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+
+/* spline-sans-mono-latin-700-normal */
+
+@font-face {
+  font-family: 'Spline Sans Mono';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url(./assets/spline-sans-mono-latin-700-normal-BwW4xXNM.woff2) format('woff2'), url(./assets/spline-sans-mono-latin-700-normal-BLdnetBw.woff) format('woff');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+/* spline-sans-mono-latin-ext-400-italic */
+
+@font-face {
+  font-family: 'Spline Sans Mono';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 400;
+  src: url(./assets/spline-sans-mono-latin-ext-400-italic-Bgx7hsPO.woff2) format('woff2'), url(./assets/spline-sans-mono-latin-ext-400-italic-ByCpokw0.woff) format('woff');
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+
+/* spline-sans-mono-latin-400-italic */
+
+@font-face {
+  font-family: 'Spline Sans Mono';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 400;
+  src: url(./assets/spline-sans-mono-latin-400-italic-DP081DET.woff2) format('woff2'), url(./assets/spline-sans-mono-latin-400-italic-Z_tpZbsx.woff) format('woff');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+/* spline-sans-mono-latin-ext-600-italic */
+
+@font-face {
+  font-family: 'Spline Sans Mono';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 600;
+  src: url(./assets/spline-sans-mono-latin-ext-600-italic-CJ3g_dA0.woff2) format('woff2'), url(./assets/spline-sans-mono-latin-ext-600-italic-QnP7nD6P.woff) format('woff');
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+
+/* spline-sans-mono-latin-600-italic */
+
+@font-face {
+  font-family: 'Spline Sans Mono';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 600;
+  src: url(./assets/spline-sans-mono-latin-600-italic-DUvxu3FQ.woff2) format('woff2'), url(./assets/spline-sans-mono-latin-600-italic-B7XC_fUc.woff) format('woff');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+/* spline-sans-mono-latin-ext-700-italic */
+
+@font-face {
+  font-family: 'Spline Sans Mono';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 700;
+  src: url(./assets/spline-sans-mono-latin-ext-700-italic-DIdep8Er.woff2) format('woff2'), url(./assets/spline-sans-mono-latin-ext-700-italic-CIqQYA0i.woff) format('woff');
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+
+/* spline-sans-mono-latin-700-italic */
+
+@font-face {
+  font-family: 'Spline Sans Mono';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 700;
+  src: url(./assets/spline-sans-mono-latin-700-italic-shtgotnr.woff2) format('woff2'), url(./assets/spline-sans-mono-latin-700-italic-6zMndKap.woff) format('woff');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+/* source-serif-4-cyrillic-ext-400-normal */
+
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(./assets/source-serif-4-cyrillic-ext-400-normal-CWV284fw.woff2) format('woff2'), url(./assets/source-serif-4-cyrillic-ext-400-normal-DLkyKLvH.woff) format('woff');
+  unicode-range: U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;
+}
+
+/* source-serif-4-cyrillic-400-normal */
+
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(./assets/source-serif-4-cyrillic-400-normal-C44pakCn.woff2) format('woff2'), url(./assets/source-serif-4-cyrillic-400-normal-B8Z6Jvzv.woff) format('woff');
+  unicode-range: U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;
+}
+
+/* source-serif-4-greek-400-normal */
+
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(./assets/source-serif-4-greek-400-normal-Cw5-AHNN.woff2) format('woff2'), url(./assets/source-serif-4-greek-400-normal-BccYJ-vZ.woff) format('woff');
+  unicode-range: U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF;
+}
+
+/* source-serif-4-vietnamese-400-normal */
+
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(./assets/source-serif-4-vietnamese-400-normal-BbG3LG1A.woff2) format('woff2'), url(./assets/source-serif-4-vietnamese-400-normal-DR1UuFon.woff) format('woff');
+  unicode-range: U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;
+}
+
+/* source-serif-4-latin-ext-400-normal */
+
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(./assets/source-serif-4-latin-ext-400-normal-Cp7z-ARB.woff2) format('woff2'), url(./assets/source-serif-4-latin-ext-400-normal-CEpydyUl.woff) format('woff');
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+
+/* source-serif-4-latin-400-normal */
+
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(./assets/source-serif-4-latin-400-normal-DJ5YJwmz.woff2) format('woff2'), url(./assets/source-serif-4-latin-400-normal-Dn3IlU-Z.woff) format('woff');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+/* source-serif-4-cyrillic-ext-700-normal */
+
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url(./assets/source-serif-4-cyrillic-ext-700-normal-B9R79AaY.woff2) format('woff2'), url(./assets/source-serif-4-cyrillic-ext-700-normal-DsKdgJCr.woff) format('woff');
+  unicode-range: U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;
+}
+
+/* source-serif-4-cyrillic-700-normal */
+
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url(./assets/source-serif-4-cyrillic-700-normal-BmBwwUw2.woff2) format('woff2'), url(./assets/source-serif-4-cyrillic-700-normal-DVvE-KHB.woff) format('woff');
+  unicode-range: U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;
+}
+
+/* source-serif-4-greek-700-normal */
+
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url(./assets/source-serif-4-greek-700-normal-BzuEQSqJ.woff2) format('woff2'), url(./assets/source-serif-4-greek-700-normal-C5Ojiwey.woff) format('woff');
+  unicode-range: U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF;
+}
+
+/* source-serif-4-vietnamese-700-normal */
+
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url(./assets/source-serif-4-vietnamese-700-normal-CCAt8c4x.woff2) format('woff2'), url(./assets/source-serif-4-vietnamese-700-normal-BBU5i_d1.woff) format('woff');
+  unicode-range: U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;
+}
+
+/* source-serif-4-latin-ext-700-normal */
+
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url(./assets/source-serif-4-latin-ext-700-normal-C8ywwcuQ.woff2) format('woff2'), url(./assets/source-serif-4-latin-ext-700-normal-BZsvHpal.woff) format('woff');
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+
+/* source-serif-4-latin-700-normal */
+
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url(./assets/source-serif-4-latin-700-normal-CGGdTIBe.woff2) format('woff2'), url(./assets/source-serif-4-latin-700-normal-3V4Pv1hj.woff) format('woff');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+/* source-serif-4-cyrillic-ext-400-italic */
+
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 400;
+  src: url(./assets/source-serif-4-cyrillic-ext-400-italic-zoDFlEzN.woff2) format('woff2'), url(./assets/source-serif-4-cyrillic-ext-400-italic-Dx4A8QUO.woff) format('woff');
+  unicode-range: U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;
+}
+
+/* source-serif-4-cyrillic-400-italic */
+
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 400;
+  src: url(./assets/source-serif-4-cyrillic-400-italic-BLN19cOa.woff2) format('woff2'), url(./assets/source-serif-4-cyrillic-400-italic-Dx8qIUN3.woff) format('woff');
+  unicode-range: U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;
+}
+
+/* source-serif-4-greek-400-italic */
+
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 400;
+  src: url(./assets/source-serif-4-greek-400-italic-C7D4Dq0H.woff2) format('woff2'), url(./assets/source-serif-4-greek-400-italic-DcuniPAV.woff) format('woff');
+  unicode-range: U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF;
+}
+
+/* source-serif-4-vietnamese-400-italic */
+
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 400;
+  src: url(./assets/source-serif-4-vietnamese-400-italic-CjUPRDIa.woff2) format('woff2'), url(./assets/source-serif-4-vietnamese-400-italic-DyjhI2GX.woff) format('woff');
+  unicode-range: U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;
+}
+
+/* source-serif-4-latin-ext-400-italic */
+
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 400;
+  src: url(./assets/source-serif-4-latin-ext-400-italic-JynPwBMj.woff2) format('woff2'), url(./assets/source-serif-4-latin-ext-400-italic-G7LDTi7t.woff) format('woff');
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+
+/* source-serif-4-latin-400-italic */
+
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 400;
+  src: url(./assets/source-serif-4-latin-400-italic-0j97Jm6B.woff2) format('woff2'), url(./assets/source-serif-4-latin-400-italic-Dv9jnFA_.woff) format('woff');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+/* source-serif-4-cyrillic-ext-700-italic */
+
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 700;
+  src: url(./assets/source-serif-4-cyrillic-ext-700-italic-BdFI3uD2.woff2) format('woff2'), url(./assets/source-serif-4-cyrillic-ext-700-italic-CW6u860k.woff) format('woff');
+  unicode-range: U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;
+}
+
+/* source-serif-4-cyrillic-700-italic */
+
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 700;
+  src: url(./assets/source-serif-4-cyrillic-700-italic-C5vSpb1a.woff2) format('woff2'), url(./assets/source-serif-4-cyrillic-700-italic-BNXt_5iO.woff) format('woff');
+  unicode-range: U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;
+}
+
+/* source-serif-4-greek-700-italic */
+
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 700;
+  src: url(./assets/source-serif-4-greek-700-italic-DbF55r_P.woff2) format('woff2'), url(./assets/source-serif-4-greek-700-italic-bfz8xsri.woff) format('woff');
+  unicode-range: U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF;
+}
+
+/* source-serif-4-vietnamese-700-italic */
+
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 700;
+  src: url(./assets/source-serif-4-vietnamese-700-italic-CqUud9yW.woff2) format('woff2'), url(./assets/source-serif-4-vietnamese-700-italic-CmYmx5Sm.woff) format('woff');
+  unicode-range: U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;
+}
+
+/* source-serif-4-latin-ext-700-italic */
+
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 700;
+  src: url(./assets/source-serif-4-latin-ext-700-italic-D3ZlY63u.woff2) format('woff2'), url(./assets/source-serif-4-latin-ext-700-italic-DppnFcZR.woff) format('woff');
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+
+/* source-serif-4-latin-700-italic */
+
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 700;
+  src: url(./assets/source-serif-4-latin-700-italic-JqVfbRzb.woff2) format('woff2'), url(./assets/source-serif-4-latin-700-italic-BU_ZoKoz.woff) format('woff');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+/* inter-cyrillic-ext-400-normal */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(./assets/inter-cyrillic-ext-400-normal-Dc4VJyIJ.woff2) format('woff2'), url(./assets/inter-cyrillic-ext-400-normal-BE2fNs0E.woff) format('woff');
+  unicode-range: U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;
+}
+
+/* inter-cyrillic-400-normal */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(./assets/inter-cyrillic-400-normal-BLGc9T1a.woff2) format('woff2'), url(./assets/inter-cyrillic-400-normal-alAqRL36.woff) format('woff');
+  unicode-range: U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;
+}
+
+/* inter-greek-ext-400-normal */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(./assets/inter-greek-ext-400-normal-Bput3-QP.woff2) format('woff2'), url(./assets/inter-greek-ext-400-normal-XIH6-K3k.woff) format('woff');
+  unicode-range: U+1F00-1FFF;
+}
+
+/* inter-greek-400-normal */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(./assets/inter-greek-400-normal-DxZsaF_h.woff2) format('woff2'), url(./assets/inter-greek-400-normal-C3I71FoW.woff) format('woff');
+  unicode-range: U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF;
+}
+
+/* inter-vietnamese-400-normal */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(./assets/inter-vietnamese-400-normal-DMkecbls.woff2) format('woff2'), url(./assets/inter-vietnamese-400-normal-Bbgyi5SW.woff) format('woff');
+  unicode-range: U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;
+}
+
+/* inter-latin-ext-400-normal */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(./assets/inter-latin-ext-400-normal-C1nco2VV.woff2) format('woff2'), url(./assets/inter-latin-ext-400-normal-77YHD8bZ.woff) format('woff');
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+
+/* inter-latin-400-normal */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(./assets/inter-latin-400-normal-C38fXH4l.woff2) format('woff2'), url(./assets/inter-latin-400-normal-CyCys3Eg.woff) format('woff');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+/* inter-cyrillic-ext-500-normal */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url(./assets/inter-cyrillic-ext-500-normal-BShVwWPj.woff2) format('woff2'), url(./assets/inter-cyrillic-ext-500-normal-NrhEyngK.woff) format('woff');
+  unicode-range: U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;
+}
+
+/* inter-cyrillic-500-normal */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url(./assets/inter-cyrillic-500-normal-D4Vwzodn.woff2) format('woff2'), url(./assets/inter-cyrillic-500-normal-BoeW9iIj.woff) format('woff');
+  unicode-range: U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;
+}
+
+/* inter-greek-ext-500-normal */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url(./assets/inter-greek-ext-500-normal-B6guLgqG.woff2) format('woff2'), url(./assets/inter-greek-ext-500-normal-1SJLBQ3N.woff) format('woff');
+  unicode-range: U+1F00-1FFF;
+}
+
+/* inter-greek-500-normal */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url(./assets/inter-greek-500-normal-CeQXL5ds.woff2) format('woff2'), url(./assets/inter-greek-500-normal-CSBZZ4CI.woff) format('woff');
+  unicode-range: U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF;
+}
+
+/* inter-vietnamese-500-normal */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url(./assets/inter-vietnamese-500-normal-DOriooB6.woff2) format('woff2'), url(./assets/inter-vietnamese-500-normal-mJboJaSs.woff) format('woff');
+  unicode-range: U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;
+}
+
+/* inter-latin-ext-500-normal */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url(./assets/inter-latin-ext-500-normal-CV4jyFjo.woff2) format('woff2'), url(./assets/inter-latin-ext-500-normal-BxGbmqWO.woff) format('woff');
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+
+/* inter-latin-500-normal */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url(./assets/inter-latin-500-normal-Cerq10X2.woff2) format('woff2'), url(./assets/inter-latin-500-normal-BL9OpVg8.woff) format('woff');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+/* inter-cyrillic-ext-600-normal */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url(./assets/inter-cyrillic-ext-600-normal-CaqZN2hq.woff2) format('woff2'), url(./assets/inter-cyrillic-ext-600-normal-t7rHAwBu.woff) format('woff');
+  unicode-range: U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;
+}
+
+/* inter-cyrillic-600-normal */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url(./assets/inter-cyrillic-600-normal-BGBWG807.woff2) format('woff2'), url(./assets/inter-cyrillic-600-normal-vZ-N8GHY.woff) format('woff');
+  unicode-range: U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;
+}
+
+/* inter-greek-ext-600-normal */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url(./assets/inter-greek-ext-600-normal-Cnui8OiR.woff2) format('woff2'), url(./assets/inter-greek-ext-600-normal-CCFnzSpK.woff) format('woff');
+  unicode-range: U+1F00-1FFF;
+}
+
+/* inter-greek-600-normal */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url(./assets/inter-greek-600-normal-Dhlb-90d.woff2) format('woff2'), url(./assets/inter-greek-600-normal-BVGIV3oK.woff) format('woff');
+  unicode-range: U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF;
+}
+
+/* inter-vietnamese-600-normal */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url(./assets/inter-vietnamese-600-normal-Cc8MFFhd.woff2) format('woff2'), url(./assets/inter-vietnamese-600-normal-BuLX-rYi.woff) format('woff');
+  unicode-range: U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;
+}
+
+/* inter-latin-ext-600-normal */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url(./assets/inter-latin-ext-600-normal-D2bJ5OIk.woff2) format('woff2'), url(./assets/inter-latin-ext-600-normal-CIVaiw4L.woff) format('woff');
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+
+/* inter-latin-600-normal */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url(./assets/inter-latin-600-normal-LgqL8muc.woff2) format('woff2'), url(./assets/inter-latin-600-normal-CiBQ2DWP.woff) format('woff');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+/* inter-cyrillic-ext-700-normal */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url(./assets/inter-cyrillic-ext-700-normal-ClVoMEGq.woff2) format('woff2'), url(./assets/inter-cyrillic-ext-700-normal-Cg0zx2i8.woff) format('woff');
+  unicode-range: U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;
+}
+
+/* inter-cyrillic-700-normal */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url(./assets/inter-cyrillic-700-normal-bGtGjVdZ.woff2) format('woff2'), url(./assets/inter-cyrillic-700-normal-oWiwobpV.woff) format('woff');
+  unicode-range: U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;
+}
+
+/* inter-greek-ext-700-normal */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url(./assets/inter-greek-ext-700-normal-SzCdnevJ.woff2) format('woff2'), url(./assets/inter-greek-ext-700-normal-D0KHSs-V.woff) format('woff');
+  unicode-range: U+1F00-1FFF;
+}
+
+/* inter-greek-700-normal */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url(./assets/inter-greek-700-normal-Cxpycf-U.woff2) format('woff2'), url(./assets/inter-greek-700-normal-DtGkhywV.woff) format('woff');
+  unicode-range: U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF;
+}
+
+/* inter-vietnamese-700-normal */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url(./assets/inter-vietnamese-700-normal-CGpBpxLq.woff2) format('woff2'), url(./assets/inter-vietnamese-700-normal-DL6eWghQ.woff) format('woff');
+  unicode-range: U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;
+}
+
+/* inter-latin-ext-700-normal */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url(./assets/inter-latin-ext-700-normal-CfWAu3Qq.woff2) format('woff2'), url(./assets/inter-latin-ext-700-normal-Z3s-4e5M.woff) format('woff');
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+
+/* inter-latin-700-normal */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url(./assets/inter-latin-700-normal-Drs_5D37.woff2) format('woff2'), url(./assets/inter-latin-700-normal-KTwiWvO9.woff) format('woff');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+/* inter-cyrillic-ext-400-italic */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 400;
+  src: url(./assets/inter-cyrillic-ext-400-italic-CehB8t-8.woff2) format('woff2'), url(./assets/inter-cyrillic-ext-400-italic-nTurEaSu.woff) format('woff');
+  unicode-range: U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;
+}
+
+/* inter-cyrillic-400-italic */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 400;
+  src: url(./assets/inter-cyrillic-400-italic-CKyytblM.woff2) format('woff2'), url(./assets/inter-cyrillic-400-italic-vANaBym1.woff) format('woff');
+  unicode-range: U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;
+}
+
+/* inter-greek-ext-400-italic */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 400;
+  src: url(./assets/inter-greek-ext-400-italic-MxoIabFE.woff2) format('woff2'), url(./assets/inter-greek-ext-400-italic-fwfMSvUC.woff) format('woff');
+  unicode-range: U+1F00-1FFF;
+}
+
+/* inter-greek-400-italic */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 400;
+  src: url(./assets/inter-greek-400-italic-C_qJDahm.woff2) format('woff2'), url(./assets/inter-greek-400-italic-CJ86Nr4G.woff) format('woff');
+  unicode-range: U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF;
+}
+
+/* inter-vietnamese-400-italic */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 400;
+  src: url(./assets/inter-vietnamese-400-italic-Ceaj4WUo.woff2) format('woff2'), url(./assets/inter-vietnamese-400-italic-E-DnQMHp.woff) format('woff');
+  unicode-range: U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;
+}
+
+/* inter-latin-ext-400-italic */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 400;
+  src: url(./assets/inter-latin-ext-400-italic-CGFCRmTM.woff2) format('woff2'), url(./assets/inter-latin-ext-400-italic-DpQ6ZOoA.woff) format('woff');
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+
+/* inter-latin-400-italic */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 400;
+  src: url(./assets/inter-latin-400-italic-D1l0FflY.woff2) format('woff2'), url(./assets/inter-latin-400-italic-BmFrN47l.woff) format('woff');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+/* inter-cyrillic-ext-500-italic */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 500;
+  src: url(./assets/inter-cyrillic-ext-500-italic-Bx8SeCYt.woff2) format('woff2'), url(./assets/inter-cyrillic-ext-500-italic-9Xx2Q3PI.woff) format('woff');
+  unicode-range: U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;
+}
+
+/* inter-cyrillic-500-italic */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 500;
+  src: url(./assets/inter-cyrillic-500-italic-4speQOfI.woff2) format('woff2'), url(./assets/inter-cyrillic-500-italic-BOni0Cyk.woff) format('woff');
+  unicode-range: U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;
+}
+
+/* inter-greek-ext-500-italic */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 500;
+  src: url(./assets/inter-greek-ext-500-italic-B6pJyy6Z.woff2) format('woff2'), url(./assets/inter-greek-ext-500-italic-Bccyr9Gt.woff) format('woff');
+  unicode-range: U+1F00-1FFF;
+}
+
+/* inter-greek-500-italic */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 500;
+  src: url(./assets/inter-greek-500-italic-DZ4GW5_M.woff2) format('woff2'), url(./assets/inter-greek-500-italic-CGefo6TM.woff) format('woff');
+  unicode-range: U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF;
+}
+
+/* inter-vietnamese-500-italic */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 500;
+  src: url(./assets/inter-vietnamese-500-italic-Ci6hLotD.woff2) format('woff2'), url(./assets/inter-vietnamese-500-italic-BDm3lIJY.woff) format('woff');
+  unicode-range: U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;
+}
+
+/* inter-latin-ext-500-italic */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 500;
+  src: url(./assets/inter-latin-ext-500-italic-6uvZyJeQ.woff2) format('woff2'), url(./assets/inter-latin-ext-500-italic-O82l3e5v.woff) format('woff');
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+
+/* inter-latin-500-italic */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 500;
+  src: url(./assets/inter-latin-500-italic-CmxAJXy_.woff2) format('woff2'), url(./assets/inter-latin-500-italic-BaBk7Nya.woff) format('woff');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+/* inter-cyrillic-ext-600-italic */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 600;
+  src: url(./assets/inter-cyrillic-ext-600-italic-DIv3VbJ3.woff2) format('woff2'), url(./assets/inter-cyrillic-ext-600-italic-BIHeN5NP.woff) format('woff');
+  unicode-range: U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;
+}
+
+/* inter-cyrillic-600-italic */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 600;
+  src: url(./assets/inter-cyrillic-600-italic-DlcfoU7n.woff2) format('woff2'), url(./assets/inter-cyrillic-600-italic-B9biYJZN.woff) format('woff');
+  unicode-range: U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;
+}
+
+/* inter-greek-ext-600-italic */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 600;
+  src: url(./assets/inter-greek-ext-600-italic-BehS7mmu.woff2) format('woff2'), url(./assets/inter-greek-ext-600-italic-B7VSimn1.woff) format('woff');
+  unicode-range: U+1F00-1FFF;
+}
+
+/* inter-greek-600-italic */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 600;
+  src: url(./assets/inter-greek-600-italic-Bl6euVqm.woff2) format('woff2'), url(./assets/inter-greek-600-italic-BghegE-E.woff) format('woff');
+  unicode-range: U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF;
+}
+
+/* inter-vietnamese-600-italic */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 600;
+  src: url(./assets/inter-vietnamese-600-italic-BuG6-S9s.woff2) format('woff2'), url(./assets/inter-vietnamese-600-italic-CKjJHBAp.woff) format('woff');
+  unicode-range: U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;
+}
+
+/* inter-latin-ext-600-italic */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 600;
+  src: url(./assets/inter-latin-ext-600-italic-4pxPPAsx.woff2) format('woff2'), url(./assets/inter-latin-ext-600-italic-DgI6rDWk.woff) format('woff');
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+
+/* inter-latin-600-italic */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 600;
+  src: url(./assets/inter-latin-600-italic-BJYrns_i.woff2) format('woff2'), url(./assets/inter-latin-600-italic-CIYS91tl.woff) format('woff');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+/* inter-cyrillic-ext-700-italic */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 700;
+  src: url(./assets/inter-cyrillic-ext-700-italic-zNftX4Ap.woff2) format('woff2'), url(./assets/inter-cyrillic-ext-700-italic-ovu678TW.woff) format('woff');
+  unicode-range: U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;
+}
+
+/* inter-cyrillic-700-italic */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 700;
+  src: url(./assets/inter-cyrillic-700-italic-hrd_O5x6.woff2) format('woff2'), url(./assets/inter-cyrillic-700-italic-CYn0WAO5.woff) format('woff');
+  unicode-range: U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;
+}
+
+/* inter-greek-ext-700-italic */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 700;
+  src: url(./assets/inter-greek-ext-700-italic-CVhTt7Au.woff2) format('woff2'), url(./assets/inter-greek-ext-700-italic-lj1OV0dH.woff) format('woff');
+  unicode-range: U+1F00-1FFF;
+}
+
+/* inter-greek-700-italic */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 700;
+  src: url(./assets/inter-greek-700-italic-8_7f-yBK.woff2) format('woff2'), url(./assets/inter-greek-700-italic-WAr0TkHx.woff) format('woff');
+  unicode-range: U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF;
+}
+
+/* inter-vietnamese-700-italic */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 700;
+  src: url(./assets/inter-vietnamese-700-italic-DeYDD1t8.woff2) format('woff2'), url(./assets/inter-vietnamese-700-italic-DlTkVA-t.woff) format('woff');
+  unicode-range: U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;
+}
+
+/* inter-latin-ext-700-italic */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 700;
+  src: url(./assets/inter-latin-ext-700-italic-BouXvm2p.woff2) format('woff2'), url(./assets/inter-latin-ext-700-italic-BnVTCIQ6.woff) format('woff');
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+
+/* inter-latin-700-italic */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 700;
+  src: url(./assets/inter-latin-700-italic-B-R1LdaJ.woff2) format('woff2'), url(./assets/inter-latin-700-italic-u1DKaYGd.woff) format('woff');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+    </style>
+    <style type="text/css">
+      #header,
+      #navigation {
+        background: var(--theme-foreground);
+        color: var(--theme-background);
+        transition: box-shadow ease 250ms,
+          background-color linear 250ms,
+          color linear 250ms;
+      }
+      :root.scrolled1 #header {
+        box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+      }
+      :root.scrolled2 #header {
+        background: var(--theme-background);
+        color: var(--theme-foreground);
+      }
+      #navigation::backdrop {
+        background: rgba(0, 0, 0, 0.3);
+      }
+      #navigation-trigger:hover,
+      #navigation-trigger:focus {
+        text-decoration: underline;
+      }
+      #navigation-trigger:has(~ #navigation:popover-open) {
+        text-decoration: none;
+        pointer-events: none;
+      }
+      #navigation-trigger::after {
+        content: "";
+        background-color: currentColor;
+        mask-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M4.41435 6.53148C4.6731 6.20803 5.14507 6.15559 5.46852 6.41435L8.125 8.53953L10.7815 6.41435C11.1049 6.15559 11.5769 6.20803 11.8356 6.53148C12.0944 6.85492 12.042 7.32689 11.7185 7.58565L8.125 10.4605L4.53148 7.58565C4.20803 7.32689 4.15559 6.85492 4.41435 6.53148Z' fill='currentColor' /%3E%3C/svg%3E");
+        mask-repeat: no-repeat;
+        width: 16px;
+        height: 16px;
+      }
+      #navigation-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+      }
+      @media (max-width: 640px) {
+        #navigation-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  <meta name="generator" content="Observable Notebook Kit v1.5.2">  <script type="module" crossorigin src="./assets/kit-BWlYuKX6.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/index-Bx5bFb1B.js">
+  <link rel="modulepreload" crossorigin href="./assets/style-DWkuf6-M.js">
+  <link rel="stylesheet" crossorigin href="./assets/style-CIDtYWyn.css">
+</head>
+  <body>
+    <header id="header" style="position: sticky; z-index: 10; top: 0; margin: -32px calc((100% - 100vw) / 2) 4rem; font: 500 16px/normal var(--sans-serif);">
+      <div style="display: flex; max-width: var(--max-width); padding: 1rem; margin: auto; gap: 1rem; justify-content: space-between;">
+        <button id="navigation-trigger" title="Open menu" popovertarget="navigation" style="cursor: pointer; border: none; background: transparent; font: inherit; color: inherit; display: flex; align-items: center; padding: 0;">
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <svg role="img" width="24" height="24" viewBox="0 0 24 24" aria-label="Observable" fill="currentColor">
+              <path d="M11.4413 19.7265C10.3849 19.7265 9.46964 19.4977 8.69544 19.04C7.92403 18.5841 7.30727 17.9383 6.91536 17.1761C6.49867 16.3829 6.19365 15.5442 6.00767 14.6801C5.81035 13.743 5.71422 12.7903 5.72068 11.8359C5.72068 11.0802 5.77027 10.3577 5.87038 9.66687C5.96953 8.97688 6.15355 8.27548 6.42147 7.56358C6.68939 6.85167 7.03454 6.23445 7.45501 5.71104C7.89276 5.17482 8.45875 4.73835 9.10924 4.4354C9.79191 4.10837 10.568 3.9453 11.4413 3.9453C12.4977 3.9453 13.4131 4.17413 14.1873 4.63178C14.9587 5.08762 15.5755 5.73343 15.9674 6.49571C16.3811 7.28039 16.6834 8.11242 16.875 8.99178C17.0658 9.87026 17.1621 10.8189 17.1621 11.8359C17.1621 12.5917 17.1125 13.3141 17.0123 14.0049C16.9057 14.7222 16.7171 15.4272 16.4498 16.1082C16.1733 16.8201 15.8301 17.4374 15.4162 17.9608C15.0025 18.4842 14.4552 18.9094 13.7735 19.2364C13.0918 19.5634 12.3147 19.7265 11.4413 19.7265ZM13.4608 13.9249C14.0079 13.3785 14.3122 12.6225 14.3017 11.8359C14.3017 11.0232 14.0281 10.3268 13.4817 9.74686C12.9344 9.1669 12.2547 8.87692 11.4413 8.87692C10.628 8.87692 9.94827 9.1669 9.40099 9.74686C8.86507 10.2993 8.56912 11.0534 8.58102 11.8359C8.58102 12.6486 8.85467 13.3449 9.40099 13.9249C9.94827 14.5049 10.628 14.7949 11.4413 14.7949C12.2547 14.7949 12.9278 14.5049 13.4608 13.9249ZM11.4413 23.6718C17.7599 23.6718 22.8828 18.3723 22.8828 11.8359C22.8828 5.29952 17.7599 0 11.4413 0C5.12287 0 0 5.29952 0 11.8359C0 18.3723 5.12287 23.6718 11.4413 23.6718Z"></path>
+            </svg>
+            Notebooks 2.0
+          </div>
+        </button>
+        <div style="display: flex; align-items: center; justify-self: end; gap: 1rem; font-size: 14px;">
+          <a href="https://github.com/observablehq/notebook-kit/releases" title="View release notes" style="color: inherit;">
+            1.5.2
+          </a>
+          <a href="https://github.com/observablehq/notebook-kit" title="View source on GitHub" style="color: inherit;">
+            GitHub ★
+          </a>
+        </div>
+        <div id="navigation" popover="" style="font: inherit; padding: 2rem; bottom: unset; top: 4rem; max-width: min(40rem, calc(100% - 6rem)); width: auto; border: none; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); overflow-y: auto; max-height: calc(100% - 7rem);">
+          <div id="navigation-grid">
+            <a href="/notebook-kit/" style="color: inherit;">
+              <div>Notebooks 2.0</div>
+              <div style="opacity: 0.8; font-weight: normal; font-size: 14px;">An overview of the new Observable Notebooks, and why we’re doing this</div>
+            </a>
+            <a href="/notebook-kit/kit" style="color: inherit;">
+              <div>Notebook Kit</div>
+              <div style="opacity: 0.8; font-weight: normal; font-size: 14px;">An open file format for notebooks, and accompanying tooling for generating static sites</div>
+            </a>
+            <a href="/notebook-kit/gallery" style="color: inherit;">
+              <div>Notebooks gallery</div>
+              <div style="opacity: 0.8; font-weight: normal; font-size: 14px;">More examples than you can shake a stick at, featuring interactive visualizations</div>
+            </a>
+            <a href="/notebook-kit/system-guide" style="color: inherit;">
+              <div>Notebooks system guide</div>
+              <div style="opacity: 0.8; font-weight: normal; font-size: 14px;">An introduction to authoring notebooks with reactive JavaScript, Markdown, and HTML</div>
+            </a>
+            <a href="/notebook-kit/databases" style="color: inherit;">
+              <div>Database connectors</div>
+              <div style="opacity: 0.8; font-weight: normal; font-size: 14px;">Query SQL databases and data warehouses from notebooks</div>
+            </a>
+            <a href="/notebook-kit/data-loaders" style="color: inherit;">
+              <div>Data loaders</div>
+              <div style="opacity: 0.8; font-weight: normal; font-size: 14px;">Prepare static data by running Node.js, Python, or R</div>
+            </a>
+            <a href="/notebook-kit/desktop" style="color: inherit;">
+              <div>Desktop</div>
+              <div style="opacity: 0.8; font-weight: normal; font-size: 14px;">A desktop application for editing notebooks as local files, and with a radical new approach to AI</div>
+            </a>
+            <a href="/notebook-kit/desktop-guide" style="color: inherit;">
+              <div>Desktop user guide</div>
+              <div style="opacity: 0.8; font-weight: normal; font-size: 14px;">A visual guide to editing notebooks with Observable Desktop</div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main style="min-height: calc(100vh - 20rem);"><div id="cell-1" class="observablehq observablehq--cell"><div><h1>Observable Notebook Kit</h1></div></div><div id="cell-4" class="observablehq observablehq--cell"><div><p><strong>Observable Notebook Kit</strong> is an <a href="https://github.com/observablehq/notebook-kit">open-source command-line tool</a> for building static sites from Observable Notebooks based on an open file format. Notebook Kit also includes a Vite plugin and a low-level JavaScript interface for deep integration of Observable Notebooks with custom web applications.</p>
+</div></div><div id="cell-43" class="observablehq observablehq--cell"><div><p>Notebook Kit is available as part of <a href="./"><strong>Notebooks 2.0 Technology Preview</strong></a>, which includes <a href="./desktop">Observable Desktop</a>, a macOS application for editing notebooks.</p>
+</div></div><div id="cell-46" class="observablehq observablehq--cell"><div><p>For more on authoring notebooks, see the <a href="./system-guide">Notebooks system guide</a>.</p>
+</div></div><div id="cell-7" class="observablehq observablehq--cell"><div><hr>
+<h2 id="installing" tabindex="-1"><a href="#installing">Installing</a></h2>
+<p>You can install Notebook Kit from <a href="https://www.npmjs.com/package/@observablehq/notebook-kit">npm</a>:</p>
+<pre data-language="sh"><code class="language-sh">npm add @observablehq/notebook-kit
+</code></pre>
+<p>If you use <a href="https://pnpm.io/">pnpm</a>, you must also explicitly install any fonts used by the <a href="https://github.com/observablehq/notebook-kit/blob/main/src/templates/default.html">default styles</a> (unless you plan on using different fonts):</p>
+<pre data-language="sh"><code class="language-sh">pnpm add @observablehq/notebook-kit @fontsource/inter @fontsource/source-serif-4 @fontsource/spline-sans-mono
+</code></pre>
+<p>If you plan on using <a href="./databases">database connectors</a>, you must also install the drivers for the databases you wish to use. To install the DuckDB driver:</p>
+<pre data-language="sh"><code class="language-sh">npm add @duckdb/node-api
+</code></pre>
+<p>To install the Postgres driver:</p>
+<pre data-language="sh"><code class="language-sh">npm add postgres
+</code></pre>
+<p>To install the Snowflake driver:</p>
+<pre data-language="sh"><code class="language-sh">npm add snowflake-sdk
+</code></pre>
+<p>To install the Google BigQuery driver:</p>
+<pre data-language="sh"><code class="language-sh">npm add @google-cloud/bigquery
+</code></pre>
+<p>To install the Databricks driver:</p>
+<pre data-language="sh"><code class="language-sh">npm add @databricks/sql
+</code></pre>
+<p>Notebook Kit requires <a href="https://nodejs.org/en">Node.js</a> 20.19+ or 22.12+. To use the SQLite database connector, you must use Node.js 24+. <a href="https://bun.com/">Bun</a> 1.2+ should also work, but is not officially supported.</p>
+</div></div><div id="cell-47" class="observablehq observablehq--cell"><div><hr>
+<h2 id="the-notebook-file-format" tabindex="-1"><a href="#the-notebook-file-format">The notebook file format</a></h2>
+<p>The notebook file format is intended to be simple, human-readable, and human-editable. It’s based on HTML, which means you get nice editing affordances in today’s text editors without needing special plugins. In addition, it’s easy to review diffs when storing notebooks in source control, to search, to find-and-replace, and countless other workflows.</p>
+</div></div><div id="cell-48" class="observablehq observablehq--cell"><div><aside>While you can edit notebook HTML directly, we recommend installing <a href="./desktop">Observable Desktop</a> to author notebooks.</aside>
+<p>A notebook HTML file consists of:</p>
+<ul>
+<li data-language="html">a <code class="language-html">&lt;<span class="tok-keyword">notebook</span>&gt;</code> root element,</li>
+<li data-language="html">an optional <code class="language-html">&lt;<span class="tok-keyword">title</span>&gt;</code> element, and</li>
+<li data-language="html">one <code class="language-html">&lt;<span class="tok-keyword">script</span>&gt;</code> element per cell.</li>
+</ul>
+</div></div><div id="cell-50" class="observablehq observablehq--cell"><div><p>Here’s a simple “hello world” notebook to demonstrate:</p>
+<pre data-language="html"><code class="language-html"><span class="tok-meta">&lt;!doctype html&gt;</span>
+&lt;<span class="tok-keyword">notebook</span>&gt;
+  &lt;<span class="tok-keyword">title</span>&gt;Hello, world!&lt;/<span class="tok-keyword">title</span>&gt;
+  &lt;<span class="tok-keyword">script</span> <span class="tok-definition">type</span>=<span class="tok-string">"text/markdown"</span>&gt;
+    # Hello, world!
+  &lt;/<span class="tok-keyword">script</span>&gt;
+  &lt;<span class="tok-keyword">script</span> <span class="tok-definition">type</span>=<span class="tok-string">"module"</span> <span class="tok-definition">pinned</span>&gt;
+    1 + 2
+  &lt;/<span class="tok-keyword">script</span>&gt;
+&lt;/<span class="tok-keyword">notebook</span>&gt;
+</code></pre>
+</div></div><div id="cell-60" class="observablehq observablehq--cell"><div><p data-language="html">The cell <code class="language-html">&lt;<span class="tok-keyword">script</span>&gt;</code> element should use four spaces of indentation for each line; these four leading spaces are trimmed when parsing the notebook. (In the future, we’ll likely make this contextual to allow varied indentation.)</p>
+</div></div><div id="cell-73" class="observablehq observablehq--cell"><div><p data-language="html">The <code class="language-html">&lt;<span class="tok-keyword">script</span>&gt;</code> element supports the following attributes:</p>
+<ul>
+<li><code>type</code> - the cell type (also known as the cell language or cell mode)</li>
+<li><code>pinned</code> - if present, show the cell’s source code</li>
+<li><code>hidden</code> - if present, suppress the cell’s implicit display</li>
+<li><code>output</code> - for non-JavaScript cells, how to expose the value</li>
+<li><code>database</code> - for <a href="./databases">SQL cells</a>, which database to query</li>
+<li><code>format</code> - for <a href="./data-loaders">data loader cells</a>, the output format</li>
+<li><code>id</code> - the cell identifier, for stable editing (optional)</li>
+</ul>
+</div></div><div id="cell-49" class="observablehq observablehq--cell"><div><p>The <code>type</code> attribute can have one of the following values:</p>
+<ul>
+<li><code>module</code> - JavaScript</li>
+<li><code>text/x-typescript</code> - TypeScript</li>
+<li><code>text/markdown</code> - Markdown</li>
+<li><code>text/html</code> - HTML</li>
+<li><code>application/sql</code> - SQL</li>
+<li><code>application/x-tex</code> -</li>
+<li><code>text/vnd.graphviz</code> - DOT (Graphviz)</li>
+<li><code>application/vnd.observable.javascript</code> - Observable JavaScript</li>
+<li><code>application/vnd.node.javascript</code> - Node.js</li>
+<li><code>text/x-python</code> - Python</li>
+<li><code>text/x-r</code> - R</li>
+</ul>
+<p>Here’s an example of each supported cell type.</p>
+</div></div><div id="cell-59" class="observablehq observablehq--cell"><div><p>A JavaScript (<code>module</code>) cell:</p>
+<pre data-language="html"><code class="language-html">&lt;<span class="tok-keyword">script</span> <span class="tok-definition">type</span>=<span class="tok-string">"module"</span>&gt;
+  1 + 2
+&lt;/<span class="tok-keyword">script</span>&gt;
+</code></pre>
+</div></div><div id="cell-86" class="observablehq observablehq--cell"><div><p>A TypeScript (<code>text/x-typescript</code>) cell:</p>
+<pre data-language="html"><code class="language-html">&lt;<span class="tok-keyword">script</span> <span class="tok-definition">type</span>=<span class="tok-string">"text/x-typescript"</span>&gt;
+  let hello: string = "hello";
+&lt;/<span class="tok-keyword">script</span>&gt;
+</code></pre>
+</div></div><div id="cell-52" class="observablehq observablehq--cell"><div><p>A Markdown (<code>text/markdown</code>) cell:</p>
+<pre data-language="html"><code class="language-html">&lt;<span class="tok-keyword">script</span> <span class="tok-definition">type</span>=<span class="tok-string">"text/markdown"</span>&gt;
+  # Hello, world!
+&lt;/<span class="tok-keyword">script</span>&gt;
+</code></pre>
+</div></div><div id="cell-61" class="observablehq observablehq--cell"><div><p>An HTML (<code>text/html</code>) cell:</p>
+<pre data-language="html"><code class="language-html">&lt;<span class="tok-keyword">script</span> <span class="tok-definition">type</span>=<span class="tok-string">"text/html"</span>&gt;
+  &lt;h1&gt;Hello, &lt;i&gt;world&lt;/i&gt;!&lt;/h1&gt;
+&lt;/<span class="tok-keyword">script</span>&gt;
+</code></pre>
+</div></div><div id="cell-62" class="observablehq observablehq--cell"><div><p>A SQL (<code>application/sql</code>) cell:</p>
+<pre data-language="html"><code class="language-html">&lt;<span class="tok-keyword">script</span> <span class="tok-definition">type</span>=<span class="tok-string">"application/sql"</span> <span class="tok-definition">database</span>=<span class="tok-string">"reporting"</span> <span class="tok-definition">output</span>=<span class="tok-string">"customers"</span>&gt;
+  SELECT * FROM customers
+&lt;/<span class="tok-keyword">script</span>&gt;
+</code></pre>
+</div></div><div id="cell-63" class="observablehq observablehq--cell"><div><p>A  (<code>application/x-tex</code>) cell:</p>
+<pre data-language="html"><code class="language-html">&lt;<span class="tok-keyword">script</span> <span class="tok-definition">type</span>=<span class="tok-string">"application/x-tex"</span>&gt;
+  \int_{-\infty}^{\infty} e^{-x^2} dx = \sqrt{\pi}
+&lt;/<span class="tok-keyword">script</span>&gt;
+</code></pre>
+</div></div><div id="cell-65" class="observablehq observablehq--cell"><div><p>A DOT (<code>text/vnd.graphviz</code>) cell:</p>
+<pre data-language="html"><code class="language-html">&lt;<span class="tok-keyword">script</span> <span class="tok-definition">type</span>=<span class="tok-string">"text/vnd.graphviz"</span>&gt;
+  digraph G {
+    A -&gt; B -&gt; C;
+    A -&gt; C;
+  }
+&lt;/<span class="tok-keyword">script</span>&gt;
+</code></pre>
+</div></div><div id="cell-66" class="observablehq observablehq--cell"><div><p>An Observable JavaScript (<code>application/vnd.observable.javascript</code>) cell:</p>
+<pre data-language="html"><code class="language-html">&lt;<span class="tok-keyword">script</span> <span class="tok-definition">type</span>=<span class="tok-string">"application/vnd.observable.javascript"</span>&gt;
+  foo = 42
+&lt;/<span class="tok-keyword">script</span>&gt;
+</code></pre>
+</div></div><div id="cell-87" class="observablehq observablehq--cell"><div><p>A Node.js (<code>application/vnd.node.javascript</code>) data loader cell:</p>
+<pre data-language="html"><code class="language-html">&lt;<span class="tok-keyword">script</span> <span class="tok-definition">type</span>=<span class="tok-string">"application/vnd.node.javascript"</span>&gt;
+  process.stdout.write("hello world");
+&lt;/<span class="tok-keyword">script</span>&gt;
+</code></pre>
+</div></div><div id="cell-89" class="observablehq observablehq--cell"><div><p>A Python (<code>text/x-python</code>) data loader cell:</p>
+<pre data-language="html"><code class="language-html">&lt;<span class="tok-keyword">script</span> <span class="tok-definition">type</span>=<span class="tok-string">"text/x-python"</span>&gt;
+  import sys
+
+  sys.stdout.write("hello world")
+&lt;/<span class="tok-keyword">script</span>&gt;
+</code></pre>
+</div></div><div id="cell-91" class="observablehq observablehq--cell"><div><p>An R (<code>text/x-r</code>) data loader cell:</p>
+<pre data-language="html"><code class="language-html">&lt;<span class="tok-keyword">script</span> <span class="tok-definition">type</span>=<span class="tok-string">"text/r"</span>&gt;
+  cat("hello world")
+&lt;/<span class="tok-keyword">script</span>&gt;
+</code></pre>
+</div></div><div id="cell-51" class="observablehq observablehq--cell"><div><p>The <code>pinned</code> attribute determines whether to show the cell’s source code. The <code>hidden</code> attribute suppresses the cell’s implicit display; for example, you can use it hide a SQL cell’s results table. Cells can also have an <code>id</code> attribute to indicate a unique (positive integer) identifier; an <code>id</code> isn’t required, but gives cells a stable identity for editing.</p>
+</div></div><div id="cell-53" class="observablehq observablehq--cell"><div><p data-language="html">Since each cell is specified as a <code class="language-html">&lt;<span class="tok-keyword">script</span>&gt;</code> element, if the cell source code contains a <code>&lt;/script&gt;</code>, it must be escaped with a backslash as <code>&lt;\/script&gt;</code>. Likewise, a sequence of backslashes in this context must be escaped with an additional backslash, such as <code>&lt;\\/script&gt;</code>.</p>
+</div></div><div id="cell-75" class="observablehq observablehq--cell"><div><p data-language="html">The <code class="language-html">&lt;<span class="tok-keyword">notebook</span>&gt;</code> element supports the following attributes:</p>
+<ul>
+<li><code>theme</code> - the theme</li>
+<li><code>readonly</code> - if present, disallow editing</li>
+</ul>
+</div></div><div id="cell-57" class="observablehq observablehq--cell"><div><p>The <code>theme</code> attribute may have one of the following values:</p>
+<ul>
+<li><code>air</code> (default)</li>
+<li><code>coffee</code></li>
+<li><code>cotton</code></li>
+<li><code>deep-space</code></li>
+<li><code>glacier</code></li>
+<li><code>ink</code></li>
+<li><code>midnight</code></li>
+<li><code>near-midnight</code></li>
+<li><code>ocean-floor</code></li>
+<li><code>parchment</code></li>
+<li><code>slate</code></li>
+<li><code>stark</code></li>
+<li><code>sun-faded</code></li>
+</ul>
+<p>See <a href="https://observablehq.com/framework/themes">Observable Framework</a> for theme previews. More themes may be added in the future. Built-in themes can be augmented using standard stylesheets.</p>
+</div></div><div id="cell-56" class="observablehq observablehq--cell"><div><p>See <a href="https://github.com/observablehq/notebook-kit/blob/main/src/lib/notebook.ts"><code>notebook.ts</code></a> for TypeScript types representing notebooks and cells.</p>
+</div></div><div id="cell-70" class="observablehq observablehq--cell"><div><hr>
+<h2 id="the-page-template-format" tabindex="-1"><a href="#the-page-template-format">The page template format</a></h2>
+<p>Notebook Kit supports custom page templates when previewing and building notebooks. Page templates can provide additional chrome around the notebook, such as a header and footer. A page template HTML file can contain whatever you like. Notebook Kit will insert or modify the following elements:</p>
+<ul>
+<li data-language="html"><code class="language-html">&lt;<span class="tok-keyword">meta</span> <span class="tok-definition">name</span>=<span class="tok-string">"generator"</span>&gt;</code> - Notebook Kit version and attribution</li>
+<li data-language="html"><code class="language-html">&lt;<span class="tok-keyword">title</span>&gt;</code> - a title suffix, appearing after the notebook title</li>
+<li data-language="html"><code class="language-html">&lt;<span class="tok-keyword">main</span>&gt;</code> - where to render the notebook cells</li>
+</ul>
+</div></div><div id="cell-69" class="observablehq observablehq--cell"><div><p>The <a href="https://github.com/observablehq/notebook-kit/blob/main/src/templates/default.html">default template</a> looks something like this:</p>
+<pre data-language="html"><code class="language-html"><span class="tok-meta">&lt;!doctype html&gt;</span>
+&lt;<span class="tok-keyword">html</span> <span class="tok-definition">lang</span>=<span class="tok-string">"en"</span>&gt;
+  &lt;<span class="tok-keyword">head</span>&gt;
+    &lt;<span class="tok-keyword">meta</span> <span class="tok-definition">charset</span>=<span class="tok-string">"utf-8"</span>&gt;
+    &lt;<span class="tok-keyword">meta</span> <span class="tok-definition">name</span>=<span class="tok-string">"viewport"</span> <span class="tok-definition">content</span>=<span class="tok-string">"width=device-width, initial-scale=1.0"</span>&gt;
+    &lt;<span class="tok-keyword">style</span> <span class="tok-definition">type</span>=<span class="tok-string">"text/css"</span>&gt;
+      @import url("observable:styles/index.css");
+    &lt;/<span class="tok-keyword">style</span>&gt;
+  &lt;/<span class="tok-keyword">head</span>&gt;
+  &lt;<span class="tok-keyword">body</span>&gt;
+    &lt;<span class="tok-keyword">main</span>&gt;&lt;/<span class="tok-keyword">main</span>&gt;
+  &lt;/<span class="tok-keyword">body</span>&gt;
+&lt;/<span class="tok-keyword">html</span>&gt;
+</code></pre>
+</div></div><div id="cell-8" class="observablehq observablehq--cell"><div><hr>
+<h2 id="command-line-interface" tabindex="-1"><a href="#command-line-interface">Command-line interface</a></h2>
+<p>Notebook Kit’s CLI supports four commands: <code>preview</code> for a live preview of notebooks, <code>build</code> for building a static site, <code>download</code> for downloading Observable Notebooks as HTML, and <code>query</code> for saving the results of database queries.</p>
+</div></div><div id="cell-71" class="observablehq observablehq--cell"><div><p>We recommend that you install Notebook Kit locally to a project using a package manager such as npm, and then add preview and build scripts to your <code>package.json</code>.</p>
+<pre data-language="json"><code class="language-json">{
+  "dependencies": {
+    "@observablehq/notebook-kit": "^1.5.2"
+  },
+  "scripts": {
+    "docs:preview": "notebooks preview --root docs",
+    "docs:build": "notebooks build --root docs -- docs/*.html"
+  }
+}
+</code></pre>
+</div></div><div id="cell-9" class="observablehq observablehq--cell"><div><h3 id="preview" tabindex="-1"><a href="#preview">Preview</a></h3>
+<p>To start the preview server, run the <code>preview</code> command. Use the <code>--root</code> argument to tell the preview server where the notebooks are located.</p>
+<pre data-language="sh"><code class="language-sh">notebooks preview --root docs
+</code></pre>
+<p>If you’d like to use a custom page template, use the <code>--template</code> argument:</p>
+<pre data-language="sh"><code class="language-sh">notebooks preview --root docs --template docs/custom.tmpl
+</code></pre>
+</div></div><div id="cell-10" class="observablehq observablehq--cell"><div><h3 id="build" tabindex="-1"><a href="#build">Build</a></h3>
+<p>To convert notebooks into a static site, run the <code>build</code> command. Use the <code>--root</code> argument to tell the command where the notebooks are located; you must also provide a list of notebook HTML files as positional arguments. By default, the site will be built in <code>.observablehq/dist</code> within the root.</p>
+<pre data-language="sh"><code class="language-sh">notebooks build --root docs -- docs/*.html
+</code></pre>
+<p>Or, with a custom template:</p>
+<pre data-language="sh"><code class="language-sh">notebooks build --root docs --template docs/custom.tmpl -- docs/*.html
+</code></pre>
+</div></div><div id="cell-5" class="observablehq observablehq--cell"><div><h3 id="download" tabindex="-1"><a href="#download">Download</a></h3>
+<p>To download and convert an existing Observable Notebook to a local HTML file, run the <code>download</code> command.</p>
+<pre data-language="sh"><code class="language-sh">notebooks download https://observablehq.com/@d3/bar-chart &gt; docs/bar-chart.html
+</code></pre>
+</div></div><div id="cell-76" class="observablehq observablehq--cell"><div><h3 id="query" tabindex="-1"><a href="#query">Query</a></h3>
+<p>Run the <code>query</code> command to save the result of a <a href="./databases">database query</a>. (This is typically done automatically, but can be used to prepare or refresh queries manually.) Pass positional arguments to interpolate JSON-encoded values into the query.</p>
+<pre data-language="sh"><code class="language-sh">notebooks query --database duckdb 'SELECT 1 + ' '2'
+</code></pre>
+</div></div><div id="cell-6" class="observablehq observablehq--cell"><div><hr>
+<h2 id="java-script-interface" tabindex="-1"><a href="#java-script-interface">JavaScript interface</a></h2>
+<p>For deeper integration of Observable Notebooks into custom web applications, we provide a <a href="https://vite.dev">Vite</a> <a href="https://vite.dev/guide/using-plugins.html">plugin</a> and a low-level JavaScript interface. For more, please browse the <a href="https://github.com/observablehq/notebook-kit">TypeScript source</a>, or <a href="https://github.com/observablehq/notebook-kit/discussions">start a discussion</a> if you’d like help.</p>
+</div></div><div id="cell-16" class="observablehq observablehq--cell"><div><h3 id="vite-api" tabindex="-1"><a href="#vite-api">Vite API</a></h3>
+<p>The Vite plugin is recommended for Vite-based applications.</p>
+</div></div><div id="cell-42" class="observablehq observablehq--cell"><div><h4 data-language="ts"><code class="language-ts"><span class="tok-variable">observable</span>({<span class="tok-definition">template</span>?: <span class="tok-variable">string</span>, <span class="tok-definition">transformTemplate</span>?: (<span class="tok-definition">template</span>: <span class="tok-keyword">string</span>) =&gt; <span class="tok-variable">string</span> | <span class="tok-variable">Promise</span>&lt;<span class="tok-keyword">string</span>&gt;, <span class="tok-definition">transformNotebook</span>?: (<span class="tok-definition">notebook</span>: <span class="tok-keyword">Notebook</span>) =&gt; <span class="tok-variable">Notebook</span> | <span class="tok-variable">Promise</span>&lt;<span class="tok-keyword">Notebook</span>&gt;, <span class="tok-definition">window</span>?: <span class="tok-variable">Window</span>, <span class="tok-definition">parser</span>?: <span class="tok-variable">DOMParser</span>} = {}): <span class="tok-variable">PluginOption</span></code></h4>
+<p>Returns a Vite plugin for rendering notebook HTML as vanilla HTML. Markdown and HTML cells are rendered statically (without any interpolated dynamic values), and then, if needed, replaced with dynamic content when the page loads. Other cell modes are exclusively dynamic. Pinned cells display their source code statically rendered below any output. Supported languages are syntax-highlighted using Lezer.</p>
+</div></div><div id="cell-41" class="observablehq observablehq--cell"><div><h4 data-language="ts"><code class="language-ts"><span class="tok-variable">config</span>(): <span class="tok-variable">UserConfig</span></code></h4>
+<p>Returns the base Vite config needed to use the <code>observable()</code> Vite plugin; this enables top-level await, multi-page application behavior, and adds resolvers for <code>npm:</code>, <code>jsr:</code>, and <code>observable:</code> import protocols.</p>
+</div></div><div id="cell-17" class="observablehq observablehq--cell"><div><h3 id="build-api" tabindex="-1"><a href="#build-api">Build API</a></h3>
+<p>The Build API analyzes cell source code to find unbound references, such that the appropriate variable graph can be initialized using the <a href="https://github.com/observablehq/runtime">Observable Runtime</a>. For non-JavaScript cells (such as Markdown, HTML, and SQL), the Build API also transpiles the source into a tagged template literal expression.</p>
+</div></div><div id="cell-18" class="observablehq observablehq--cell"><div><h4 data-language="ts"><code class="language-ts"><span class="tok-variable">maybeParseJavaScript</span>(<span class="tok-variable">input</span>: string): <span class="tok-variable">JavaScriptCell</span> | <span class="tok-variable">undefined</span></code></h4>
+<p>Parses the specified JavaScript cell source code, returning the resulting AST as either a <code>Program</code> or <code>Expression</code> node, along with any top-level variable <code>declarations</code> and unbound <code>references</code> to other variables. If the specified <code>input</code> has invalid syntax, returns <code>undefined</code>.</p>
+</div></div><div id="cell-19" class="observablehq observablehq--cell"><div><h4 data-language="ts"><code class="language-ts"><span class="tok-variable">parseJavaScript</span>(<span class="tok-variable">input</span>: string): <span class="tok-variable">JavaScriptCell</span></code></h4>
+<p>Parses the specified JavaScript cell source code, returning the resulting AST as either a <code>Program</code> or <code>Expression</code>, along with any top-level variable <code>declarations</code> and unbound <code>references</code> to other variables. (This method is called internally by <code>transpileJavaScript</code>.)</p>
+</div></div><div id="cell-20" class="observablehq observablehq--cell"><div><h4 data-language="ts"><code class="language-ts"><span class="tok-variable">parseTemplate</span>(<span class="tok-variable">input</span>: string): <span class="tok-variable">TemplateLiteral</span></code></h4>
+<p>Parses the specified template cell source code (such as the contents of a Markdown or SQL cell), returning the resulting AST as a <code>TemplateLiteral</code>. (This method is called internally by <code>transpile</code>.)</p>
+</div></div><div id="cell-22" class="observablehq observablehq--cell"><div><h4 data-language="ts"><code class="language-ts"><span class="tok-variable">transpile</span>(<span class="tok-variable">input</span>: Cell, <span class="tok-variable">options</span>?: <span class="tok-variable">TranspileOptions</span>): <span class="tok-variable">TranspiledJavaScript</span></code></h4>
+<p>Transpiles the specified cell. The transpiled source is returned as a <code>body</code> function suitable for use with <a href="https://github.com/observablehq/runtime/blob/main/README.md#variabledefinename-inputs-definition"><code>variable.define</code></a> from the Observable Runtime, along with any named <code>inputs</code> (unbound references) and <code>outputs</code> (top-level declarations).</p>
+</div></div><div id="cell-23" class="observablehq observablehq--cell"><div><h4 data-language="ts"><code class="language-ts"><span class="tok-variable">transpileJavaScript</span>(<span class="tok-variable">input</span>: string, <span class="tok-variable">options</span>?: <span class="tok-variable">TranspileOptions</span>): <span class="tok-variable">TranspiledJavaScript</span></code></h4>
+<p>Transpiles the specified JavaScript cell source code. The transpiled source is returned as a <code>body</code> function suitable for use with <a href="https://github.com/observablehq/runtime/blob/main/README.md#variabledefinename-inputs-definition"><code>variable.define</code></a> from the Observable Runtime, along with any named <code>inputs</code> (unbound references) and <code>outputs</code> (top-level declarations).</p>
+</div></div><div id="cell-21" class="observablehq observablehq--cell"><div><h4 data-language="ts"><code class="language-ts"><span class="tok-variable">transpileTemplate</span>(<span class="tok-variable">input</span>: Cell): <span class="tok-variable">string</span></code></h4>
+<p>Transpiles the specified template cell, such as a Markdown or SQL cell, returning the corresponding JavaScript source code consisting of a single template literal expression. (This method is called internally by <code>transpile</code>, and the result is passed to <code>transpileJavaScript</code>.)</p>
+</div></div><div id="cell-45" class="observablehq observablehq--cell"><div><h3 id="utility-api" tabindex="-1"><a href="#utility-api">Utility API</a></h3>
+<p>These utility methods define default values, allowing shorthand.</p>
+</div></div><div id="cell-24" class="observablehq observablehq--cell"><div><h4 data-language="ts"><code class="language-ts"><span class="tok-variable">toNotebook</span>(<span class="tok-variable">spec</span>: NotebookSpec): <span class="tok-variable">Notebook</span></code></h4>
+<p>Given a <code>NotebookSpec</code>, returns the corresponding <code>Notebook</code>, populating any default values.</p>
+</div></div><div id="cell-25" class="observablehq observablehq--cell"><div><h4 data-language="ts"><code class="language-ts"><span class="tok-variable">toCell</span>(<span class="tok-variable">spec</span>: CellSpec): <span class="tok-variable">Cell</span></code></h4>
+<p>Given a <code>CellSpec</code>, returns the corresponding <code>Cell</code>, populating any default values.</p>
+</div></div><div id="cell-26" class="observablehq observablehq--cell"><div><h4 data-language="ts"><code class="language-ts"><span class="tok-variable">defaultPinned</span>(<span class="tok-variable">mode</span>: Cell[<span class="tok-string">"mode"</span>]): <span class="tok-variable">boolean</span></code></h4>
+<p>Returns the default <code>pinned</code> value for the given cell <code>mode</code>.</p>
+</div></div><div id="cell-84" class="observablehq observablehq--cell"><div><h4 data-language="ts"><code class="language-ts"><span class="tok-variable">serialize</span>(<span class="tok-variable">notebook</span>: Notebook, {<span class="tok-definition">document</span>?: <span class="tok-variable">Document</span>} = {}): <span class="tok-variable">string</span></code></h4>
+<p>Serializes the specified notebook to HTML.</p>
+</div></div><div id="cell-85" class="observablehq observablehq--cell"><div><h4 data-language="ts"><code class="language-ts"><span class="tok-variable">deserialize</span>(<span class="tok-variable">html</span>: string, {<span class="tok-definition">parser</span>?: <span class="tok-variable">DOMParser</span>} = {}): <span class="tok-variable">Notebook</span></code></h4>
+<p>Deserializes the specified HTML to a notebook.</p>
+</div></div><div id="cell-15" class="observablehq observablehq--cell"><div><h3 id="runtime-api" tabindex="-1"><a href="#runtime-api">Runtime API</a></h3>
+<p>The Runtime API provides some additional logic on top of the <a href="https://github.com/observablehq/runtime">Observable Runtime</a> to run the notebook, allowing cells to be redefined at runtime, and implementing the notebook standard library, including the <code>display</code> and <code>view</code> functions which are scoped per-cell.</p>
+</div></div><div id="cell-77" class="observablehq observablehq--cell"><div><h4 data-language="ts"><code class="language-ts"><span class="tok-variable">constructor </span><span class="tok-variable">NotebookRuntime</span>(<span class="tok-variable">builtins</span>?: <span class="tok-variable">Record</span>&lt;<span class="tok-keyword">string</span>, <span class="tok-keyword">unknown</span>&gt;)</code></h4>
+<p>Instantiates a new notebook runtime, given the specified built-ins, which defaults to (the standard) <code>library</code>. The returned instance exposes a <code>runtime</code>, <code>main</code>, and <code>define</code> methods which are equivalent to those below, but scoped to this specific instance. This constructor allows multiple notebooks to be instantiated concurrently.</p>
+</div></div><div id="cell-28" class="observablehq observablehq--cell"><div><h4 data-language="ts"><code class="language-ts"><span class="tok-variable">define</span>(<span class="tok-variable">state</span>: DefineState, <span class="tok-variable">definition</span>: Definition, <span class="tok-variable">observe</span>?: () =&gt; <span class="tok-variable">Observer</span>): <span class="tok-keyword">void</span></code></h4>
+<p>Defines a cell, given the specified <code>state</code> (including the <code>root</code> in which to display the cell’s output, and recording any secondary <code>variables</code> defined by the cell) and <code>definition</code> (including the cell’s <code>id</code>, <code>body</code>, <code>inputs</code>, <code>outputs</code>, <em>etc.</em>). An <code>observe</code> function may be specified to override the default <a href="https://github.com/observablehq/runtime/blob/main/README.md#modulevariableobserver">variable observer</a>, which is used to render the cell’s contents.</p>
+</div></div><div id="cell-29" class="observablehq observablehq--cell"><div><h4 data-language="ts"><code class="language-ts"><span class="tok-variable">display</span>(<span class="tok-variable">state</span>: DisplayState, <span class="tok-variable">value</span>: unknown): <span class="tok-keyword">void</span></code></h4>
+<p>Displays a cell’s value (into the <code>root</code> given by the specified <code>state</code>). (This method is used internally when you call <code>display</code> from a cell.)</p>
+</div></div><div id="cell-30" class="observablehq observablehq--cell"><div><h4 data-language="ts"><code class="language-ts"><span class="tok-variable">clear</span>(<span class="tok-variable">state</span>: DisplayState): <span class="tok-keyword">void</span></code></h4>
+<p>Clears a cell’s output (from the <code>root</code> given by the specified <code>state</code>). (This method is used internally to clear the display when a cell is invalidated.)</p>
+</div></div><div id="cell-31" class="observablehq observablehq--cell"><div><h4 data-language="ts"><code class="language-ts"><span class="tok-variable">observe</span>(<span class="tok-variable">state</span>: DisplayState, <span class="tok-variable">definition</span>: Definition): <span class="tok-keyword">void</span></code></h4>
+<p>Returns the default <a href="https://github.com/observablehq/runtime/blob/main/README.md#modulevariableobserver">variable observer</a> used to render the cell’s contents.</p>
+</div></div><div id="cell-32" class="observablehq observablehq--cell"><div><h4 data-language="ts"><code class="language-ts"><span class="tok-variable">inspect</span>(<span class="tok-variable">value</span>: unknown, <span class="tok-variable">expanded</span>?: <span class="tok-variable">number</span>[][]): <span class="tok-variable">HTMLDivElement</span></code></h4>
+<p>Returns the rendered inspector for the given <code>value</code>. This is a small wrapper on top of the <a href="https://github.com/observablehq/inspector">Observable Inspector</a>’s <code>inspector.fulfilled</code> which re-expands collapsible elements when they are re-rendered.</p>
+</div></div><div id="cell-33" class="observablehq observablehq--cell"><div><h4 data-language="ts"><code class="language-ts"><span class="tok-variable">inspectError</span>(<span class="tok-variable">value</span>: unknown): <span class="tok-variable">HTMLDivElement</span></code></h4>
+<p>Returns the rendered inspector for the given error <code>value</code>. This is a small wrapper on top of the <a href="https://github.com/observablehq/inspector">Observable Inspector</a>’s <code>inspector.rejected</code>.</p>
+</div></div><div id="cell-34" class="observablehq observablehq--cell"><div><h4 data-language="ts"><code class="language-ts"><span class="tok-variable">getExpanded</span>(<span class="tok-variable">node</span>: Node): <span class="tok-variable">number</span>[][] | <span class="tok-variable">undefined</span></code></h4>
+<p>Given an inspector node previously rendered by <code>inspect(…)</code>, returns the list of paths that have been expanded by the user; passing these to a subsequent call to <code>inspect(…)</code> will re-expand the same set of paths after re-rendering.</p>
+</div></div><div id="cell-35" class="observablehq observablehq--cell"><div><h4 data-language="ts"><code class="language-ts">root: <span class="tok-variable">HTMLElement</span></code></h4>
+<p data-language="html">Returns the root element into which cells are rendered. This is the first <code class="language-html">&lt;<span class="tok-keyword">main</span>&gt;</code> element, if it exists, and otherwise the <code class="language-html">&lt;<span class="tok-keyword">body</span>&gt;</code>.</p>
+</div></div><div id="cell-38" class="observablehq observablehq--cell"><div><h4 data-language="ts"><code class="language-ts">runtime: <span class="tok-variable">Runtime</span></code></h4>
+<p>The Observable Runtime instance.</p>
+</div></div><div id="cell-39" class="observablehq observablehq--cell"><div><h4 data-language="ts"><code class="language-ts">main: <span class="tok-variable">Module</span></code></h4>
+<p>The main runtime module.</p>
+</div></div><div id="cell-36" class="observablehq observablehq--cell"><div><h4 data-language="ts"><code class="language-ts">library: <span class="tok-variable">Record</span>&lt;<span class="tok-keyword">string</span>, <span class="tok-keyword">unknown</span>&gt;</code></h4>
+<p>The built-ins provided to the runtime; the notebook standard library. This object includes the definitions for various built-ins, such as <code>now</code>, <code>width</code>, <code>Generators</code>, and <code>Mutable</code>.</p>
+</div></div><div id="cell-78" class="observablehq observablehq--cell"><div><h3 id="database-api" tabindex="-1"><a href="#database-api">Database API</a></h3>
+<p>The Database API provides a low-level API for running <a href="./databases">database queries</a>.</p>
+</div></div><div id="cell-81" class="observablehq observablehq--cell"><div><h4 data-language="ts"><code class="language-ts"> <span class="tok-variable">getDatabaseConfig</span>(<span class="tok-variable">sourcePath</span>: string, <span class="tok-variable">databaseName</span>: string): <span class="tok-variable">Promise</span>&lt;<span class="tok-keyword">DatabaseConfig</span>&gt;</code></h4>
+<p>Loads the database config given a path to a notebook source file and the name of a database.</p>
+</div></div><div id="cell-82" class="observablehq observablehq--cell"><div><h4 data-language="ts"><code class="language-ts"> <span class="tok-variable">getDatabase</span>(<span class="tok-variable">config</span>: DatabaseConfig): <span class="tok-variable">Promise</span>&lt;<span class="tok-keyword">QueryTemplateFunction</span>&gt;</code></h4>
+<p>Returns the query template function (equivalent to the <code>sql</code> tagged template literal) for running a query against the given database.</p>
+</div></div><div id="cell-83" class="observablehq observablehq--cell"><div><h4 data-language="ts"><code class="language-ts"><span class="tok-variable">getQueryCachePath</span>(<span class="tok-variable">sourcePath</span>: string, <span class="tok-variable">databaseName</span>: string, <span class="tok-variable">strings</span>: readonly <span class="tok-keyword">string</span>[], <span class="tok-variable">…params</span>: <span class="tok-keyword">unknown</span>[]): <span class="tok-variable">Promise</span>&lt;<span class="tok-keyword">string</span>&gt;</code></h4>
+<p>Returns the path to the query results cache file, given a path to a notebook source file, the name of a database, and query template parts.</p>
+</div></div></main>
+    <div style="margin: 12rem 0 2rem; font: 500 14px/normal var(--sans-serif);">
+      <a id="edit-page" href="https://github.com/observablehq/notebook-kit">
+        ✎ Suggest changes to this page
+      </a>
+    </div>
+    <footer style="width: 100vw; margin: 2rem calc((100% - 100vw) / 2) -32px; padding-bottom: 16px; background-color: var(--theme-foreground); color: var(--theme-background); font: 12px/normal var(--sans-serif);">
+      <div style="display: flex; flex-wrap: wrap; max-width: var(--max-width); padding: 2rem 1rem; margin: auto; gap: 2rem;">
+        <div>
+          <a title="Observable" target="_blank" href="https://observablehq.com/" style="color: inherit;">
+            <svg role="img" width="173" height="24" viewBox="0 0 173 24" aria-label="Observable" fill="currentColor">
+              <path d="M40.8496 20.6083C39.7407 20.6083 38.6757 20.4234 37.6548 20.0538C36.6339 19.6842 35.7186 19.1209 34.9089 18.364C34.1168 17.607 33.4919 16.6565 33.0343 15.5124C32.5766 14.3683 32.3478 13.0218 32.3478 11.4727C32.3478 9.92375 32.5766 8.57718 33.0343 7.43305C33.5095 6.2889 34.1432 5.33839 34.9353 4.5815C35.7274 3.82462 36.6339 3.26135 37.6548 2.8917C38.6757 2.52205 39.7407 2.33723 40.8496 2.33723C41.9585 2.33723 43.0234 2.52205 44.0444 2.8917C45.0653 3.26135 45.9718 3.82462 46.7639 4.5815C47.556 5.33839 48.1809 6.2889 48.6386 7.43305C49.1138 8.57718 49.3514 9.92375 49.3514 11.4727C49.3514 13.0218 49.1225 14.3683 48.665 15.5124C48.2073 16.6565 47.5736 17.607 46.7639 18.364C45.9718 19.1209 45.0653 19.6842 44.0444 20.0538C43.0234 20.4234 41.9585 20.6083 40.8496 20.6083ZM40.8496 18.9977C41.6065 18.9977 42.2049 18.6896 42.645 18.0736C43.1027 17.4398 43.4283 16.5598 43.622 15.4332C43.8332 14.3067 43.9388 12.9865 43.9388 11.4727C43.9388 9.95894 43.8332 8.63879 43.622 7.51226C43.4283 6.38572 43.1027 5.50562 42.645 4.87193C42.2049 4.23826 41.6065 3.92142 40.8496 3.92142C40.1103 3.92142 39.5118 4.23826 39.0542 4.87193C38.5965 5.50562 38.2621 6.38572 38.0509 7.51226C37.8572 8.63879 37.7604 9.95894 37.7604 11.4727C37.7604 12.9865 37.8572 14.3067 38.0509 15.4332C38.2621 16.5598 38.5965 17.4398 39.0542 18.0736C39.5118 18.6896 40.1103 18.9977 40.8496 18.9977ZM50.5773 20.1066V18.76L51.7655 18.496C51.7831 17.8622 51.7919 17.1846 51.7919 16.4629C51.7919 15.7413 51.7919 15.1076 51.7919 14.5619V3.60459L50.3661 3.41977V2.23162L56.386 1.04348L56.8349 1.33392L56.7293 5.00396V8.33075C57.7678 7.30983 59.0175 6.79937 60.4785 6.79937C61.4466 6.79937 62.3267 7.0546 63.1188 7.56506C63.9109 8.05792 64.5358 8.80601 64.9934 9.80933C65.4687 10.7951 65.7063 12.0448 65.7063 13.5586C65.7063 15.002 65.4335 16.2429 64.8878 17.2814C64.3422 18.3199 63.6293 19.1209 62.7491 19.6842C61.8867 20.2298 60.9626 20.5026 59.9768 20.5026C59.22 20.5026 58.5599 20.3706 57.9966 20.1066C57.4333 19.8601 56.9405 19.4993 56.518 19.0241L55.99 20.5026L50.5773 20.1066ZM58.0494 9.41329C57.8206 9.41329 57.6006 9.44848 57.3893 9.5189C57.1957 9.5893 57.0021 9.68612 56.8085 9.80933V17.5982C57.1605 17.8447 57.5742 17.968 58.0494 17.968C58.7535 17.968 59.3168 17.607 59.7392 16.8853C60.1616 16.1637 60.3729 15.0548 60.3729 13.5586C60.3729 12.0448 60.1616 10.9799 59.7392 10.3638C59.3168 9.73012 58.7535 9.41329 58.0494 9.41329ZM71.7275 20.5026C69.8968 20.5026 68.2775 20.0714 66.8693 19.2089L67.0013 15.8292H69.404L69.8264 18.5752C70.1257 18.6984 70.4337 18.7952 70.7505 18.8657C71.0674 18.9185 71.3931 18.9449 71.7275 18.9449C72.3964 18.9449 72.9156 18.8393 73.2852 18.628C73.6549 18.4168 73.8397 18.0647 73.8397 17.5718C73.8397 17.2198 73.699 16.903 73.4173 16.6213C73.1532 16.3397 72.5812 16.0845 71.7011 15.8556L70.1961 15.4596C69.1575 15.178 68.3654 14.6851 67.8198 13.981C67.2742 13.2594 67.0013 12.3881 67.0013 11.3671C67.0013 10.047 67.503 8.95563 68.5063 8.09312C69.5272 7.23062 70.9882 6.79937 72.8892 6.79937C73.699 6.79937 74.447 6.88738 75.1335 7.06341C75.8376 7.23942 76.5505 7.50345 77.2721 7.8555L77.0609 10.839H74.6318L74.0509 8.48917C73.8749 8.45397 73.6813 8.42757 73.4701 8.40996C73.2765 8.37476 73.0389 8.35715 72.7572 8.35715C72.2644 8.35715 71.8419 8.47157 71.4898 8.70039C71.1554 8.91162 70.9882 9.24606 70.9882 9.70372C70.9882 9.98535 71.1115 10.2582 71.3578 10.5222C71.6043 10.7862 72.1851 11.0414 73.1004 11.2879L74.579 11.6839C75.8112 12.0184 76.6912 12.5377 77.2193 13.2417C77.765 13.9459 78.0379 14.8172 78.0379 15.8556C78.0379 17.4047 77.4658 18.5664 76.3216 19.3409C75.1951 20.1153 73.6637 20.5026 71.7275 20.5026ZM85.8767 8.22514C85.4718 8.22514 85.1286 8.52438 84.847 9.12285C84.5653 9.72132 84.4069 10.839 84.3717 12.476H85.6127C86.2464 12.476 86.6688 12.3528 86.88 12.1064C87.1088 11.8424 87.2233 11.3759 87.2233 10.707C87.2233 9.79173 87.0824 9.14926 86.8008 8.7796C86.5368 8.40996 86.2287 8.22514 85.8767 8.22514ZM85.9559 20.5026C84.6358 20.5026 83.4564 20.2298 82.4179 19.6842C81.3969 19.1384 80.5873 18.3552 79.9887 17.3342C79.3903 16.2957 79.091 15.0548 79.091 13.6114C79.091 12.4673 79.2935 11.4727 79.6983 10.6278C80.1032 9.78293 80.6488 9.07884 81.3353 8.51557C82.0219 7.93471 82.7876 7.50345 83.6325 7.22182C84.4774 6.94018 85.331 6.79937 86.1936 6.79937C87.4609 6.79937 88.5082 7.06341 89.3355 7.59147C90.1804 8.10193 90.8141 8.79721 91.2365 9.67732C91.659 10.5398 91.8702 11.5079 91.8702 12.5816C91.8702 12.8633 91.8614 13.1097 91.8438 13.3209C91.8262 13.5146 91.791 13.7346 91.7382 13.981H84.3981C84.5389 15.266 84.9174 16.1989 85.5335 16.7797C86.1672 17.3606 86.8712 17.651 87.6457 17.651C88.3145 17.651 88.8867 17.5367 89.3619 17.3078C89.8547 17.0614 90.286 16.7622 90.6557 16.4101L91.6854 17.4134C91.1221 18.4872 90.3477 19.2704 89.3619 19.7634C88.3937 20.2562 87.2584 20.5026 85.9559 20.5026ZM92.9624 20.0802V18.7336L94.2298 18.4432C94.2473 17.8094 94.2562 17.1406 94.2562 16.4365C94.2562 15.7149 94.2562 15.0812 94.2562 14.5355V12.8721C94.2562 12.3792 94.2473 11.9832 94.2298 11.6839C94.2298 11.3848 94.221 11.1119 94.2034 10.8654C94.2034 10.6014 94.1945 10.2934 94.177 9.94135L92.7512 9.70372V8.62118L98.5863 6.79937L99.0615 7.08981L99.2727 10.1526C99.6248 9.00844 100.127 8.16353 100.778 7.61787C101.447 7.0722 102.098 6.79937 102.732 6.79937C103.383 6.79937 103.929 6.99299 104.369 7.38024C104.826 7.74988 105.099 8.33956 105.187 9.14925C105.152 9.85333 104.941 10.4078 104.553 10.8126C104.166 11.1998 103.709 11.3935 103.18 11.3935C102.371 11.3935 101.631 10.9094 100.963 9.94135L100.831 9.75652C100.514 10.1086 100.197 10.5662 99.88 11.1295C99.5808 11.6928 99.3784 12.2736 99.2727 12.8721V14.5355C99.2727 15.046 99.2727 15.6444 99.2727 16.3309C99.2727 17.0173 99.2816 17.6687 99.2991 18.2848L101.359 18.7336V20.0802H92.9624ZM114.743 8.46277V7.22182H119.707V8.46277L118.123 8.7268L113.766 20.0802H111.39L106.69 8.7268L105.423 8.46277V7.22182H113.37V8.46277L111.971 8.7796L114.162 14.8523L116.195 8.7532L114.743 8.46277ZM129.974 20.5026C129.147 20.5026 128.478 20.3442 127.967 20.0274C127.475 19.6929 127.114 19.2265 126.885 18.628C126.374 19.1912 125.855 19.6489 125.327 20.001C124.817 20.3354 124.086 20.5026 123.136 20.5026C122.097 20.5026 121.261 20.2034 120.627 19.6049C120.011 19.0064 119.703 18.1703 119.703 17.0966C119.703 16.4101 119.853 15.8028 120.152 15.2747C120.469 14.7291 121.015 14.2363 121.789 13.7962C122.581 13.3386 123.69 12.9249 125.116 12.5552C125.327 12.5024 125.574 12.4409 125.855 12.3704C126.137 12.2825 126.427 12.2033 126.727 12.1328V11.1823C126.727 10.0558 126.594 9.28127 126.33 8.85881C126.084 8.43636 125.547 8.22514 124.72 8.22514C124.649 8.22514 124.579 8.22514 124.509 8.22514C124.456 8.22514 124.394 8.22514 124.324 8.22514V9.12285C124.324 10.1966 124.104 10.9622 123.664 11.4199C123.224 11.86 122.722 12.08 122.159 12.08C121.085 12.08 120.416 11.6047 120.152 10.6542C120.152 9.51009 120.689 8.58599 121.763 7.8819C122.854 7.16021 124.465 6.79937 126.594 6.79937C128.425 6.79937 129.71 7.20422 130.449 8.01391C131.206 8.80601 131.585 10.1086 131.585 11.9216V17.968C131.585 18.2671 131.734 18.4168 132.034 18.4168C132.139 18.4168 132.245 18.3816 132.35 18.3112C132.456 18.2232 132.588 18.0647 132.746 17.8358L133.512 18.2584C133.195 19.0681 132.755 19.6489 132.192 20.001C131.646 20.3354 130.907 20.5026 129.974 20.5026ZM124.245 16.2781C124.245 16.9294 124.377 17.4134 124.641 17.7302C124.905 18.0472 125.23 18.2056 125.618 18.2056C125.741 18.2056 125.873 18.1792 126.014 18.1264C126.172 18.0559 126.41 17.9152 126.727 17.7038V13.3737C126.462 13.4442 126.207 13.541 125.961 13.6642C125.591 13.8403 125.213 14.1394 124.825 14.5619C124.438 14.9843 124.245 15.5564 124.245 16.2781ZM134.041 20.1066V18.76L135.229 18.496C135.247 17.8622 135.256 17.1846 135.256 16.4629C135.256 15.7413 135.256 15.1076 135.256 14.5619V3.60459L133.83 3.41977V2.23162L139.85 1.04348L140.299 1.33392L140.193 5.00396V8.33075C141.232 7.30983 142.481 6.79937 143.942 6.79937C144.91 6.79937 145.791 7.0546 146.583 7.56506C147.375 8.05792 148 8.80601 148.457 9.80933C148.933 10.7951 149.17 12.0448 149.17 13.5586C149.17 15.002 148.898 16.2429 148.352 17.2814C147.806 18.3199 147.093 19.1209 146.213 19.6842C145.351 20.2298 144.426 20.5026 143.441 20.5026C142.684 20.5026 142.024 20.3706 141.461 20.1066C140.897 19.8601 140.405 19.4993 139.982 19.0241L139.454 20.5026L134.041 20.1066ZM141.513 9.41329C141.284 9.41329 141.064 9.44848 140.853 9.5189C140.659 9.5893 140.466 9.68612 140.272 9.80933V17.5982C140.625 17.8447 141.038 17.968 141.513 17.968C142.217 17.968 142.781 17.607 143.203 16.8853C143.626 16.1637 143.837 15.0548 143.837 13.5586C143.837 12.0448 143.626 10.9799 143.203 10.3638C142.781 9.73012 142.217 9.41329 141.513 9.41329ZM150.465 20.0802V18.7336L151.653 18.4696C151.671 17.8007 151.679 17.1406 151.679 16.4893C151.697 15.838 151.707 15.1868 151.707 14.5355V3.6838L150.28 3.41977V2.23162L156.379 1.04348L156.828 1.33392L156.723 5.00396V14.5355C156.723 15.1868 156.723 15.8469 156.723 16.5157C156.74 17.167 156.758 17.8271 156.776 18.496L157.963 18.7336V20.0802H150.465ZM165.938 8.22514C165.533 8.22514 165.189 8.52438 164.908 9.12285C164.626 9.72132 164.467 10.839 164.432 12.476H165.674C166.307 12.476 166.73 12.3528 166.94 12.1064C167.169 11.8424 167.284 11.3759 167.284 10.707C167.284 9.79173 167.143 9.14926 166.861 8.7796C166.597 8.40996 166.289 8.22514 165.938 8.22514ZM166.016 20.5026C164.696 20.5026 163.517 20.2298 162.478 19.6842C161.457 19.1384 160.647 18.3552 160.049 17.3342C159.45 16.2957 159.152 15.0548 159.152 13.6114C159.152 12.4673 159.354 11.4727 159.759 10.6278C160.164 9.78293 160.71 9.07884 161.395 8.51557C162.082 7.93471 162.848 7.50345 163.693 7.22182C164.537 6.94018 165.392 6.79937 166.254 6.79937C167.522 6.79937 168.568 7.06341 169.396 7.59147C170.241 8.10193 170.874 8.79721 171.297 9.67732C171.719 10.5398 171.93 11.5079 171.93 12.5816C171.93 12.8633 171.922 13.1097 171.904 13.3209C171.886 13.5146 171.851 13.7346 171.799 13.981H164.459C164.6 15.266 164.978 16.1989 165.594 16.7797C166.228 17.3606 166.932 17.651 167.706 17.651C168.375 17.651 168.947 17.5367 169.423 17.3078C169.915 17.0614 170.346 16.7622 170.716 16.4101L171.746 17.4134C171.182 18.4872 170.408 19.2704 169.423 19.7634C168.454 20.2562 167.319 20.5026 166.016 20.5026Z"></path>
+              <path d="M11.4413 19.7265C10.3849 19.7265 9.46964 19.4977 8.69544 19.04C7.92403 18.5841 7.30727 17.9383 6.91536 17.1761C6.49867 16.3829 6.19365 15.5442 6.00767 14.6801C5.81035 13.743 5.71422 12.7903 5.72068 11.8359C5.72068 11.0802 5.77027 10.3577 5.87038 9.66687C5.96953 8.97688 6.15355 8.27548 6.42147 7.56358C6.68939 6.85167 7.03454 6.23445 7.45501 5.71104C7.89276 5.17482 8.45875 4.73835 9.10924 4.4354C9.79191 4.10837 10.568 3.9453 11.4413 3.9453C12.4977 3.9453 13.4131 4.17413 14.1873 4.63178C14.9587 5.08762 15.5755 5.73343 15.9674 6.49571C16.3811 7.28039 16.6834 8.11242 16.875 8.99178C17.0658 9.87026 17.1621 10.8189 17.1621 11.8359C17.1621 12.5917 17.1125 13.3141 17.0123 14.0049C16.9057 14.7222 16.7171 15.4272 16.4498 16.1082C16.1733 16.8201 15.8301 17.4374 15.4162 17.9608C15.0025 18.4842 14.4552 18.9094 13.7735 19.2364C13.0918 19.5634 12.3147 19.7265 11.4413 19.7265ZM13.4608 13.9249C14.0079 13.3785 14.3122 12.6225 14.3017 11.8359C14.3017 11.0232 14.0281 10.3268 13.4817 9.74686C12.9344 9.1669 12.2547 8.87692 11.4413 8.87692C10.628 8.87692 9.94827 9.1669 9.40099 9.74686C8.86507 10.2993 8.56912 11.0534 8.58102 11.8359C8.58102 12.6486 8.85467 13.3449 9.40099 13.9249C9.94827 14.5049 10.628 14.7949 11.4413 14.7949C12.2547 14.7949 12.9278 14.5049 13.4608 13.9249ZM11.4413 23.6718C17.7599 23.6718 22.8828 18.3723 22.8828 11.8359C22.8828 5.29952 17.7599 0 11.4413 0C5.12287 0 0 5.29952 0 11.8359C0 18.3723 5.12287 23.6718 11.4413 23.6718Z"></path>
+            </svg>
+          </a>
+        </div>
+        <div style="display: flex; flex-grow: 1; gap: 2rem;">
+          <div style="flex-basis: 10rem; flex-shrink: 0;">
+            <div style="margin-bottom: 0.5rem; font-weight: 600; font-size: 14px;">Platform</div>
+            <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.5rem;">
+              <li><a style="color: inherit;" target="_blank" href="https://observablehq.com/platform/canvases">Observable Canvases</a></li>
+              <li><a style="color: inherit;" target="_blank" href="https://observablehq.com/platform/notebooks">Observable Notebooks</a></li>
+              <li><a style="color: inherit;" target="_blank" href="https://observablehq.com/pricing">Pricing</a></li>
+            </ul>
+          </div>
+          <div style="flex-basis: 10rem; flex-shrink: 0; flex-grow: 1;">
+            <div style="margin-bottom: 0.5rem; font-weight: 600; font-size: 14px;">Docs</div>
+            <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.5rem;">
+              <li><a style="color: inherit;" target="_blank" href="https://observablehq.com/documentation/">Observable</a></li>
+              <li><a style="color: inherit;" target="_blank" href="https://observablehq.com/framework/">Observable Framework</a></li>
+              <li><a style="color: inherit;" target="_blank" href="https://observablehq.com/plot/">Observable Plot</a></li>
+              <li><a style="color: inherit;" target="_blank" href="https://d3js.org">D3</a></li>
+              <li><a style="color: inherit;" target="_blank" href="https://observablehq.com/release-notes">Release Notes</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div style="display: flex; max-width: var(--max-width); padding: 0 1rem; margin: 2rem auto;">
+        © 2025 Observable, Inc.
+      </div>
+    </footer>
+  
+
+<style type="text/css">:root {
+  --syntax-link: var(--theme-foreground-focus);
+  --syntax-keyword: #ffa657;
+  --syntax-atom: #a5d6ff;
+  --syntax-literal: #d2a8ff;
+  --syntax-string: #7ee787;
+  --syntax-comment: var(--theme-foreground-muted);
+  --syntax-invalid: var(--theme-error);
+  --syntax-definition: #79c0ff;
+  --syntax-variable: var(--theme-foreground-alt);
+  --syntax-meta: #ff7b72;
+}
+
+:root {
+  --theme-background-a: color-mix(in srgb, var(--theme-foreground) 4%, var(--theme-background-b));
+  --theme-background: var(--theme-background-a);
+  --theme-background-alt: var(--theme-background-b);
+  --theme-foreground-alt: color-mix(in srgb, var(--theme-foreground) 90%, var(--theme-background-b));
+  --theme-foreground-muted: color-mix(in srgb, var(--theme-foreground) 60%, var(--theme-background-b));
+  --theme-foreground-faint: color-mix(in srgb, var(--theme-foreground) 50%, var(--theme-background-b));
+  --theme-foreground-fainter: color-mix(in srgb, var(--theme-foreground) 30%, var(--theme-background-b));
+  --theme-foreground-faintest: color-mix(in srgb, var(--theme-foreground) 14%, var(--theme-background-b));
+  --theme-error: #e7040f;
+  color-scheme: dark;
+}
+
+:root {
+  --theme-foreground: #d7d7e1;
+  --theme-foreground-focus: #6cb0ff;
+  --theme-background-b: #1c1b25;
+}
+</style></body></html>

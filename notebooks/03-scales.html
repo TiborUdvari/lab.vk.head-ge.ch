@@ -1,0 +1,80 @@
+<!doctype html>
+<notebook theme="air">
+  <title>03 - D3 scales</title>
+  <script id="1" type="text/markdown">
+    # 03 - D3 scales
+  </script>
+  <script id="2" type="module">
+        import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
+        d3
+  </script>
+  <script id="3" type="text/markdown">
+    ## Simple dataset of balls
+  </script>
+  <script id="5" type="module" pinned="">
+    let balls = [
+        {name: "Ping Pong",  mm: 40,  category: "racquet"},
+        {name: "Golf",       mm: 43,  category: "stick"},
+        {name: "Squash",     mm: 40,  category: "racquet"},
+        {name: "Billiard",   mm: 57,  category: "stick"},
+        {name: "Tennis",     mm: 67,  category: "racquet"},
+        {name: "Cricket",    mm: 72,  category: "bat"},
+        {name: "Baseball",   mm: 73,  category: "bat"},
+        {name: "Lacrosse",   mm: 63,  category: "stick"},
+        {name: "Softball",   mm: 97,  category: "bat"},
+        {name: "Volleyball", mm: 210, category: "hand"},
+        {name: "Soccer",     mm: 220, category: "foot"},
+        {name: "Basketball", mm: 240, category: "hand"},
+        {name: "Bowling",    mm: 217, category: "hand"}
+      ];
+
+  </script>
+  <script id="131" type="text/x-typescript" pinned="">
+    const w = 980;
+    const h = 200;
+    const svg = d3.create("svg")
+      .attr("width", w)
+      .attr("height", h)
+      .attr("viewBox", `0 0 ${w} ${h}`)
+      .style("background-color", "#fef");
+  </script>
+  <script id="159" type="text/markdown" pinned="">
+    ## Linear scale
+  </script>
+  <script id="134" type="text/x-typescript" pinned="">
+    let extent = d3.extent(balls, (d) => d.mm);
+
+    //const sizeScale = d3.scaleLinear([0, 250], [10, 30])
+    const sizeScale = d3.scaleLinear(extent, [10, 30])
+
+    const posScale = d3.scaleLinear([0, balls.length-1], [50, w-50]);
+    const quantizeScale = d3.scaleQuantize([0, 250], ['lightblue', 'lightyellow', 'lightgreen', 'lightpink']);
+
+
+    svg.selectAll("circle")
+      .data(balls)
+      .join("circle")
+      .attr("cx", (d, i) => posScale(i))
+      .attr("cy", h * 0.5)
+      .attr("r", (d, i) => sizeScale(d.mm))
+      .style("fill", (d, i) => quantizeScale(d.mm));
+      //.style("fill", "lightyellow");
+
+    svg.selectAll("text")
+      .data(balls)
+      .join("text")
+      .text((d, i) => d.name)
+      .attr("x", (d, i) => posScale(i))
+      .attr("y", (d, i) => h * 0.5 + 50)
+      .attr("font-size", "12")
+      .attr("text-anchor", "middle");
+  </script>
+  <script id="133" type="text/x-typescript" pinned="">
+    display(svg.node());
+  </script>
+  <script id="135" type="text/markdown">
+    ## TODO
+
+    ### Create population bar graph, show axis
+  </script>
+</notebook>
