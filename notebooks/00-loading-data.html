@@ -1,0 +1,19 @@
+<!doctype html>
+<notebook theme="air">
+  <title>Loading local data</title>
+  <script id="1" type="text/markdown">
+    # Loading local data
+  </script>
+  <script id="2" type="text/x-typescript" pinned="">
+    const letters = FileAttachment("data/alphabet.csv").csv({typed: true});
+  </script>
+  <script id="6" type="text/x-typescript" pinned="">
+    display(letters)
+  </script>
+  <script id="5" type="text/markdown" pinned="">
+    ## D’autres sources
+
+    Trouvez les données à télécharger ici
+    [https://observablehq.com/@observablehq/sample-datasets?collection=@observablehq/getting-data-in-and-out#-alphabet](here)
+  </script>
+</notebook>
