@@ -1,0 +1,95 @@
+<!doctype html>
+<notebook theme="air">
+  <title>Live Demo</title>
+  <script id="1" type="text/markdown">
+    # Live Demo
+  </script>
+  <script id="12" type="text/markdown">
+    ## Display, javascript reactivity
+  </script>
+  <script id="2" type="text/x-typescript" pinned="">
+    const x = 15
+    const y = 20
+
+    display(x)
+  </script>
+  <script id="3" type="text/x-typescript" pinned="">
+    const z = x * 2
+    display(z)
+  </script>
+  <script id="4" type="text/x-typescript" pinned="">
+    import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
+  </script>
+  <script id="5" type="text/x-typescript" pinned="">
+    const w = 1000;
+    const h = 450;
+
+    const svg = d3.create("svg")
+      .attr("width", w)
+      .attr("height", h)
+      .attr("viewBox", `0 0 ${w} ${h}`)
+      .style("background-color", "#fef");
+
+    svg.append("circle")
+      .attr("cx", 150)
+      .attr("cy", 150)
+      .attr("r", 40)
+      .style("fill", "tomato");
+
+    svg.append("circle")
+      .attr("cx", 300)
+      .attr("cy", 150)
+      .attr("r", 40)
+      .style("fill", "tomato");
+
+    svg.append("circle")
+      .attr("cx", 200)
+      .attr("cy", 250)
+      .attr("r", 40)
+      .style("fill", "tomato");
+
+    svg.append("circle")
+      .attr("cx", 200)
+      .attr("cy", 250)
+      .attr("r", 40)
+      .style("fill", "tomato");
+
+    svg.append("text")
+      .text("Hello d3")
+      .attr("text-anchor", "middle")
+      .attr("dominant-baseline", "middle")
+      .attr("x", 150)
+      .attr("y", 150);
+
+  </script>
+  <script id="10" type="text/x-typescript" pinned="">
+    let datas = [20, 20, 30, 20, 50, 60, 70];
+  </script>
+  <script id="11" type="text/x-typescript" pinned="">
+    let sortedDatas = d3.sort(datas)
+  </script>
+  <script id="8" type="text/x-typescript" pinned="">
+    const n = datas.length;
+
+    svg.selectAll("circle")
+      .data(sortedDatas)
+      .join("circle")
+      .attr("cx", (d, i) => i * (w / n) + 50)
+      .attr("cy", 200)
+      .attr("r", (d, i) => d)
+      .style("fill", "lightyellow")
+
+    svg.selectAll("text")
+      .data(sortedDatas)
+      .join("text")
+      .attr("x", (d, i) => i * (w / n) + 50)
+      .attr("y", 200)
+      .attr("text-anchor", "middle")
+      .attr("dominant-baseline", "middle")
+      .text((d, i) => d)
+      .style("fill", "tomato")
+  </script>
+  <script id="7" type="text/x-typescript" pinned="">
+    display(svg.node())
+  </script>
+</notebook>
