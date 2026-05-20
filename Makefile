@@ -15,17 +15,17 @@ local-deploy:
 	act -P ubuntu-latest=-self-hosted
 
 dev:
-	@echo "Site: http://localhost:8080  |  Notebooks (HMR): http://localhost:5173"
+	@echo "Site: http://localhost:8080  |  Notebooks (HMR): http://localhost:5173  (also exposed on LAN)"
 	@$(MAKE) notebooks-build
 	@trap 'kill 0' EXIT; \
-		(cd www && npx live-server) & \
-		(cd notebooks && npx notebooks preview --root .) & \
+		(cd www && npx live-server --host=0.0.0.0 --no-browser) & \
+		(cd notebooks && node preview-host.mjs) & \
 		(ls notebooks/*.html | entr -s '$(MAKE) notebooks-build') & \
 		wait
 
 notebooks-dev:
-	@echo "Running Notebook Kit preview server"
-	cd notebooks && npx notebooks preview --root .
+	@echo "Running Notebook Kit preview server (exposed on LAN)"
+	cd notebooks && node preview-host.mjs
 
 notebooks-build:
 	@echo "Building notebooks into www/notebooks"

@@ -1,0 +1,653 @@
+<!doctype html>
+<notebook theme="air">
+  <title>08 - Stacked area with morphing transitions</title>
+
+  <script id="1" type="text/markdown">
+    # 08 - Stacked area with morphing transitions
+
+    Porté depuis un ancien notebook Observable. Solde migratoire à Genève par nationalité, avec transition animée entre plusieurs vues.
+
+    **Pattern d3 idiomatique : enter / update / exit.** Chaque série (= une nationalité) a sa propre identité via une key function. Quand on lui passe un nouveau dataset, d3 trie chaque série en :
+
+    - **enter** : nouvelle série → on fait pousser le calque depuis la baseline.
+    - **update** : série déjà présente → on interpole entre l'état précédent et l'état courant.
+    - **exit** : série retirée → on fait redescendre le calque à la baseline puis on le supprime.
+
+    Le morphing de l'attribut `d` se fait avec `attrTween`. Plutôt que de laisser SVG interpoler les chaînes brutes (qui glitche dès que la structure du path change), on construit nous-même un interpolateur qui aligne les points sur **l'union des années** entre prev et curr — les années manquantes d'un côté valent zéro. Résultat : un seul code-path gère toutes les variations (changement de fenêtre temporelle, mode annuel/cumulé, série ajoutée, série supprimée).
+  </script>
+
+  <script id="2" type="module">
+    // d3 v7 — bundle ESM via jsDelivr
+    // https://d3js.org/
+    import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
+    d3
+  </script>
+
+  <script id="3" type="text/markdown">
+    ## Données
+
+    CSV avec trois colonnes : `Année`, `Nationalite`, `chiffre` (solde net annuel, négatif possible). On parse `Année` en `Date` pour pouvoir utiliser `d3.scaleUtc` côté axe X.
+  </script>
+
+  <script id="4" type="module" pinned="">
+    // d3.csv : fetch + parse CSV en tableau d'objets.
+    // Le 2e argument est un accessor qui transforme chaque ligne (strings) en objet typé.
+    // https://d3js.org/d3-fetch#csv
+    const dataImmigrationRaw = await d3.csv("./data/immigration-geneva.csv", row => ({
+      year: new Date(Date.UTC(+row.Année, 0, 1)),   // "2002" -> Date(2002-01-01 UTC)
+      nationality: row.Nationalite,
+      count: +row.chiffre                            // "-10388" -> -10388 (Number)
+    }));
+  </script>
+
+  <script id="4a1" type="text/markdown">
+    ### Nettoyage : retirer les agrégats
+
+    Le CSV contient 6 valeurs de `Nationalite` : `UE/AELE`, `Etats tiers`, `Etats tiers europe`, `Etats tiers pas europe`, `Total`, `Total - solde migratoire`.
+
+    - `Total` / `Total - solde migratoire` : sommes globales.
+    - `Etats tiers europe` / `Etats tiers pas europe` : sous-découpages de `Etats tiers`.
+
+    Tous les quatre sont des **agrégats** par-dessus les deux séries de base (`UE/AELE`, `Etats tiers`) — si on les laisse, le stacked area les empile en plus et fausse le total visuel. On les filtre en amont.
+  </script>
+
+  <script id="4a2" type="module" pinned="">
+    const aggregateLabels = new Set([
+      "Total",
+      "Total - solde migratoire",
+      "Etats tiers europe",
+      "Etats tiers pas europe"
+    ]);
+    const dataImmigrationAll = dataImmigrationRaw.filter(d => !aggregateLabels.has(d.nationality));
+  </script>
+
+  <script id="4b" type="text/markdown">
+    ### Vue table
+
+    `Inputs.table` rend un tableau interactif (tri par colonne, scroll, sélection optionnelle) — équivalent au "table view" d'Observable.
+
+    **Gotcha :** `d3.csv` attache une propriété cachée `.columns` au tableau retourné, avec les en-têtes ORIGINAUX du CSV (`Année`, `Nationalite`, `chiffre`). `Inputs.table` lit cette propriété par défaut pour savoir quoi afficher → si on a renommé les clés dans l'accessor (`year`, `nationality`, `count`), les cellules sortent vides. On passe donc explicitement `columns` (et tant qu'à faire, `header` pour des labels propres).
+
+    [`Inputs.table`](https://github.com/observablehq/inputs#table)
+  </script>
+
+  <script id="4c" type="text/x-typescript" pinned="">
+    Inputs.table(dataImmigrationAll, {
+      columns: ["year", "nationality", "count"],
+      header: {
+        year: "Année",
+        nationality: "Nationalité",
+        count: "Solde net"
+      }
+    })
+  </script>
+
+  <script id="5" type="text/markdown">
+    ## Dimensions
+
+    Margin convention : on réserve des bandes pour les axes et les labels, et on dessine dans l'espace utile au milieu. Convention détaillée par Mike Bostock : <https://observablehq.com/@d3/margin-convention>.
+
+    `marginLeft` est généreux (60) pour laisser passer les labels y du type `80,000`.
+  </script>
+
+  <script id="6" type="module" pinned="">
+    const width = 920;
+    const height = 500;
+    const marginTop = 10;
+    const marginRight = 10;
+    const marginBottom = 20;
+    const marginLeft = 60;
+  </script>
+
+  <script id="7" type="text/markdown">
+    ## Master keys & couleurs (calculés une fois)
+
+    - `masterKeys` : la liste de toutes les nationalités présentes dans le dataset COMPLET, dans leur ordre d'apparition. Sert de référence d'ordre stable.
+    - `color` : un mapping `nationalité → couleur` fixé d'après `masterKeys`. Garantit qu'une nationalité a toujours la même couleur, peu importe la vue.
+  </script>
+
+  <script id="8" type="module" pinned="">
+    // Set + Array.from : dédoublonne en gardant l'ordre d'apparition dans le CSV
+    const masterKeys = Array.from(new Set(dataImmigrationAll.map(d => d.nationality)));
+
+    // scaleOrdinal mappe une valeur discrète (string) -> une couleur
+    // schemeTableau10 : palette catégorielle de 10 couleurs lisibles ensemble
+    // https://d3js.org/d3-scale/ordinal
+    // https://d3js.org/d3-scale-chromatic/categorical#schemeTableau10
+    const color = d3.scaleOrdinal()
+      .domain(masterKeys)
+      .range(d3.schemeTableau10);
+  </script>
+
+  <script id="9" type="text/markdown">
+    ## `build(data)` + `toCumulative(data)`
+
+    Deux helpers pour préparer les données :
+
+    - `build(data)` : transforme un tableau plat (1 ligne = 1 année × 1 nationalité) en **séries empilées** prêtes pour le rendu. Re-groupe par année avec `d3.index`, puis `d3.stack`. Les `keys` viennent du dataset courant (pas du master) → si une nationalité disparaît, sa série n'apparaît pas → `exit` se déclenche. L'ordre suit `masterKeys` pour rester stable.
+    - `toCumulative(data)` : transforme les valeurs annuelles en **cumul** (running total). Pour chaque nationalité, on trie par année et on accumule. Le solde net d'une année devient le solde net depuis la première année.
+
+    [`d3.index`](https://d3js.org/d3-array/group#index) · [`d3.stack`](https://d3js.org/d3-shape/stack) · [`d3.group`](https://d3js.org/d3-array/group#group)
+  </script>
+
+  <script id="10" type="module" pinned="">
+    function deriveKeys(data) {
+      const present = new Set(data.map(d => d.nationality));
+      // Ordre = celui du master, filtré aux nationalités présentes
+      return masterKeys.filter(k => present.has(k));
+    }
+
+    function build(data) {
+      const keys = deriveKeys(data);
+      // Index : année -> nationalité -> row
+      const byYearByNat = d3.index(data, d => d.year, d => d.nationality);
+      return d3.stack()
+        .keys(keys)
+        .value(([, byNat], key) => byNat.get(key)?.count ?? 0)
+        (byYearByNat);
+    }
+
+    function toCumulative(data) {
+      // Groupe par nationalité, tri chronologique, somme cumulée
+      const byNat = d3.group(data, d => d.nationality);
+      const out = [];
+      for (const [nat, rows] of byNat) {
+        const sorted = [...rows].sort((a, b) => a.year - b.year);
+        let acc = 0;
+        for (const r of sorted) {
+          acc += r.count;
+          out.push({ year: r.year, nationality: nat, count: acc });
+        }
+      }
+      return out;
+    }
+  </script>
+
+  <script id="11" type="text/markdown">
+    ## Scales et generator d'aire
+
+    - **x** : `scaleUtc` mappe des `Date` vers des pixels. Domaine recalculé à chaque update sur l'extent du dataset courant.
+    - **y** : `scaleLinear`. Stratégie hybride pour `y.domain` :
+      - en **annuel**, on fige `y.domain` à l'extent complet annuel → toggler All / ≥ 2002 ne fait pas bouger `y(0)` (donc l'axe X reste à la même hauteur).
+      - en **cumulé**, on calcule `y.domain` dynamiquement d'après les données *déjà filtrées* → le cumul redémarre à 0 au début de la fenêtre temporelle, et le chart utilise toute la hauteur disponible. L'axe X glisse vers le nouveau `y(0)` à chaque changement.
+
+    Range Y inversé (`[height-margin, marginTop]`) à cause de l'orientation SVG (origine en haut-gauche).
+
+    [`d3.scaleUtc`](https://d3js.org/d3-scale/time#scaleUtc) · [`d3.scaleLinear`](https://d3js.org/d3-scale/linear) · [`d3.area`](https://d3js.org/d3-shape/area)
+  </script>
+
+  <script id="12" type="module" pinned="">
+    const x = d3.scaleUtc()
+      .range([marginLeft, width - marginRight]);
+
+    // Extent annuel pré-calculé une fois → stable entre filtres en mode annuel
+    function extentOf(series) {
+      return [
+        Math.min(0, d3.min(series, s => d3.min(s, p => p[0]))),
+        d3.max(series, s => d3.max(s, p => p[1]))
+      ];
+    }
+    const yExtentAnnuel = extentOf(build(dataImmigrationAll));
+
+    const y = d3.scaleLinear()
+      .domain(yExtentAnnuel)
+      .range([height - marginBottom, marginTop]);
+
+    // Generator d'aire : pour chaque point du stack, on lit
+    // - x : la clé du groupe (l'année), accessible via d.data[0]
+    // - y0 / y1 : les bornes basse et haute de l'empilement
+    const area = d3.area()
+      .x(d => x(d.data[0]))     // d.data = [année, InternMap par nationalité]
+      .y0(d => y(d[0]))         // bas du calque
+      .y1(d => y(d[1]));        // haut du calque
+  </script>
+
+  <script id="13" type="text/markdown">
+    ## SVG canvas + groupes (créés une seule fois)
+
+    Trois `<g>` créés ici, persistants entre les updates :
+    - `layer` reçoit les `<path>` des séries.
+    - `xAxis`, `yAxis` reçoivent les axes (retransitionnés à chaque update).
+
+    L'**ordre d'append** détermine le z-order SVG : layer d'abord (en dessous), puis les axes (au-dessus). L'axe X est dessiné par-dessus les aires.
+
+    Position initiale de `xAxis` = `y(0)` du mode initial (annuel). Quand on change de mode, l'axe glisse vers le nouveau `y(0)`.
+  </script>
+
+  <script id="14" type="module" pinned="">
+    const svg = d3.create("svg")
+      .attr("width", width)
+      .attr("height", height)
+      .attr("viewBox", `0 0 ${width} ${height}`)
+      .style("max-width", "100%");
+
+    // ClipPath : restreint le dessin des aires à l'intérieur du chart.
+    // Sans ça, `interpolateSeries` (qui pad avec l'union des années entre prev
+    // et curr) laisse des points fantômes en dehors du domaine X courant — leur
+    // path trace alors des triangles colorés à gauche de l'axe Y. La clip masque
+    // tout ce qui sort de la zone utile.
+    const clipId = `chart-clip-${Math.random().toString(36).slice(2, 8)}`;
+    svg.append("defs")
+      .append("clipPath")
+      .attr("id", clipId)
+      .append("rect")
+      .attr("x", marginLeft)
+      .attr("y", marginTop)
+      .attr("width", width - marginLeft - marginRight)
+      .attr("height", height - marginTop - marginBottom);
+
+    // Ordre d'append = z-order SVG (les derniers sont au-dessus)
+    const layer = svg.append("g")
+      .attr("clip-path", `url(#${clipId})`);
+
+    const xAxis = svg.append("g")
+      .attr("transform", `translate(0,${y(0)})`);
+
+    const yAxis = svg.append("g")
+      .attr("transform", `translate(${marginLeft},0)`)
+      .call(d3.axisLeft(y).ticks(6));
+  </script>
+
+  <script id="15" type="text/markdown">
+    ## Interpolation entre deux états de série
+
+    Le cœur du morphing. Une série d3.stack est un array de points `[y0, y1]` où chaque point a une propriété `.data = [année, …]`.
+
+    `interpolateSeries(prev, curr)` retourne une fonction `t ∈ [0, 1] → array de points interpolés`. Elle :
+
+    1. construit l'**union des années** présentes dans `prev` et `curr` ;
+    2. pour chaque année de cette union, regarde si elle est dans `prev` et/ou dans `curr` ; les années absentes valent `[0, 0]` (à la baseline) ;
+    3. interpole linéairement chaque paire `(prev_y, curr_y)` selon `t`.
+
+    Le résultat est un array de la **même longueur** à tous les `t` → quand on le passe à `area(…)`, on obtient une chaîne `d` de structure stable → SVG l'affiche correctement.
+
+    `collapse(series)` est juste le cas particulier "tout à zéro" : on s'en sert pour faire pousser un calque qui entre (enter) ou redescendre un calque qui sort (exit).
+  </script>
+
+  <script id="16" type="module" pinned="">
+    function interpolateSeries(prev, curr) {
+      // Union des années (en ms epoch pour comparer)
+      const yearsMs = Array.from(new Set([
+        ...prev.map(p => +p.data[0]),
+        ...curr.map(p => +p.data[0])
+      ])).sort((a, b) => a - b);
+
+      // Lookups année → point
+      const prevAt = new Map(prev.map(p => [+p.data[0], p]));
+      const currAt = new Map(curr.map(p => [+p.data[0], p]));
+
+      return t => yearsMs.map(ms => {
+        const p = prevAt.get(ms);
+        const c = currAt.get(ms);
+        const py0 = p ? p[0] : 0;
+        const py1 = p ? p[1] : 0;
+        const cy0 = c ? c[0] : 0;
+        const cy1 = c ? c[1] : 0;
+        const point = [
+          py0 + (cy0 - py0) * t,
+          py1 + (cy1 - py1) * t
+        ];
+        // Le generator `area` a besoin de d.data[0] pour calculer x
+        point.data = [new Date(ms), null];
+        return point;
+      });
+    }
+
+    // Variante "tout zéro" : sert pour enter (depuis 0) et exit (vers 0)
+    function collapse(series) {
+      return series.map(p => {
+        const z = [0, 0];
+        z.data = p.data;
+        return z;
+      });
+    }
+  </script>
+
+  <script id="17" type="text/markdown">
+    ## `update(data, mode)` : data join enter / update / exit
+
+    `mode` (`"annuel"` ou `"cumulé"`) pilote la `y.domain`. En annuel, `y.domain = yExtentAnnuel` (figé). En cumulé, `y.domain` est recalculé sur le stack courant — donc le cumul redémarre proprement à 0 quand le filtre change.
+
+    `previousSeries` (variable de scope du cell) garde l'état post-dernier-update — c'est ce qu'on interpole DEPUIS.
+
+    - **Key function** sur le data join : `d => d.key` (la nationalité).
+    - **Enter** : `<path>` créé à l'état "collapsé", transition vers la vraie forme.
+    - **Update** : transition `attrTween` qui interpole entre `previousSeries[d.key]` et `d`.
+    - **Exit** : transition vers la baseline, puis `.remove()`.
+
+    [`selection.join`](https://d3js.org/d3-selection/joining#selection_join) · [`transition.attrTween`](https://d3js.org/d3-transition/modifying#transition_attrTween) · [`d3.easeCubicInOut`](https://d3js.org/d3-ease#easeCubicInOut)
+  </script>
+
+  <script id="18" type="module" pinned="">
+    let previousSeries = null;
+    let currentData = null;
+    let currentSeries = null;
+
+    // --- Tooltip + hover indicator ---
+    // tooltip : div positionné absolument, parent = wrapper (position: relative)
+    const tooltip = document.createElement("div");
+    Object.assign(tooltip.style, {
+      position: "absolute",
+      pointerEvents: "none",
+      background: "white",
+      border: "1px solid #ccc",
+      padding: "4px 8px",
+      fontSize: "12px",
+      fontFamily: "system-ui, sans-serif",
+      borderRadius: "3px",
+      boxShadow: "0 1px 3px rgba(0,0,0,0.15)",
+      opacity: "0",
+      transition: "opacity 150ms",
+      whiteSpace: "nowrap",
+      zIndex: "10"
+    });
+
+    // hoverGroup : line + circle, au-dessus des aires
+    const hoverGroup = svg.append("g")
+      .style("display", "none")
+      .style("pointer-events", "none");
+    const hoverLine = hoverGroup.append("line")
+      .attr("stroke", "black")
+      .attr("stroke-width", 1);
+    const hoverCircle = hoverGroup.append("circle")
+      .attr("r", 4)
+      .attr("fill", "black");
+
+    // overlay : rect transparent qui capture les évènements pointer
+    const overlay = svg.append("rect")
+      .attr("x", marginLeft)
+      .attr("y", marginTop)
+      .attr("width", width - marginLeft - marginRight)
+      .attr("height", height - marginTop - marginBottom)
+      .attr("fill", "transparent");
+
+    const numberFormat = new Intl.NumberFormat("fr-CH");
+
+    overlay.on("pointerenter", () => {
+      hoverGroup.style("display", null);
+      tooltip.style.opacity = "1";
+    });
+    overlay.on("pointerleave", () => {
+      hoverGroup.style("display", "none");
+      tooltip.style.opacity = "0";
+    });
+    overlay.on("pointermove", function (event) {
+      if (!currentData || !currentSeries) return;
+
+      // Année au curseur, puis on snappe à l'année la plus proche dans currentData
+      const [mx] = d3.pointer(event, svg.node());
+      const yearAtCursor = x.invert(mx);
+      const years = Array.from(new Set(currentData.map(d => +d.year)));
+      let closestMs = years[0];
+      let bestDiff = Math.abs(closestMs - yearAtCursor);
+      for (const ms of years) {
+        const diff = Math.abs(ms - yearAtCursor);
+        if (diff < bestDiff) { bestDiff = diff; closestMs = ms; }
+      }
+
+      // Valeurs par nationalité à cette année (ordre = visuel haut → bas)
+      const valuesByNat = new Map();
+      for (const d of currentData) {
+        if (+d.year === closestMs) valuesByNat.set(d.nationality, d.count);
+      }
+
+      // Top du stack (y1 max sur toutes les séries à cette année)
+      let topY = 0;
+      for (const s of currentSeries) {
+        const p = s.find(pt => +pt.data[0] === closestMs);
+        if (p) topY = Math.max(topY, p[1]);
+      }
+
+      // Positionne la ligne + le cercle
+      const cx = x(new Date(closestMs));
+      const cyTop = y(topY);
+      const cyBase = y(0);
+      hoverLine.attr("x1", cx).attr("x2", cx).attr("y1", cyTop).attr("y2", cyBase);
+      hoverCircle.attr("cx", cx).attr("cy", cyTop);
+
+      // Contenu du tooltip
+      const yearLabel = new Date(closestMs).getUTCFullYear();
+      const rows = [`<strong>${yearLabel}</strong>`];
+      for (const key of [...color.domain()].reverse()) {
+        if (valuesByNat.has(key)) {
+          rows.push(`${key} : ${numberFormat.format(valuesByNat.get(key))}`);
+        }
+      }
+      tooltip.innerHTML = rows.join("<br>");
+
+      // Position du tooltip dans le wrapper (parent du tooltip).
+      // On utilise les coords écran ramenées dans le repère du wrapper.
+      if (tooltip.parentElement) {
+        const r = tooltip.parentElement.getBoundingClientRect();
+        tooltip.style.left = `${event.clientX - r.left + 12}px`;
+        tooltip.style.top = `${event.clientY - r.top + 12}px`;
+      }
+    });
+
+    function update(data, mode) {
+      const series = build(data);
+      currentData = data;
+      currentSeries = series;
+
+      // Snapshot des domaines AVANT mutation → utilisé dans les attrTween pour
+      // construire l'image de départ (avec les anciennes scales) et l'image
+      // d'arrivée (avec les nouvelles). Sans ça, la transition utilise les
+      // nouvelles scales dès t=0 → l'animation "saute" au début.
+      const oldXDomain = x.domain().slice();
+      const oldYDomain = y.domain().slice();
+
+      // Y :
+      // - annuel → extent figé (pas de bounce x-axis entre filtres)
+      // - cumulé → extent du stack courant (le cumul redémarre à 0 quand
+      //   le filtre change → y.domain s'adapte)
+      if (mode === "annuel") {
+        y.domain(yExtentAnnuel);
+      } else {
+        y.domain(extentOf(series));
+      }
+
+      // X selon le dataset courant
+      x.domain(d3.extent(data, d => d.year));
+
+      // Area generator avec les anciennes scales, juste pour calculer le
+      // path-de-départ d'une transition (image de la frame précédente).
+      const xOld = d3.scaleUtc().domain(oldXDomain).range(x.range());
+      const yOld = d3.scaleLinear().domain(oldYDomain).range(y.range());
+      const areaOld = d3.area()
+        .x(p => xOld(p.data[0]))
+        .y0(p => yOld(p[0]))
+        .y1(p => yOld(p[1]));
+
+      // Ticks X explicites pour TOUJOURS afficher l'année de début et de fin
+      // (les ticks auto de d3 tombent sur des multiples de 5 et masquent les
+      // extrêmes — on les force ici).
+      const [xStart, xEnd] = x.domain();
+      const xTicks = [xStart];
+      const firstNice = Math.ceil((xStart.getUTCFullYear() + 1) / 5) * 5;
+      for (let y = firstNice; y < xEnd.getUTCFullYear(); y += 5) {
+        xTicks.push(new Date(Date.UTC(y, 0, 1)));
+      }
+      xTicks.push(xEnd);
+
+      // Axes : transitionnent ensemble. L'axe X se reposition aussi à y(0)
+      // si on change de mode (sinon y(0) est déjà bon).
+      xAxis.transition().duration(750)
+        .attr("transform", `translate(0,${y(0)})`)
+        .call(d3.axisBottom(x).tickValues(xTicks).tickFormat(d3.utcFormat("%Y")));
+      yAxis.transition().duration(750)
+        .call(d3.axisLeft(y).ticks(6));
+
+      // Aligne le 1er label à gauche du tick, le dernier à droite, les autres
+      // centrés. On FILTRE les ticks sortants (encore dans le DOM pendant leur
+      // fade-out) pour que les indices correspondent bien à xTicks courant.
+      const xTicksTimes = new Set(xTicks.map(t => +t));
+      xAxis.selectAll(".tick text")
+        .filter(function (d) { return xTicksTimes.has(+d); })
+        .attr("text-anchor", function (d) {
+          const idx = xTicks.findIndex(t => +t === +d);
+          if (idx === 0) return "start";
+          if (idx === xTicks.length - 1) return "end";
+          return "middle";
+        });
+
+      // Snapshot avant le join — utilisé dans les attrTween
+      const prev = previousSeries;
+
+      layer.selectAll("path")
+        .data(series, d => d.key)
+        .join(
+          // ENTER : nouvelle série → on l'ajoute, état initial = baseline
+          enter => enter.append("path")
+            .attr("fill", d => color(d.key))
+            .attr("d", d => area(collapse(d)))
+            .call(sel => sel.transition()
+              .duration(750)
+              .ease(d3.easeCubicInOut)
+              .attrTween("d", function (d) {
+                const i = interpolateSeries(collapse(d), d);
+                return t => area(i(t));
+              })
+            ),
+
+          // UPDATE : série déjà là → on morph depuis l'état précédent
+          // Image de départ = données prev avec ANCIENNES scales (= ce qui
+          // était à l'écran). Image d'arrivée = données curr avec NOUVELLES
+          // scales (= ce qu'on veut voir). interpolateString anime les nombres
+          // du path entre les deux ; les structures matchent grâce à
+          // interpolateSeries (union des années, longueur identique).
+          update => update.call(sel => sel.transition()
+            .duration(750)
+            .ease(d3.easeCubicInOut)
+            .attrTween("d", function (d) {
+              const previous = prev?.find(s => s.key === d.key) ?? collapse(d);
+              const i = interpolateSeries(previous, d);
+              const startPath = areaOld(i(0));
+              const endPath = area(i(1));
+              return d3.interpolateString(startPath, endPath);
+            })
+          ),
+
+          // EXIT : même logique. Départ = données prev avec anciennes scales.
+          // Arrivée = baseline avec nouvelles scales.
+          exit => exit.call(sel => sel.transition()
+            .duration(750)
+            .ease(d3.easeCubicInOut)
+            .attrTween("d", function (d) {
+              const i = interpolateSeries(d, collapse(d));
+              const startPath = areaOld(i(0));
+              const endPath = area(i(1));
+              return d3.interpolateString(startPath, endPath);
+            })
+            .remove()
+          )
+        );
+
+      previousSeries = series;
+    }
+
+    // On expose update et le tooltip sur le node
+    const chartMorph = Object.assign(svg.node(), { update, tooltip });
+  </script>
+
+  <script id="22a" type="text/markdown">
+    ## Helper `swatches(scale)`
+
+    Petit helper qui construit une rangée de carrés colorés + labels à partir du domain et du range d'une `scaleOrdinal`. Réutilisable pour n'importe quelle scale catégorielle. Équivalent à [`Swatches`](https://observablehq.com/@d3/color-legend) d'Observable.
+
+    L'ordre est inversé par rapport à `masterKeys` pour matcher l'ordre visuel du stack (le dernier key est dessiné en haut → premier dans la légende).
+  </script>
+
+  <script id="22b" type="module" pinned="">
+    function swatches(scale) {
+      const root = document.createElement("div");
+      Object.assign(root.style, {
+        display: "flex",
+        flexWrap: "wrap",
+        gap: "0.4em 1.2em",
+        fontFamily: "system-ui, sans-serif",
+        fontSize: "14px",
+        margin: "0.5em 0"
+      });
+
+      for (const key of [...scale.domain()].reverse()) {
+        const item = document.createElement("span");
+        Object.assign(item.style, {
+          display: "inline-flex",
+          alignItems: "center",
+          gap: "0.4em"
+        });
+
+        const square = document.createElement("span");
+        Object.assign(square.style, {
+          width: "14px",
+          height: "14px",
+          background: scale(key),
+          display: "inline-block",
+          borderRadius: "2px"
+        });
+
+        item.append(square, document.createTextNode(key));
+        root.append(item);
+      }
+      return root;
+    }
+  </script>
+
+  <script id="19" type="text/markdown">
+    ## Contrôles
+
+    Deux entrées indépendantes :
+
+    - `yearMin` (bouton) : seuil d'année minimum. Filtre les données affichées.
+    - `mode` (radio) : `annuel` (valeur de l'année) ou `cumulé` (somme depuis le début de la fenêtre).
+
+    Le cumul se calcule **après** le filtre — donc en mode cumulé / `≥ 2002`, la cumulative repart à 0 en 2002. Si on veut au contraire que la cumulative depuis 1991 soit conservée, il suffirait d'inverser l'ordre des deux opérations dans la cell ci-dessous.
+
+    Les contrôles sont placés **juste au-dessus** du chart pour rester à portée de clic.
+
+    [`Inputs.button`](https://github.com/observablehq/inputs#button) · [`Inputs.radio`](https://github.com/observablehq/inputs#radio)
+  </script>
+
+  <script id="20" type="text/x-typescript" pinned="">
+    const yearMin = view(Inputs.button([
+      ["Toutes années", () => 1991],
+      ["≥ 2002", () => 2002]
+    ], {value: 1991, label: "Fenêtre"}));
+  </script>
+
+  <script id="20a" type="text/x-typescript" pinned="">
+    const mode = view(Inputs.radio(["annuel", "cumulé"], {value: "annuel", label: "Mode"}));
+  </script>
+
+  <script id="21" type="text/x-typescript" pinned="">
+    // Cette cell dépend de yearMin, mode et chartMorph.
+    // Filtre D'ABORD, cumul ENSUITE → la cumulative repart à 0 au début de la fenêtre.
+    {
+      const filtered = dataImmigrationAll.filter(d => d.year.getUTCFullYear() >= yearMin);
+      const transformed = mode === "cumulé" ? toCumulative(filtered) : filtered;
+      chartMorph.update(transformed, mode);
+    }
+  </script>
+
+  <script id="23" type="text/markdown">
+    ## Rendu : légende + chart dans un seul wrapper
+
+    Un `<div>` contient la légende au-dessus du SVG. Le SVG (`chartMorph`) reste le même node — on l'a juste posé dans ce wrapper, et `update()` continue de le modifier en place.
+  </script>
+
+  <script id="24" type="text/x-typescript" pinned="">
+    {
+      const wrapper = document.createElement("div");
+      // position: relative → ancre le tooltip absolu dedans
+      wrapper.style.position = "relative";
+      wrapper.append(swatches(color), chartMorph, chartMorph.tooltip);
+      display(wrapper);
+    }
+  </script>
+
+  <script id="25" type="text/markdown">
+    ## Source
+
+    Notebook Observable d'origine : <https://observablehq.com/d/b514768739795ec6>. Cette version garde l'idée du `chart3_morph` (un seul SVG persistant + fonction `update`) et la couple à un vrai data join enter/update/exit avec `attrTween` pour le morphing, plus un mode cumulé pour lire les soldes cumulés depuis 1991.
+  </script>
+</notebook>
