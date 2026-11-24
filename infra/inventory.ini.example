@@ -1,0 +1,4 @@
+# Copy this file to inventory.ini (git ignores it). The connection details
+# (address, user, key) come from ssh/config in the central infra repo.
+[vps]
+head-ik-web-02 ansible_python_interpreter=/usr/bin/python3

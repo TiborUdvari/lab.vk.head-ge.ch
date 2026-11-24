@@ -12,7 +12,8 @@ www/notebooks
 D3_LEARNING_PLAN.md
 
 .secrets
-infra/vault-pass.txt
+infra/.vault-pass*
+infra/inventory.ini
 infra/ci-deploy-key
 
 users.conf
