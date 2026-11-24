@@ -1,5 +1,9 @@
 services:
-  sftp: 
+  # Off until the next course: the deploy starts only services without a
+  # profile. Before you start it again (profile "sftp"), move to a maintained
+  # image (this tag no longer exists, OpenSSH 7.5) and limit the logins.
+  sftp:
+    profiles: [sftp]
     image: atmoz/sftp:alpine-3.7
     ports: 
       - "2222:22"
